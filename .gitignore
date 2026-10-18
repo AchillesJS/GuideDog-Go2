@@ -43,3 +43,6 @@ outputs/
 *.key
 # Local samples and temporary diagnostic output
 guidedog_sample.png
+
+# Backup files
+*.bak
