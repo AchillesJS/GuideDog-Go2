@@ -80,4 +80,4 @@ A two-person team is building the project. Module ownership and interfaces will 
 
 This repository does **not** include proprietary client/employer materials, third-party model weights, or the source code of the external Go2 simulator. Those dependencies retain their own licenses.
 
-**A license for original GuideDog-Go2 code has not yet been selected.** Public visibility does not, by itself, grant permission to reuse or redistribute its contents. The maintainers will choose a license together before soliciting external code contributions.
+Original GuideDog-Go2 code is published under the [Apache License 2.0](LICENSE). Third-party components remain subject to their own licenses. Contributors should confirm they have the right to submit their work.
