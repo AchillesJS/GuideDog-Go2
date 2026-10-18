@@ -18,9 +18,12 @@ The project currently uses a third-party simulator:
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
 git clone https://github.com/khaledgabr77/unitree_go2_ros2.git
+git -C ~/ros2_ws/src/unitree_go2_ros2 checkout --detach 55ff151632a0220bf3ae0c0772392615d86da7a8
 ```
 
-Follow that simulator's own README to resolve dependencies, then build and source the workspace. Simulator dependency packages observed locally include `champ`, `champ_base`, `champ_msgs`, `unitree_application`, `unitree_go2_description`, `unitree_go2_sim`. The tested upstream commit has **not yet been pinned**; before making a reproducibility claim record `git -C ~/ros2_ws/src/unitree_go2_ros2 rev-parse HEAD`.
+**Pinned simulator revision:** [`55ff151632a0220bf3ae0c0772392615d86da7a8`](https://github.com/khaledgabr77/unitree_go2_ros2/commit/55ff151632a0220bf3ae0c0772392615d86da7a8), verified from the first developer's locally working Go2 simulation. Do not update this dependency to the latest `main` during M0 onboarding.
+
+Follow that simulator's own README to resolve dependencies, then build and source the workspace. Simulator dependency packages observed locally include `champ`, `champ_base`, `champ_msgs`, `unitree_application`, `unitree_go2_description`, `unitree_go2_sim`. Record the local SHA with `git -C ~/ros2_ws/src/unitree_go2_ros2 rev-parse HEAD` to ensure it matches the pinned revision.
 
 ```bash
 cd ~/ros2_ws
