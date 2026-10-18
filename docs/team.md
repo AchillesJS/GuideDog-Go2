@@ -23,4 +23,4 @@ Both developers participate in architecture, integration, documentation, demos, 
 - No proprietary material, code, models, datasets, or confidential information from employers, customers, or other projects.
 - Do not vendor the third-party Go2 simulator without checking its license and a specific reason.
 - Do not claim physical guide-dog functionality based on simulation tests.
-- Agree an open-source license jointly before accepting external contributions.
+- Original GuideDog-Go2 code uses Apache License 2.0. Respect third-party licenses and maintain appropriate attribution.
