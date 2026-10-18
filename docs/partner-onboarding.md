@@ -89,6 +89,9 @@ cd ~/ros2_ws/src
 # External simulator (keep as separate repository)
 git clone https://github.com/khaledgabr77/unitree_go2_ros2.git
 
+# Pin the exact simulator revision tested by the first developer
+git -C ~/ros2_ws/src/unitree_go2_ros2 checkout --detach 55ff151632a0220bf3ae0c0772392615d86da7a8
+
 # Our code
 git clone https://github.com/AchillesJS/GuideDog-Go2.git
 ```
@@ -104,14 +107,16 @@ Expected layout:
         └── guidedog_perception/
 ```
 
-**Reproducibility gap:** the exact upstream simulator commit from the first developer's machine still needs recording. Until then, both developers should record their revisions before building:
+**Pinned third-party simulator commit:** [`55ff151632a0220bf3ae0c0772392615d86da7a8`](https://github.com/khaledgabr77/unitree_go2_ros2/commit/55ff151632a0220bf3ae0c0772392615d86da7a8). This is the exact revision reported from the first developer's working Ubuntu/UTM environment. The `checkout --detach` command selects it without moving the simulator's branches.
+
+Both developers should record their revisions before building:
 
 ```bash
 git -C ~/ros2_ws/src/unitree_go2_ros2 rev-parse HEAD
 git -C ~/ros2_ws/src/GuideDog-Go2 rev-parse HEAD
 ```
 
-If a pinned simulator SHA is added to this document later, run `git checkout <SHA>` **inside the simulator repository** before building.
+The first command should print `55ff151632a0220bf3ae0c0772392615d86da7a8`. Do not run `git pull` inside the third-party simulator during M0 unless the team intentionally changes the pinned version.
 
 ## 4. Resolve dependencies and build
 
