@@ -10,7 +10,8 @@ This roadmap describes **proposed work**; milestones require demonstrated accept
 - [x] Local OpenCV screenshot captured and visually inspected.
 - [x] Public GitHub repository created.
 - [ ] Commit the working local ROS 2 package and pin external simulator revision.
-- [ ] Agree module ownership, review process, and a license.
+- [x] Select Apache License 2.0 for original project code.
+- [ ] Agree module ownership and review process.
 - [ ] Confirm setup independently on the second developer's machine.
 
 ## M1 — Perception foundation
