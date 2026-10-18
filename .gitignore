@@ -1,0 +1,45 @@
+# ROS 2 / colcon outputs
+build/
+install/
+log/
+logs/
+.colcon/
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+guidedog_venv/
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+# Large data, trained models and generated outputs
+*.pt
+*.pth
+*.onnx
+*.engine
+*.bag
+*.db3
+*.mcap
+*.mp4
+*.avi
+*.npy
+*.npz
+data/
+datasets/
+models/
+weights/
+outputs/
+# Secrets / local machine configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+# Local samples and temporary diagnostic output
+guidedog_sample.png
