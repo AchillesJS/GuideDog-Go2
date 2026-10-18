@@ -10,7 +10,7 @@ This roadmap describes **proposed work**; milestones require demonstrated accept
 - [x] Local OpenCV screenshot captured and visually inspected.
 - [x] Public GitHub repository created.
 - [x] Commit the working local ROS 2 RGB package.
-- [ ] Pin external simulator revision.
+- [x] Pin external simulator revision: `55ff151632a0220bf3ae0c0772392615d86da7a8`.
 - [x] Select Apache License 2.0 for original project code.
 - [ ] Agree module ownership and review process.
 - [ ] Confirm setup independently on the second developer's machine.
