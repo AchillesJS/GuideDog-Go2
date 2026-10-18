@@ -2,7 +2,7 @@
 
 **An experimental robotic guide-dog prototype built around Unitree Go2, ROS 2, and computer vision.**
 
-GuideDog-Go2 explores whether a quadruped robot can perceive obstacles, represent nearby space, plan human-aware routes, and eventually assist a visually impaired person. The initial objective is a **simulation-only proof of concept**—not a deployable mobility aid.
+GuideDog-Go2 explores whether a quadruped robot can perceive obstacles, represent nearby space, plan human-aware routes, and eventually assist a visually impaired person. The initial objective is a **simulation-first functional proof of concept**—not a deployable mobility aid. **Stair ascent and descent with a simulated handler are required targets of the functional MVP**, subject to explicit safety acceptance gates.
 
 > [!WARNING]
 > **Research/development prototype only.** No autonomous guidance, safe human-leading behavior, or real-world accessibility performance has been validated. Do not use this project as a mobility aid or rely on it for personal safety.
@@ -24,12 +24,12 @@ The following have been demonstrated **locally** in an Ubuntu 24.04 / ROS 2 Jazz
 
 1. **Perception** — detect and track people, obstacles, and potentially traversable space using the robot's built-in camera.
 2. **Geometry** — use the built-in 4D LiDAR, IMU, and odometry for spatial understanding.
-3. **World model** — fuse semantic detections with local obstacle geometry.
-4. **Human-aware navigation** — generate paths and motion commands appropriate for an accompanied pedestrian.
+3. **World model** — maintain a rolling local 2.5D/3D terrain and obstacle model, including elevation, curbs, and stair geometry.
+4. **Human-aware navigation and stairs** — plan for both robot and handler, including controlled ascent/descent in simulation with approach, confirmation, stopping and recovery.
 5. **Independent safety layer** — conservatively stop when perception, localization, or system state is unreliable.
 6. **Validation** — test scenarios in simulation before considering supervised hardware experiments.
 
-**Hardware constraint:** the project currently targets **stock Go2 sensors**; added cameras, LiDARs, and external compute hardware are not part of the initial baseline. Simulation of the L1-style LiDAR is **not** a validated digital twin of every physical Go2 sensor variant.
+**Hardware/compute decision (2026-10-19):** target stock **Go2 Air** sensing and locomotion. The temporary physical prototype uses **Go2 Air + a laptop** performing ROS 2/inference over a **local Wi-Fi network, without requiring internet**. No Jetson, cloud or global SLAM is assumed; the Air's internal compute is not assumed developer-accessible. Physical Air stair ability, command access and link-loss stop require independent tests. Simulation of the L1-style LiDAR is **not** a validated digital twin of physical Air hardware.
 
 ## Stack
 
