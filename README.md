@@ -18,7 +18,7 @@ The following have been demonstrated **locally** in an Ubuntu 24.04 / ROS 2 Jazz
 - A custom ROS 2 Python RGB subscriber receives `640 × 480` `rgb8` images on `/rgb_image`.
 - A diagnostic Python/OpenCV script successfully saved a camera frame as PNG.
 
-**Not yet implemented:** YOLO inference, object tracking, sensor fusion, world model, route planning, safety supervisor, human guidance, or hardware deployment. The local `guidedog_perception` package is being prepared for its first repository commit.
+**Not yet implemented:** YOLO inference, object tracking, sensor fusion, world model, route planning, safety supervisor, human guidance, or hardware deployment. The initial `guidedog_perception` ROS 2 package is available in this repository.
 
 ## Intended capabilities (roadmap, not current features)
 
@@ -54,18 +54,20 @@ GuideDog-Go2/
 │   ├── roadmap.md
 │   ├── team.md
 │   └── limitations.md
-└── guidedog_perception/     # ROS 2 package; local code to be pushed
+├── guidedog_perception/     # ROS 2 RGB subscriber (implemented)
+└── LICENSE
 ```
 
 The third-party simulator is an **external dependency** and is not vendored into this repository. Planned subsystems are documented, not represented as completed packages.
 
 ## Getting started
 
-See [docs/setup.md](docs/setup.md) for the verified environment, simulator launch, and how to run the RGB subscriber **after the local package has been pushed**.
+Start with the step-by-step [partner onboarding guide](docs/partner-onboarding.md), or see [docs/setup.md](docs/setup.md) for the tested baseline and commands to launch the RGB subscriber.
 
 ## Architecture and plans
 
 - [System architecture](docs/architecture.md)
+- [Partner onboarding (start here)](docs/partner-onboarding.md)
 - [Setup and reproducibility](docs/setup.md)
 - [Development roadmap](docs/roadmap.md)
 - [Team workflow](docs/team.md)
