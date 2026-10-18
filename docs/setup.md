@@ -53,7 +53,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard
 
 ## Bring the GuideDog code into the workspace
 
-**Do this only after the `guidedog_perception` directory has been committed to the GitHub repository.** Do not clone over an existing local package.
+The `guidedog_perception` package is now tracked in the GuideDog repository. Do not clone over an existing local package. For a fresh-machine walkthrough, see [partner onboarding](partner-onboarding.md).
 
 ```bash
 cd ~/ros2_ws/src
