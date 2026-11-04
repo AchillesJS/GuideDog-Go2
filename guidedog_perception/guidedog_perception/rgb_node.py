@@ -1,3 +1,5 @@
+"""Log metadata from the simulated RGB camera."""
+
 import rclpy
 
 from rclpy.node import Node
@@ -6,33 +8,37 @@ from sensor_msgs.msg import Image
 
 
 class RGBNode(Node):
+    """Receive RGB frames without image inference."""
+
     def __init__(self):
-        super().__init__("guidedog_rgb")
+        super().__init__('guidedog_rgb')
 
         self.frames = 0
 
         self.subscription = self.create_subscription(
             Image,
-            "/rgb_image",
+            '/rgb_image',
             self.on_image,
             qos_profile_sensor_data,
         )
 
-        self.get_logger().info("GuideDog RGB subscriber started")
+        self.get_logger().info('GuideDog RGB subscriber started')
 
     def on_image(self, msg):
+        """Log metadata for every fifth received frame."""
         self.frames += 1
 
         if self.frames % 5 == 0:
             self.get_logger().info(
-                f"Frame #{self.frames} | "
-                f"{msg.width}x{msg.height} | "
-                f"encoding={msg.encoding} | "
-                f"frame={msg.header.frame_id}"
+                f'Frame #{self.frames} | '
+                f'{msg.width}x{msg.height} | '
+                f'encoding={msg.encoding} | '
+                f'frame={msg.header.frame_id}'
             )
 
 
 def main(args=None):
+    """Run the RGB subscriber until interrupted."""
     rclpy.init(args=args)
     node = RGBNode()
 
@@ -46,5 +52,5 @@ def main(args=None):
             rclpy.shutdown()
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()

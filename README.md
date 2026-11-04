@@ -20,6 +20,10 @@ The following have been demonstrated **locally** in an Ubuntu 24.04 / ROS 2 Jazz
 
 **Not yet implemented:** YOLO inference, object tracking, sensor fusion, world model, route planning, safety supervisor, human guidance, or hardware deployment. The initial `guidedog_perception` ROS 2 package is available in this repository.
 
+An experimental [flat-ground obstacle-stop demo](docs/obstacle-stop.md) adds a
+forward-only LiDAR veto and a separate command-timeout process. This is a
+limited simulation experiment, not the complete planned safety supervisor.
+
 ## Intended capabilities (roadmap, not current features)
 
 1. **Perception** — detect and track people, obstacles, and potentially traversable space using the robot's built-in camera.
@@ -63,6 +67,19 @@ The third-party simulator is an **external dependency** and is not vendored into
 ## Getting started
 
 Start with the step-by-step [partner onboarding guide](docs/partner-onboarding.md), or see [docs/setup.md](docs/setup.md) for the tested baseline and commands to launch the RGB subscriber.
+
+For an already built workspace, [one-command simulation and sensor diagnostics](docs/sensor-diagnostics.md)
+starts the baseline and saves timing, TF and resource reports:
+
+```bash
+~/guidedog_ws/src/GuideDog-Go2/scripts/run_sim.sh
+```
+
+Build the updated `guidedog_perception` package once before using this command;
+see the diagnostics guide. Substitute your workspace path if it differs.
+
+For the protected forward-motion experiment, use `scripts/run_obstacle_demo.sh`
+and `scripts/drive_guarded.sh` as described in the [obstacle-stop guide](docs/obstacle-stop.md).
 
 ## Architecture and plans
 
