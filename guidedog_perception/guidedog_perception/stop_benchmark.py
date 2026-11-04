@@ -16,12 +16,13 @@ import time
 
 from controller_manager_msgs.srv import ListControllers
 from geometry_msgs.msg import Twist
+from guidedog_perception.clearance_metrics import box_clearance
 from nav_msgs.msg import Odometry
 import rclpy
 from rclpy.clock import Clock, ClockType
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import qos_profile_sensor_data, QoSProfile, ReliabilityPolicy
 from ros_gz_interfaces.msg import Contacts
 from sensor_msgs.msg import PointCloud2
 from std_msgs.msg import String
@@ -34,6 +35,7 @@ class ScenarioDriver(Node):
         """Keep sensor payloads out of test reports and bound measurement history."""
         super().__init__('guidedog_scenario_driver')
         self.desired = 0.0
+        self.audit = None
         self.commands_enabled = True
         self.relay_enabled = True
         self.pose = None
@@ -45,10 +47,11 @@ class ScenarioDriver(Node):
         self.contacts = []
         self.lock = threading.Lock()
         self.request_pub = self.create_publisher(Twist, '/guidedog/cmd_vel_request', 1)
+        lidar_qos = QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE)
         self.relay_pub = self.create_publisher(
-            PointCloud2, '/guidedog/test_lidar', qos_profile_sensor_data)
+            PointCloud2, '/guidedog/test_lidar', lidar_qos)
         self.create_subscription(PointCloud2, '/unitree_lidar/points', self.relay,
-                                 qos_profile_sensor_data)
+                                 lidar_qos)
         self.create_subscription(Odometry, '/odom/ground_truth', self.on_pose,
                                  qos_profile_sensor_data)
         self.create_subscription(Twist, '/guidedog/cmd_vel_checked', self.on_output, 1)
@@ -70,6 +73,8 @@ class ScenarioDriver(Node):
         """Inject scan loss by withholding the real stream, never synthetic geometry."""
         if self.relay_enabled:
             self.relay_pub.publish(msg)
+        if self.audit is not None:
+            self.audit.on_cloud(msg)
 
     def on_pose(self, msg):
         """Record physical Gazebo position rather than commanded distance."""
@@ -78,6 +83,8 @@ class ScenarioDriver(Node):
         with self.lock:
             self.pose = (time.monotonic(), p.x, p.y, p.z, yaw)
             self.poses.append(self.pose)
+        if self.audit is not None:
+            self.audit.on_pose(msg)
 
     def on_output(self, msg):
         """Observe the final watchdog-to-controller command topic."""
@@ -107,7 +114,7 @@ class ScenarioDriver(Node):
         with self.lock:
             return self.pose, dict(self.status), list(self.poses), list(self.outputs)
 
-    def place_obstacle(self, forward, side):
+    def place_obstacle(self, forward, side, yaw_delta=0.0):
         """Move the test box relative to current robot ground-truth heading."""
         pose = self.snapshot()[0]
         if pose is None:
@@ -115,6 +122,7 @@ class ScenarioDriver(Node):
         _, x, y, _, yaw = pose
         x += math.cos(yaw)*forward - math.sin(yaw)*side
         y += math.sin(yaw)*forward + math.cos(yaw)*side
+        yaw += yaw_delta
         request = (f'name: "test_obstacle" position {{ x: {x} y: {y} z: 0.5 }} '
                    f'orientation {{ z: {math.sin(yaw/2)} w: {math.cos(yaw/2)} }}')
         result = subprocess.run(
@@ -128,6 +136,7 @@ class ScenarioDriver(Node):
 
     def verify_contact_sensor(self, box):
         """Drop an isolated probe onto the distant box to verify the whole contact path."""
+        previous_contacts = self.probe_contacts
         sdf = (f'<sdf version="1.8"><model name="contact_probe">'
                f'<pose>{box[0]} {box[1]} 1.2 0 0 0</pose><link name="probe">'
                '<inertial><mass>0.01</mass><inertia><ixx>0.00001</ixx>'
@@ -143,7 +152,7 @@ class ScenarioDriver(Node):
         if created.returncode or 'true' not in created.stdout:
             raise RuntimeError(f'Contact probe creation failed: {created.stdout} {created.stderr}')
         try:
-            wait_until(lambda: self.probe_contacts > 0, 8,
+            wait_until(lambda: self.probe_contacts > previous_contacts, 8,
                        'Contact positive control failed: no probe/box contact received')
         finally:
             removed = subprocess.run(
@@ -188,8 +197,8 @@ def settled_stop(driver, started):
             'post_zero_forward_travel_m': travel, 'settled_position_spread_m': spread}
 
 
-def run_scenarios(driver, record):
-    """Test free/side/front paths, rearm latch and two independent data timeouts."""
+def prepare_scenarios(driver, record):
+    """Wait for active controllers and positively verify the contact sensor path."""
     wait_until(lambda: driver.snapshot()[0] is not None, 60, 'No Gazebo ground truth')
     distant_box = driver.place_obstacle(20, 20)
     wait_until(lambda: driver.snapshot()[1].get('reason') == 'idle', 45,
@@ -221,6 +230,11 @@ def run_scenarios(driver, record):
     driver.verify_contact_sensor(distant_box)
     record('contact_positive_control', {'passed': True, 'probe_contacts': driver.probe_contacts})
 
+
+def run_scenarios(driver, record):
+    """Test free/side/front paths, rearm latch and two independent data timeouts."""
+    prepare_scenarios(driver, record)
+
     def arm():
         driver.commands_enabled = True
         driver.desired = 0.0
@@ -247,6 +261,8 @@ def run_scenarios(driver, record):
 
     arm()
     box = driver.place_obstacle(1.75, 0)
+    if driver.audit is not None:
+        driver.audit.set_box(box)
     time.sleep(0.7)
     before = driver.snapshot()[0]
     driver.desired = 0.1
@@ -266,18 +282,28 @@ def run_scenarios(driver, record):
     detection_time = detected['received_monotonic']
     stopping = settled_stop(driver, detection_time)
     pose, status, _, _ = driver.snapshot()
-    yaw_delta = box[2] - pose[4]
-    clearance = ((box[0]-pose[1])*math.cos(pose[4]) + (box[1]-pose[2])*math.sin(pose[4])
-                 - 0.25*abs(math.cos(yaw_delta)) - 0.5*abs(math.sin(yaw_delta)) - 0.45)
+    clearance, legacy_projected = box_clearance(box, (0.5, 1, 1), pose[1:4], pose[4])
     progress = displacement(before, pose)
-    if progress < 0.03 or clearance < 0.20 or driver.contacts:
+    if progress < 0.03 or clearance is None or clearance < 0.20 or driver.contacts:
         raise RuntimeError(f'Front stop failed: progress={progress}, clearance={clearance}')
     record('front_obstacle', {
         'passed': True, 'forward_progress_m': progress,
         'ground_truth_clearance_m': clearance,
+        'legacy_projected_clearance_m': legacy_projected,
+        'clearance_metric_version': 2,
         'first_detected_clearance_m': detected['scan']['clearance_m'],
         'stopped_scan_clearance_m': status['scan']['clearance_m'],
         'detection_ros_time_sec': detected['ros_time_sec'], **stopping})
+    if driver.audit is not None:
+        records = driver.audit.snapshot()
+        matched = [r for r in records if r['stamp_ns'] == detected['scan_stamp_ns']]
+        if not matched:
+            raise RuntimeError('Detection cloud has no time-aligned reference sample')
+        record('clearance_audit', {'passed': bool(matched),
+                                   'detection_sample': matched[-1] if matched else None,
+                                   'source_clouds': driver.audit.received,
+                                   'unpaired_clouds': driver.audit.unpaired,
+                                   'max_receipt_gap_sec': driver.audit.max_receipt_gap})
     cleared_at = time.monotonic()
     cleared_pose = driver.snapshot()[0]
     driver.place_obstacle(20, 20)
@@ -339,6 +365,10 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--report-dir', default=str(Path.home() / '.ros/guidedog/reports' /
                         datetime.now(timezone.utc).strftime('stop_test_%Y%m%dT%H%M%S_%fZ')))
+    parser.add_argument('--audit-clearance', action='store_true')
+    parser.add_argument('--record-gazebo', action='store_true')
+    parser.add_argument('--clearance-matrix', action='store_true')
+    parser.add_argument('--bridge-profile', action='store_true')
     args = parser.parse_args()
     directory = Path(args.report_dir).expanduser()
     if directory.exists() and any(directory.iterdir()):
@@ -357,10 +387,14 @@ def main():
     process = subprocess.Popen(
         [sys.executable, '-m', 'guidedog_perception.launch_supervisor',
          'guidedog_perception', 'obstacle_stop.launch.py',
-         f'report_dir:={directory / "session"}', 'lidar_topic:=/guidedog/test_lidar'],
+         f'report_dir:={directory / "session"}', 'lidar_topic:=/guidedog/test_lidar',
+         f'record_gazebo:={str(args.record_gazebo).lower()}'],
         stdout=launch_log, stderr=subprocess.STDOUT, start_new_session=True)
     rclpy.init(args=[])
     driver = ScenarioDriver()
+    if args.audit_clearance or args.clearance_matrix:
+        from guidedog_perception.clearance_probe import ClearanceProbe
+        driver.audit = ClearanceProbe(driver, directory)
 
     def spin():
         try:
@@ -371,7 +405,14 @@ def main():
     spinner = threading.Thread(target=spin, daemon=True)
     spinner.start()
     try:
-        run_scenarios(driver, record)
+        if args.bridge_profile:
+            from guidedog_perception.bridge_profile import run_profile
+            run_profile(driver, record, directory)
+        elif args.clearance_matrix:
+            from guidedog_perception.clearance_matrix import run_matrix
+            run_matrix(driver, record)
+        else:
+            run_scenarios(driver, record)
         result['passed'] = True
     except (RuntimeError, subprocess.SubprocessError) as error:
         result['error'] = str(error)
@@ -387,6 +428,8 @@ def main():
         time.sleep(0.5)
         rclpy.shutdown()
         spinner.join(timeout=3)
+        if driver.audit is not None:
+            driver.audit.close()
         driver.destroy_node()
         process.send_signal(signal.SIGINT)
         try:

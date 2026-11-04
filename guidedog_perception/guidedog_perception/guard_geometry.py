@@ -96,7 +96,12 @@ def inspect_corridor(points, *, front=0.45, half_width=0.40,
         raise ValueError('insufficient_finite_points')
     x, y, z = finite.T
     forward = (x >= front) & (x <= front + support_range) & (np.abs(y) <= half_width)
-    plane = ground_plane(finite[forward], min_ground_points)
+    support = ((x >= front) & (x <= front + support_range)
+               & (np.abs(y) <= max(half_width, 1.0)))
+    # Fit the plane from nearby side support too: the sensor blind zone and a
+    # front box can shorten the visible forward ground patch below 0.40 m.
+    # Forward support below is still required in this same fresh cloud.
+    plane = ground_plane(finite[support], min_ground_points)
     height = z if plane is None else z - (plane[0]*x + plane[1]*y + plane[2])
     obstacle = forward & (height >= min_height) & (height <= max_height)
     ground = forward & (np.abs(height) <= 0.025) if plane is not None else np.zeros(
@@ -118,13 +123,16 @@ class MotionGate:
     """Forward-only command policy with explicit neutral-command rearming."""
 
     def __init__(self, max_speed=0.10, stop_distance=0.80,
-                 scan_timeout=0.80, command_timeout=0.40):
+                 scan_timeout=0.80, command_timeout=0.40, min_speed=0.0):
         for value in (max_speed, stop_distance, scan_timeout, command_timeout):
             if not math.isfinite(value) or value <= 0:
                 raise ValueError('gate parameters must be finite and positive')
         if max_speed * scan_timeout > 0.08 + 1e-9:
             raise ValueError('commanded travel during scan timeout must not exceed 0.08 m')
+        if not math.isfinite(min_speed) or not 0 <= min_speed <= max_speed:
+            raise ValueError('min_speed must be between zero and max_speed')
         self.max_speed = max_speed
+        self.min_speed = min_speed
         self.stop_distance = stop_distance
         self.scan_timeout = scan_timeout
         self.command_timeout = command_timeout
@@ -156,7 +164,8 @@ class MotionGate:
         """Only a finite, straight, nonnegative request can reach the output."""
         self.command_at = now
         if (len(components) != 6 or not all(math.isfinite(v) for v in components)
-                or components[0] < 0 or any(abs(v) > 1e-6 for v in components[1:])):
+                or components[0] < 0 or 0 < components[0] < self.min_speed
+                or any(abs(v) > 1e-6 for v in components[1:])):
             self.command = None
             self.invalidate('unsupported_or_invalid_command', now)
             return

@@ -22,9 +22,11 @@ def generate_launch_description():
         'report_dir': directory,
         'world': str(package / 'worlds/obstacle_stop.sdf'),
         'lidar_topic': '/unitree_lidar/points',
+        'lidar_reliability': 'reliable',
         'record_gazebo': 'false',
         'enable_rgb': 'false',
-        'max_speed': '0.05', 'stop_distance': '0.80', 'scan_timeout': '1.50',
+        'max_speed': '0.05', 'min_speed': '0.05',
+        'stop_distance': '0.80', 'scan_timeout': '1.50',
     }
     declarations = [DeclareLaunchArgument(key, default_value=value)
                     for key, value in defaults.items()]
@@ -37,6 +39,7 @@ def generate_launch_description():
                 'world': LaunchConfiguration('world'),
                 'record_gazebo': LaunchConfiguration('record_gazebo'),
                 'enable_rgb': LaunchConfiguration('enable_rgb'),
+                'lidar_reliability': LaunchConfiguration('lidar_reliability'),
             }.items()),
     ])
     guard = Node(
@@ -46,8 +49,10 @@ def generate_launch_description():
             'use_sim_time': True,
             'report_dir': ParameterValue(LaunchConfiguration('report_dir'), value_type=str),
             'lidar_topic': ParameterValue(LaunchConfiguration('lidar_topic'), value_type=str),
+            'lidar_reliability': ParameterValue(
+                LaunchConfiguration('lidar_reliability'), value_type=str),
             **{name: ParameterValue(LaunchConfiguration(name), value_type=float)
-               for name in ('max_speed', 'stop_distance', 'scan_timeout')},
+               for name in ('max_speed', 'min_speed', 'stop_distance', 'scan_timeout')},
         }])
     watchdog = Node(
         package='guidedog_perception', executable='velocity_watchdog', output='screen',

@@ -32,6 +32,7 @@ class LidarStop(Node):
             'report_dir': str(Path.home() / '.ros/guidedog/stop'),
             'lidar_topic': '/unitree_lidar/points', 'base_frame': 'base_footprint',
             'max_speed': 0.05, 'stop_distance': 0.80, 'scan_timeout': 1.50,
+            'min_speed': 0.05, 'lidar_reliability': 'reliable',
             'command_timeout': 0.40, 'front_extent': 0.45, 'half_width': 0.40,
         }
         for name, value in defaults.items():
@@ -41,7 +42,7 @@ class LidarStop(Node):
             if not math.isfinite(self.config[name]) or self.config[name] <= 0:
                 raise ValueError(f'{name} must be finite and positive')
         self.gate = MotionGate(**{name: self.config[name] for name in (
-            'max_speed', 'stop_distance', 'scan_timeout', 'command_timeout')})
+            'max_speed', 'stop_distance', 'scan_timeout', 'command_timeout', 'min_speed')})
         self.directory = Path(self.config['report_dir']).expanduser()
         self.directory.mkdir(parents=True, exist_ok=True)
         self.tf_buffer = Buffer(node=self)
@@ -53,8 +54,11 @@ class LidarStop(Node):
         self.last_reason = None
         self.last_status = {}
         self.started = time.monotonic()
-        latest_scan = QoSProfile(depth=1, history=HistoryPolicy.KEEP_LAST,
-                                 reliability=ReliabilityPolicy.BEST_EFFORT)
+        if self.config['lidar_reliability'] not in ('reliable', 'best_effort'):
+            raise ValueError('lidar_reliability must be reliable or best_effort')
+        reliability = (ReliabilityPolicy.RELIABLE if self.config['lidar_reliability'] == 'reliable'
+                       else ReliabilityPolicy.BEST_EFFORT)
+        latest_scan = QoSProfile(depth=1, history=HistoryPolicy.KEEP_LAST, reliability=reliability)
         self.scan_sub = self.create_subscription(
             PointCloud2, self.config['lidar_topic'], self.on_cloud, latest_scan)
         self.request_sub = self.create_subscription(
@@ -145,6 +149,7 @@ class LidarStop(Node):
             'reason': reason, 'output_speed_mps': velocity, 'latched': self.gate.latched,
             'scan_age_wall_sec': now - self.gate.scan_at if self.gate.scan_at else None,
             'scan_stamp_age_sec': age, 'clock_ok': clock_ok,
+            'scan_stamp_ns': self.gate.scan_stamp,
             'scan': self.gate.scan, 'parameters': self.config,
         }
         changed = reason != self.last_reason

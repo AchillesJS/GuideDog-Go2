@@ -5,8 +5,10 @@ baseline. It adds geometry filtering, a command veto and a separate output
 watchdog. It does not implement route planning, turning, reverse, stairs,
 drop-off detection, human guidance or a physical Go2 adapter.
 
-See the [measured Gazebo validation](obstacle-stop-validation.md) for the two
-successful runs, actual clearances, fault timings and test results.
+See the [initial Gazebo validation](obstacle-stop-validation.md) and the
+[clearance and delivery investigation](clearance-validation.md). The latter
+corrects the interpretation of the earlier clearance metric and records the
+expanded test series.
 
 ## Build and run
 
@@ -24,7 +26,9 @@ least 30 seconds). In a second Ubuntu terminal:
 ~/guidedog_ws/src/GuideDog-Go2/scripts/drive_guarded.sh
 ```
 
-- Hold `i` to request slow forward motion, capped at 0.05 m/s.
+- Hold `i` to request forward motion at 0.05 m/s. This is the only moving speed
+  validated by the current profile; larger requests are capped and positive
+  requests below 0.05 m/s are rejected. A 0.03 m/s experiment drifted sideways.
 - `k` or space sends a neutral request. Release `i` to let the keyboard dead-man
   timeout stop the request after 0.6 wall seconds.
 - After an obstacle or fault, clear the condition, send neutral, then press `i`
@@ -86,7 +90,10 @@ simultaneous loss of both observer/watchdog processes is not solved by this demo
   returns and off-corridor returns are excluded.
 - Clear reports require a support plane fitted independently in each fresh scan,
   with at least eight inliers within 0.025 m and spatial extents of at least
-  0.40 x 0.20 m in the forward three-metre region. Deterministic bounded RANSAC
+  0.40 x 0.20 m in the forward three-metre region, using nearby support up to
+  one metre either side of the centreline. At least eight ground points must
+  still be observed inside the narrower forward corridor in that same scan;
+  side support alone cannot authorize motion. Deterministic bounded RANSAC
   handles the observed footprint height error while keeping tilt below 10 degrees
   and intercept between -0.15 and +0.055 m. Larger errors and uniformly elevated
   surfaces do not count as ground. Reports include the fitted plane and raw
@@ -94,11 +101,16 @@ simultaneous loss of both observer/watchdog processes is not solved by this demo
 - Default stop clearance is 0.80 m from the configured front extent. Maximum
   requested speed is 0.05 m/s, scan timeout 1.50 wall seconds and request timeout
   0.40 wall seconds. Replayed timestamps cannot renew scan freshness.
-- The clean VM measurement included a 1.06-second LiDAR receipt gap. The slower
+- The initial VM measurement included a 1.06-second LiDAR receipt gap. The slower
   profile accommodates it while reducing commanded blind travel from the
   initial 0.10 x 0.80 = 0.08 m to 0.05 x 1.50 = 0.075 m. Configuration rejects
   combinations exceeding the 0.08 m commanded-travel budget. This calculation
   does not replace measurement of actual body motion, slip or braking.
+- LiDAR subscriptions now default to `RELIABLE`, `KEEP_LAST(1)` after the
+  [shared-stamp delivery experiment](clearance-validation.md#lidar-delivery).
+  `lidar_reliability:=best_effort` is available for comparison or a publisher
+  that only offers best effort. QoS must match the actual publisher. This does
+  not extend the scan, TF, command or clock deadlines; old data still stops motion.
 - These are bounded simulation experiment settings. Stopping distance and
   observer overhead must be measured; they are not physical safety limits.
 
@@ -143,7 +155,23 @@ Reported timing is wall time measured at observer receipt. Post-zero travel
 is the maximum forward ground-truth displacement during the following two
 wall seconds; it is not a hardware braking certification. The final pose
 spread is checked separately. Native ROS and Gazebo performance still needs
-the PERF-001 investigation documented in the diagnostics guide.
+the remaining RGB investigation documented in the diagnostics guide.
+
+Additional bounded experiments (each creates its own scene and report directory):
+
+```bash
+~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --audit-clearance
+~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --clearance-matrix
+~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --bridge-profile
+```
+
+The audit compares the same stamped cloud with an independent Gazebo pose
+reference. The matrix tests five box variants and rejection of an unsupported
+low speed. The stationary bridge profile compares native and ROS header stamps
+in shared windows and temporarily adds a separate one-way bridge. It requires
+the Gazebo Harmonic Python bindings `gz.transport13` and `gz.msgs10`, available
+in the tested sourced Jazzy vendor environment. See the
+[measurement definitions and acceptance limits](clearance-validation.md).
 
 ## Automated checks
 

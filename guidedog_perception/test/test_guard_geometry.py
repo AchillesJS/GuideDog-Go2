@@ -57,6 +57,30 @@ def test_ground_support_requires_spatial_extent():
     assert not inspect_corridor(points)['ground_observed']
 
 
+def test_side_context_fits_plane_when_forward_patch_is_short():
+    """A blind zone and box may leave a short but observed forward floor patch."""
+    front = np.array([[x, y, 0] for x in np.linspace(0.9, 1.1, 10)
+                      for y in (-0.3, 0, 0.3)])
+    side = np.array([[x, y, 0] for x in np.linspace(0.8, 3, 20)
+                     for y in (-0.8, 0.8)])
+    result = inspect_corridor(np.vstack((front, side, [[1.25, 0, 0.3]])))
+    assert result['ground_observed']
+    assert result['clearance_m'] == pytest.approx(0.8)
+    # Side ground alone must not establish forward traversability.
+    assert not inspect_corridor(side)['ground_observed']
+
+
+def test_side_ground_does_not_relabel_an_elevated_forward_patch():
+    """Nearby support must retain the height of a small forward obstacle."""
+    side = np.array([[x, y, 0] for x in np.linspace(0.8, 3, 20)
+                     for y in (-0.8, 0.8)])
+    raised = np.array([[x, y, 0.1] for x in np.linspace(0.9, 1.1, 10)
+                       for y in (-0.3, 0, 0.3)])
+    result = inspect_corridor(np.vstack((side, raised)))
+    assert not result['ground_observed']
+    assert result['clearance_m'] == pytest.approx(0.45)
+
+
 def test_transform_and_invalid_quaternion():
     """Use the rigid frame transform before applying floor-height thresholds."""
     points = np.array([[1, 0, 0]])
@@ -149,3 +173,20 @@ def test_vm_profile_preserves_commanded_stale_travel_budget():
     gate.request([0.1, 0, 0, 0, 0, 0], 2.3)
     assert gate.decide(2.4, stamp_age=1.4) == (0.05, 'moving')
     assert gate.decide(2.51, stamp_age=1.51) == (0, 'stale_scan')
+
+
+def test_demo_rejects_unvalidated_slow_requests_and_requires_neutral():
+    """Do not drive at a lower request where the simulated gait has drifted away."""
+    gate = MotionGate(max_speed=0.05, min_speed=0.05, scan_timeout=1.5)
+    gate.observe(inspect_corridor(scene()), 1, 100)
+    gate.request([0, 0, 0, 0, 0, 0], 1.01)
+    assert gate.decide(1.02, stamp_age=0.02) == (0, 'idle')
+    gate.request([0.03, 0, 0, 0, 0, 0], 1.03)
+    assert gate.decide(1.04, stamp_age=0.04) == (0, 'unsupported_or_invalid_command')
+    gate.observe(inspect_corridor(scene()), 1.05, 200)
+    gate.request([0.05, 0, 0, 0, 0, 0], 1.06)
+    assert gate.decide(1.07, stamp_age=0.02) == (0, 'neutral_command_required')
+    gate.request([0, 0, 0, 0, 0, 0], 1.08)
+    assert gate.decide(1.09, stamp_age=0.04) == (0, 'idle')
+    gate.request([0.05, 0, 0, 0, 0, 0], 1.1)
+    assert gate.decide(1.11, stamp_age=0.06) == (0.05, 'moving')

@@ -16,7 +16,7 @@ import rclpy
 from rclpy.clock import Clock, ClockType
 from rclpy.executors import ExternalShutdownException
 from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import qos_profile_sensor_data, QoSProfile, ReliabilityPolicy
 from rclpy.time import Time
 from rosgraph_msgs.msg import Clock as ClockMessage
 from sensor_msgs.msg import Image, Imu, PointCloud2
@@ -62,10 +62,13 @@ class SensorMonitor(Node):
             'rgb_topic': '/rgb_image', 'lidar_topic': '/unitree_lidar/points',
             'imu_topic': '/imu/data', 'odom_topic': '/odom',
             'rgb_frame': 'camera_link', 'lidar_frame': 'lidar_l1_link', 'rgb_enabled': True,
+            'lidar_reliability': 'best_effort',
         }
         for name, value in defaults.items():
             self.declare_parameter(name, value)
         self.config = {name: self.get_parameter(name).value for name in defaults}
+        if self.config['lidar_reliability'] not in ('reliable', 'best_effort'):
+            raise ValueError('lidar_reliability must be reliable or best_effort')
         for name in ('report_period_sec', 'window_sec', 'stale_after_sec'):
             if not math.isfinite(self.config[name]) or self.config[name] <= 0:
                 raise ValueError(f'{name} must be finite and positive')
@@ -89,9 +92,12 @@ class SensorMonitor(Node):
             ClockMessage, '/clock', self.on_clock, qos_profile_sensor_data)]
         for name, message_type in (
                 ('rgb', Image), ('lidar', PointCloud2), ('imu', Imu), ('odom', Odometry)):
+            qos = (QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE)
+                   if name == 'lidar' and self.config['lidar_reliability'] == 'reliable'
+                   else qos_profile_sensor_data)
             self.subscriptions_owned.append(self.create_subscription(
                 message_type, self.config[f'{name}_topic'],
-                lambda msg, sensor=name: self.on_sensor(sensor, msg), qos_profile_sensor_data))
+                lambda msg, sensor=name: self.on_sensor(sensor, msg), qos))
         repo = Path(__file__).resolve().parents[2]
         self.metadata = {
             'started_utc': datetime.now(timezone.utc).isoformat(),
@@ -101,7 +107,8 @@ class SensorMonitor(Node):
             'project_worktree_dirty': git_is_dirty(repo),
             'simulator_revision': git_revision(repo.parent / 'unitree_go2_ros2'),
             'use_sim_time': self.sim_time, 'parameters': self.config,
-            'qos': 'sensor_data: best_effort, volatile, keep_last(5)',
+            'qos': {'lidar': self.config['lidar_reliability'],
+                    'other_streams': 'sensor_data: best_effort, volatile, keep_last(5)'},
             'rate_note': 'Receipt rates are not publisher rates or proof of packet loss.',
         }
         self.previous_cpu = None

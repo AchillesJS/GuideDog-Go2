@@ -35,6 +35,7 @@ def generate_launch_description():
         'start_simulator': 'true',
         'record_gazebo': 'true',
         'enable_rgb': 'true',
+        'lidar_reliability': 'reliable',
         'probe_duration_sec': '60.0',
         'duration_sec': '0.0',
         'report_period_sec': '5.0',
@@ -61,6 +62,8 @@ def generate_launch_description():
         parameters=[{
             'use_sim_time': True,
             'rgb_enabled': ParameterValue(LaunchConfiguration('enable_rgb'), value_type=bool),
+            'lidar_reliability': ParameterValue(
+                LaunchConfiguration('lidar_reliability'), value_type=str),
             'report_dir': ParameterValue(LaunchConfiguration('report_dir'), value_type=str),
             **{name: ParameterValue(LaunchConfiguration(name), value_type=float)
                for name in ('duration_sec', 'report_period_sec', 'stale_after_sec', 'window_sec')},

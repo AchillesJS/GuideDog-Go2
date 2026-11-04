@@ -23,6 +23,8 @@ The following have been demonstrated **locally** in an Ubuntu 24.04 / ROS 2 Jazz
 An experimental [flat-ground obstacle-stop demo](docs/obstacle-stop.md) adds a
 forward-only LiDAR veto and a separate command-timeout process. This is a
 limited simulation experiment, not the complete planned safety supervisor.
+The [clearance validation](docs/clearance-validation.md) records five box
+approaches, corrected reference geometry and a measured LiDAR QoS comparison.
 
 ## Intended capabilities (roadmap, not current features)
 

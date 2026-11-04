@@ -1,7 +1,11 @@
 # One-command simulation and sensor diagnostics
 
-This adds measurements for PERF-001. It does not assume a cause or change the
-pinned external simulator, bridge directions, sensor rates, QoS, or motion control.
+This adds measurements for PERF-001. The pinned external simulator, bridge
+directions and sensor rates are unchanged. Following the
+[LiDAR delivery investigation](clearance-validation.md#lidar-delivery), the
+launch now defaults to `lidar_reliability:=reliable` with queue depth one.
+The standalone monitor retains its best-effort default; RGB, IMU and odometry
+retain sensor-data QoS. The observer sends no motion commands.
 
 ## Build once after updating the source
 
@@ -103,6 +107,11 @@ To investigate PERF-001, compare the native Gazebo logs, ROS wall rates and
 simulation speed during the same steady period after spawning/controllers finish.
 Repeat the same scene and resource allocation, and compare with probes disabled.
 Do not claim loss percentages or a fixed performance improvement from rate ratios.
+For a shared-window comparison of actual source stamps, use
+`scripts/test_obstacle_demo.sh --bridge-profile`; the
+[recorded experiment](clearance-validation.md#lidar-delivery) distinguishes
+delivery from source rate and simulation speed. RGB remains unprofiled by
+that experiment.
 
 ## Checks
 

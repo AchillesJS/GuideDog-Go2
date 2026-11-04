@@ -128,7 +128,7 @@ Acceptance gates take precedence over dates.
 
 ## Existing timing blocker
 
-**PERF-001:** camera and LiDAR were generated around 9 Hz in Gazebo, but ROS 2 Python subscribers on Ubuntu ARM64/UTM observed only around 2–4 Hz. Cause not yet established; do not treat the slower rate as intrinsic hardware performance or proceed as though end-to-end timing has been validated.
+**PERF-001:** camera and LiDAR were generated around 9 Hz in Gazebo, but ROS 2 Python subscribers on Ubuntu ARM64/UTM initially observed only around 2–4 Hz. The [5 November investigation](clearance-validation.md#lidar-delivery) isolated LiDAR delivery differences between best-effort and reliable subscriptions to the same bridge publisher: reliable received all native stamps in two shared comparison windows. The launch now uses reliable depth one for LiDAR. RGB remains open; exact packet-level causes and physical end-to-end timing remain unvalidated. Do not treat the slower rate as intrinsic hardware performance.
 
 ## Boundaries
 

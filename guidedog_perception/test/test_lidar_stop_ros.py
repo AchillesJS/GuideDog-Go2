@@ -8,20 +8,22 @@ from geometry_msgs.msg import TransformStamped, Twist
 from guidedog_perception.lidar_stop import LidarStop
 from guidedog_perception.velocity_watchdog import VelocityWatchdog
 import numpy as np
+import pytest
 import rclpy
 from rclpy.executors import SingleThreadedExecutor
 from rclpy.node import Node
-from rclpy.qos import qos_profile_sensor_data
+from rclpy.qos import qos_profile_sensor_data, QoSProfile, ReliabilityPolicy
 from rosgraph_msgs.msg import Clock
 from sensor_msgs.msg import PointCloud2, PointField
 from tf2_ros import StaticTransformBroadcaster, TransformBroadcaster
 
 
-def test_ros_veto_and_downstream_timeout(tmp_path):
+@pytest.mark.parametrize('reliability', ['reliable', 'best_effort'])
+def test_ros_veto_and_downstream_timeout(tmp_path, reliability):
     """A real ROS chain must veto obstacles, stale scans and a stopped gate."""
     rclpy.init(args=[
         '--ros-args', '-p', f'report_dir:={tmp_path}', '-p', 'use_sim_time:=true',
-        '-p', 'scan_timeout:=0.4'], domain_id=78)
+        '-p', 'scan_timeout:=0.4', '-p', f'lidar_reliability:={reliability}'], domain_id=78)
     source = Node('stop_test_source', use_global_arguments=False)
     gate, watchdog = LidarStop(), VelocityWatchdog()
     executor = SingleThreadedExecutor()
@@ -29,7 +31,9 @@ def test_ros_veto_and_downstream_timeout(tmp_path):
         executor.add_node(node)
     clock_pub = source.create_publisher(Clock, '/clock', qos_profile_sensor_data)
     scan_pub = source.create_publisher(PointCloud2, '/unitree_lidar/points',
-                                       qos_profile_sensor_data)
+                                       QoSProfile(depth=1, reliability=(
+                                           ReliabilityPolicy.RELIABLE if reliability == 'reliable'
+                                           else ReliabilityPolicy.BEST_EFFORT)))
     command_pub = source.create_publisher(Twist, '/guidedog/cmd_vel_request', 1)
     outputs = []
     subscription = source.create_subscription(
@@ -111,7 +115,7 @@ def test_delayed_tf_does_not_starve_cloud_processing(tmp_path):
     executor.add_node(gate)
     clock_pub = source.create_publisher(Clock, '/clock', qos_profile_sensor_data)
     scan_pub = source.create_publisher(PointCloud2, '/unitree_lidar/points',
-                                       qos_profile_sensor_data)
+                                       QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE))
     command_pub = source.create_publisher(Twist, '/guidedog/cmd_vel_request', 1)
     broadcaster = TransformBroadcaster(source)
     transforms = deque()
@@ -141,7 +145,8 @@ def test_delayed_tf_does_not_starve_cloud_processing(tmp_path):
             transform.child_frame_id = 'delayed_lidar'
             transform.transform.rotation.w = 1.0
             transforms.append((now, transform))
-            while transforms and now - transforms[0][0] >= 0.10:
+            # Keep delayed TF behind several newer scans, with scheduling headroom.
+            while transforms and now - transforms[0][0] >= 0.06:
                 broadcaster.sendTransform(transforms.popleft()[1])
             command = Twist()
             command.linear.x = 0.05 if now - started > 1.0 else 0.0
