@@ -36,6 +36,10 @@ The protected flat-ground demo now selects a [measured straight-motion profile](
 lower CHAMP foot lift and a fixed, separately calibrated kinematic odometry scale.
 Three independent 2 m trials passed the existing motion/map criteria. Observed
 floor connectivity remains insufficient for planning; automatic turns remain disabled.
+The [floor-support diagnostic](docs/support-evidence.md) now reports missing
+observations across the unchanged body envelope, with a stationary finite-hole
+and scan-loss audit. An explicit `l1_near` sensor profile compares the simulated
+minimum range with the L1 specification; it is not the default sensor model.
 
 ## Intended capabilities (roadmap, not current features)
 

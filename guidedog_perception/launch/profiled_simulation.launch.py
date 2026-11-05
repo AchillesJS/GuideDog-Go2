@@ -6,8 +6,9 @@ from pathlib import Path
 from ament_index_python.packages import get_package_share_directory
 from guidedog_perception.gait_profile import apply_profile
 from guidedog_perception.headless_launch import server_only
+from guidedog_perception.sensor_profile import prepare_near_model
 from launch import LaunchDescription
-from launch.actions import OpaqueFunction
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
 from launch.launch_description_sources import get_launch_description_from_python_launch_file
 from launch.substitutions import LaunchConfiguration
 
@@ -20,7 +21,12 @@ def prepare(context):
     description = apply_profile(description, LaunchConfiguration('gait_profile').perform(context))
     if LaunchConfiguration('headless').perform(context).lower() in ('true', '1', 'yes'):
         description = server_only(description)
-    return list(description.entities)
+    entities = list(description.entities)
+    if LaunchConfiguration('sensor_profile').perform(context) != 'pinned':
+        index = next(i for i, entity in enumerate(entities)
+                     if not isinstance(entity, DeclareLaunchArgument))
+        entities.insert(index, OpaqueFunction(function=prepare_near_model))
+    return entities
 
 
 def generate_launch_description():

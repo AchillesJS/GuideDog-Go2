@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "cases": {
+    "mapping_limits": {
+      "passed": true,
+      "max_box_boundary_error_p95_m": 0.2,
+      "min_obstacle_cells": 3,
+      "max_update_cost_p95_ms": 100.0,
+      "max_cell_storage_bytes": 1048576,
+      "min_motion_m": 0.05,
+      "simulation_flat_ground_only": true
+    },
+    "controller_route": {
+      "passed": true,
+      "controller_input": "/guidedog/cmd_vel_checked",
+      "raw_cmd_vel_bypass": false,
+      "guard_parameters": {
+        "report_dir": "/home/guide-dog/.ros/guidedog/reports/floor-map-regression-20261105/session",
+        "lidar_topic": "/guidedog/test_lidar",
+        "base_frame": "base_footprint",
+        "max_speed": 0.05,
+        "stop_distance": 0.8,
+        "scan_timeout": 1.5,
+        "min_speed": 0.05,
+        "lidar_reliability": "reliable",
+        "command_timeout": 0.4,
+        "front_extent": 0.45,
+        "half_width": 0.4
+      }
+    },
+    "contact_positive_control": {
+      "passed": true,
+      "probe_contacts": 183
+    },
+    "box_localization": {
+      "passed": true,
+      "occupied_cells_near_box": 11,
+      "box_boundary_error_p95_m": 0.028823024531176026,
+      "initial_gt_to_odom_rotation_rad": -1.409900204168979e-05,
+      "unknown_cells": 6031,
+      "free_cells": 358
+    },
+    "occluded_ground": {
+      "passed": true,
+      "unknown_fraction": 1.0,
+      "sampled_cells": 18
+    },
+    "motion_and_roll": {
+      "passed": true,
+      "ground_truth_progress_m": 0.09679923571580928,
+      "rolls_before": 3,
+      "rolls_after": 12,
+      "occupied_cells_near_box": 12,
+      "box_boundary_error_p95_m": 0.050524868481074584,
+      "observed_zero_delay_wall_sec": 0.11038856699815369,
+      "post_zero_forward_travel_m": 0.0,
+      "settled_position_spread_m": 0.00012684130809059575
+    },
+    "short_blackout": {
+      "passed": true,
+      "occupied_cells_near_box": 12,
+      "box_boundary_error_p95_m": 0.050524868481074584,
+      "healthy": false,
+      "source_stamp_ns": 36300000000
+    },
+    "expiry_to_unknown": {
+      "passed": true,
+      "source_stamp_unchanged": true,
+      "unknown_cells": 6400
+    },
+    "fresh_ground_clearing": {
+      "passed": true,
+      "formerly_occupied_now_observed_free": 2
+    },
+    "mapping_budget": {
+      "passed": true,
+      "cell_array_bytes": 179200,
+      "update_cost_p95_ms": 2.659303600921703,
+      "accepted_clouds": 95,
+      "robot_obstacle_contacts": 0
+    }
+  },
+  "simulation_only": true,
+  "render_profile": "server_egl",
+  "gait_profile": "low_lift_calibrated",
+  "sensor_profile": "pinned",
+  "ros_domain_id": "43",
+  "gz_partition": "guidedog_stop_test_1793894595_18432",
+  "launch_exit_code": 0
+}

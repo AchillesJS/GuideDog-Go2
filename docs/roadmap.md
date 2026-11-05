@@ -64,6 +64,9 @@ The [straight-motion increment](straight-motion-validation.md) subsequently
 passed three independent 2 m motion/map trials with an explicit gait and offline
 odometry calibration. The remaining blocker is observed floor connectivity,
 including the actual start. M2 and planner readiness remain incomplete.
+The [support-evidence increment](support-evidence.md) adds an explicit coverage
+report and stationary native-cloud/hole/dropout audit. It measures the remaining
+blind region rather than treating unknown terrain as free floor.
 
 - [ ] Parse LiDAR `PointCloud2` and validate coordinate transforms, ground alignment, time alignment, and odometry updates.
 - [ ] Implement a rolling local representation: occupied/free/**unknown**, elevation, surface slope/roughness, vertical clearance, confidence and last observation time. Benchmark map memory and incremental update cost.

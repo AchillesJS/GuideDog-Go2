@@ -1,0 +1,2556 @@
+{
+  "passed": true,
+  "cases": {
+    "controller_route": {
+      "passed": true,
+      "controller_input": "/guidedog/cmd_vel_checked",
+      "raw_cmd_vel_bypass": false,
+      "guard_parameters": {
+        "report_dir": "/home/guide-dog/.ros/guidedog/reports/floor-near-repeat-20261105/session",
+        "lidar_topic": "/guidedog/test_lidar",
+        "base_frame": "base_footprint",
+        "max_speed": 0.05,
+        "stop_distance": 0.8,
+        "scan_timeout": 1.5,
+        "min_speed": 0.05,
+        "lidar_reliability": "reliable",
+        "command_timeout": 0.4,
+        "front_extent": 0.45,
+        "half_width": 0.4
+      }
+    },
+    "contact_positive_control": {
+      "passed": true,
+      "probe_contacts": 183
+    },
+    "live_sensor_model": {
+      "passed": true,
+      "profile": "l1_near",
+      "min_range_m": 0.05,
+      "max_range_m": 30.0,
+      "horizontal_samples": 600,
+      "vertical_samples": 30,
+      "update_rate_hz": 10.0,
+      "robot_description_sha256": "a9642510d397095c01c5e07e26df544b71c926debed212b8fc3a70114c1aec89"
+    },
+    "floor_flat": {
+      "passed": true,
+      "samples": [
+        {
+          "stamp_ns": 31400000000,
+          "phase": "flat",
+          "receipt_monotonic": 31225.567330638,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.072,
+          "processing_receipt_age_wall_sec": 0.008381088999158237,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25019014054267835,
+              -0.03797268181291967,
+              0.1905695146618351
+            ],
+            "quaternion_xyzw": [
+              0.7008866959061637,
+              0.7005843807527262,
+              0.09503267592044287,
+              0.09438302524532717
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 495,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12240,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0014522240376627995,
+            0.0010062100123297835,
+            -0.020469145310408998
+          ],
+          "truth_position": [
+            0.17720844953452766,
+            0.003683748181869337,
+            0.23952590778720778
+          ],
+          "truth_quaternion": [
+            0.0004982104247494906,
+            -0.002619813997839483,
+            0.006274054201297332,
+            0.9999767620324328
+          ],
+          "hole_interior_ground_candidates": 366,
+          "finite_points": 12240,
+          "near_plane_points": 5596,
+          "near_plane_points_in_envelope": 3996,
+          "untrusted_near_plane_points_inside_body_mask": 2907,
+          "nearest_trusted_floor_range_xy_m": 0.40053309292723044,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 63,
+              "unknown": 117,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.35,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 31500000000,
+          "phase": "flat",
+          "receipt_monotonic": 31225.677362318,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.092,
+          "processing_receipt_age_wall_sec": 0.023208560000057332,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501662622280289,
+              -0.037971520509767764,
+              0.18954090307663127
+            ],
+            "quaternion_xyzw": [
+              0.7009393887708344,
+              0.7006372426022776,
+              0.0946422837819749,
+              0.09399077438120541
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 487,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12248,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0003627919177717264,
+            0.0005612719037529877,
+            -0.020922209418185362
+          ],
+          "truth_position": [
+            0.17690987839000108,
+            0.003677497407934061,
+            0.23909473655592717
+          ],
+          "truth_quaternion": [
+            0.0005043527947511497,
+            -0.0026316017351788786,
+            0.006273289497123991,
+            0.9999767327990443
+          ],
+          "hole_interior_ground_candidates": 373,
+          "finite_points": 12248,
+          "near_plane_points": 5603,
+          "near_plane_points_in_envelope": 4001,
+          "untrusted_near_plane_points_inside_body_mask": 2904,
+          "nearest_trusted_floor_range_xy_m": 0.40163563531924334,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 62,
+              "unknown": 118,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.34444444444444444,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 31600000000,
+          "phase": "flat",
+          "receipt_monotonic": 31225.786423059,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.09,
+          "processing_receipt_age_wall_sec": 0.014239897001971258,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25019526334568043,
+              -0.037971439313407566,
+              0.18947835841656105
+            ],
+            "quaternion_xyzw": [
+              0.7009023716426792,
+              0.7005999195786754,
+              0.09491787238065072,
+              0.09426672591509645
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 476,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12259,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0010249727300866874,
+            0.0009316786243336941,
+            -0.02168597670732328
+          ],
+          "truth_position": [
+            0.17721044055797255,
+            0.0036843326478223646,
+            0.23966860034685394
+          ],
+          "truth_quaternion": [
+            0.0004973524208040822,
+            -0.0027410704899569712,
+            0.006274305180726169,
+            0.9999764358561845
+          ],
+          "hole_interior_ground_candidates": 373,
+          "finite_points": 12259,
+          "near_plane_points": 5606,
+          "near_plane_points_in_envelope": 3999,
+          "untrusted_near_plane_points_inside_body_mask": 2911,
+          "nearest_trusted_floor_range_xy_m": 0.4031160509174114,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 31700000000,
+          "phase": "flat",
+          "receipt_monotonic": 31225.889637704,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.087,
+          "processing_receipt_age_wall_sec": 0.011020709000149509,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501660383849217,
+              -0.03797185854579875,
+              0.18992893775970465
+            ],
+            "quaternion_xyzw": [
+              0.7009364929504074,
+              0.7006356191536343,
+              0.09465574061042768,
+              0.09401091847800702
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 493,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12242,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0005096420787259583,
+            0.0006833944955204202,
+            -0.020540181939709544
+          ],
+          "truth_position": [
+            0.17714281933596215,
+            0.003682307389620957,
+            0.2393121553726458
+          ],
+          "truth_quaternion": [
+            0.000498937083656992,
+            -0.0025185579585279886,
+            0.0062738318140271665,
+            0.9999770232170164
+          ],
+          "hole_interior_ground_candidates": 371,
+          "finite_points": 12242,
+          "near_plane_points": 5597,
+          "near_plane_points_in_envelope": 3996,
+          "untrusted_near_plane_points_inside_body_mask": 2911,
+          "nearest_trusted_floor_range_xy_m": 0.4004438464257945,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 31800000000,
+          "phase": "flat",
+          "receipt_monotonic": 31225.990420232,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.085,
+          "processing_receipt_age_wall_sec": 0.01023567900119815,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25017097828037294,
+              -0.03797182482386251,
+              0.18986256172576876
+            ],
+            "quaternion_xyzw": [
+              0.7009227338617213,
+              0.7006215684470867,
+              0.09476114497203501,
+              0.09411197791006078
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 509,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12226,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0005144865739133891,
+            0.000648331173374754,
+            -0.021160907732145587
+          ],
+          "truth_position": [
+            0.17715072632685117,
+            0.0036834730848323578,
+            0.23951035955366964
+          ],
+          "truth_quaternion": [
+            0.0004973888088739252,
+            -0.002703940676228225,
+            0.006274198993247448,
+            0.9999765375928504
+          ],
+          "hole_interior_ground_candidates": 371,
+          "finite_points": 12226,
+          "near_plane_points": 5600,
+          "near_plane_points_in_envelope": 3997,
+          "untrusted_near_plane_points_inside_body_mask": 2903,
+          "nearest_trusted_floor_range_xy_m": 0.40158101822305664,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 62,
+              "unknown": 118,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.34444444444444444,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 31900000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.093304617,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.081,
+          "processing_receipt_age_wall_sec": 0.007500896001147339,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501809049374624,
+              -0.03797143718097799,
+              0.18965087163026229
+            ],
+            "quaternion_xyzw": [
+              0.700917655957287,
+              0.7006170532909435,
+              0.09479441130789247,
+              0.09414990063748208
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 516,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12219,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0008085913335391589,
+            0.0008614284166684402,
+            -0.0212871689535912
+          ],
+          "truth_position": [
+            0.177182373967186,
+            0.003683873744043745,
+            0.23947861979105126
+          ],
+          "truth_quaternion": [
+            0.0004969172731327393,
+            -0.0026343811509223027,
+            0.006274152251767872,
+            0.9999767237904575
+          ],
+          "hole_interior_ground_candidates": 370,
+          "finite_points": 12219,
+          "near_plane_points": 5604,
+          "near_plane_points_in_envelope": 4002,
+          "untrusted_near_plane_points_inside_body_mask": 2915,
+          "nearest_trusted_floor_range_xy_m": 0.40547667018709954,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 63,
+              "unknown": 117,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.35,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32000000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.198703321,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.079,
+          "processing_receipt_age_wall_sec": 0.001965636001841631,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25017972552602646,
+              -0.03797102010286418,
+              0.18931221783749816
+            ],
+            "quaternion_xyzw": [
+              0.7009234858880793,
+              0.7006226563473229,
+              0.09475323374499488,
+              0.09410624335393954
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 533,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12202,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0007213090116851161,
+            0.000591248292901466,
+            -0.022021075304134486
+          ],
+          "truth_position": [
+            0.17707668421847142,
+            0.0036819914310761447,
+            0.239478679168545
+          ],
+          "truth_quaternion": [
+            0.0004990390215244818,
+            -0.0027780014028888724,
+            0.006273994064632035,
+            0.9999763350533539
+          ],
+          "hole_interior_ground_candidates": 377,
+          "finite_points": 12202,
+          "near_plane_points": 5600,
+          "near_plane_points_in_envelope": 3992,
+          "untrusted_near_plane_points_inside_body_mask": 2906,
+          "nearest_trusted_floor_range_xy_m": 0.40256462274071436,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 62,
+              "unknown": 118,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.34444444444444444,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32100000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.304640995,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.099,
+          "processing_receipt_age_wall_sec": 0.020989904998714337,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25019361412894925,
+              -0.037970853292075515,
+              0.18927774394773983
+            ],
+            "quaternion_xyzw": [
+              0.7009108373119436,
+              0.700610477130616,
+              0.09484314674268635,
+              0.09420050418881021
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12734,
+          "range_saturated_min_points": 487,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12247,
+          "min_native_range_m": 0.04999999701976776,
+          "estimated_plane": [
+            0.0014608343656904513,
+            0.0005726357323047951,
+            -0.022136416026253818
+          ],
+          "truth_position": [
+            0.17718713045875864,
+            0.003683971983028448,
+            0.23941594432027932
+          ],
+          "truth_quaternion": [
+            0.0004963132430601384,
+            -0.002572402805526143,
+            0.006274162391893541,
+            0.9999768853844828
+          ],
+          "hole_interior_ground_candidates": 370,
+          "finite_points": 12247,
+          "near_plane_points": 5603,
+          "near_plane_points_in_envelope": 4001,
+          "untrusted_near_plane_points_inside_body_mask": 2908,
+          "nearest_trusted_floor_range_xy_m": 0.4011461580915316,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 62,
+              "unknown": 118,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.34444444444444444,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32200000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.406487457,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.097,
+          "processing_receipt_age_wall_sec": 0.019090503999905195,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501873664317386,
+              -0.03797082167527535,
+              0.18925601350493343
+            ],
+            "quaternion_xyzw": [
+              0.7009221154973461,
+              0.7006217164629156,
+              0.0947603143529271,
+              0.09411631766605352
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12734,
+          "range_saturated_min_points": 505,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12229,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0011427923557197177,
+            0.00026458134848146575,
+            -0.02235879167002362
+          ],
+          "truth_position": [
+            0.17721052822732306,
+            0.0036846158107574378,
+            0.23947026947663763
+          ],
+          "truth_quaternion": [
+            0.0004954872812857227,
+            -0.002593118384604411,
+            0.006274299180578367,
+            0.9999768314312037
+          ],
+          "hole_interior_ground_candidates": 376,
+          "finite_points": 12229,
+          "near_plane_points": 5604,
+          "near_plane_points_in_envelope": 3997,
+          "untrusted_near_plane_points_inside_body_mask": 2911,
+          "nearest_trusted_floor_range_xy_m": 0.40317417507209735,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32300000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.511539462,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.093,
+          "processing_receipt_age_wall_sec": 0.014068620999751147,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25018567982013795,
+              -0.03797120266622346,
+              0.18966333015459771
+            ],
+            "quaternion_xyzw": [
+              0.700921106404925,
+              0.7006209924407925,
+              0.09476621628510477,
+              0.09412327978975017
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12734,
+          "range_saturated_min_points": 535,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12199,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0009228749484199719,
+            0.0003545955376164159,
+            -0.02159956228872603
+          ],
+          "truth_position": [
+            0.17723579422456567,
+            0.0036853068469472295,
+            0.2395309831988484
+          ],
+          "truth_quaternion": [
+            0.0004946345381376396,
+            -0.0026160165811047447,
+            0.006274418434038745,
+            0.9999767714638355
+          ],
+          "hole_interior_ground_candidates": 374,
+          "finite_points": 12199,
+          "near_plane_points": 5602,
+          "near_plane_points_in_envelope": 3998,
+          "untrusted_near_plane_points_inside_body_mask": 2901,
+          "nearest_trusted_floor_range_xy_m": 0.40123487745762676,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32400000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.608698359,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.086,
+          "processing_receipt_age_wall_sec": 0.016896935001568636,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501725879859856,
+              -0.037971969099450414,
+              0.19022125893892705
+            ],
+            "quaternion_xyzw": [
+              0.7009214207347891,
+              0.7006217431265069,
+              0.0947622092071107,
+              0.09411938546169726
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 541,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12194,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0008812815589955578,
+            0.0010147678717750581,
+            -0.02084881061521493
+          ],
+          "truth_position": [
+            0.17717474284117368,
+            0.003684208582645014,
+            0.23946466920166629
+          ],
+          "truth_quaternion": [
+            0.0004955306728098688,
+            -0.0026415764665900544,
+            0.006274328534929872,
+            0.9999767043909369
+          ],
+          "hole_interior_ground_candidates": 374,
+          "finite_points": 12194,
+          "near_plane_points": 5600,
+          "near_plane_points_in_envelope": 3999,
+          "untrusted_near_plane_points_inside_body_mask": 2905,
+          "nearest_trusted_floor_range_xy_m": 0.4011628275819729,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32500000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.714544238,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.084,
+          "processing_receipt_age_wall_sec": 0.011060485001507914,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25018024562693236,
+              -0.037971887884514915,
+              0.190221544853996
+            ],
+            "quaternion_xyzw": [
+              0.7009157811685656,
+              0.7006163023132219,
+              0.09480236595428683,
+              0.094161436115201
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 475,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12260,
+          "min_native_range_m": 0.04999999701976776,
+          "estimated_plane": [
+            0.0008208575849091205,
+            0.0010849041542558384,
+            -0.020785821697047558
+          ],
+          "truth_position": [
+            0.17730413694326844,
+            0.003686983786108158,
+            0.23964428925315664
+          ],
+          "truth_quaternion": [
+            0.0004925601363468292,
+            -0.0026283869119766304,
+            0.006274675227984908,
+            0.9999767384382181
+          ],
+          "hole_interior_ground_candidates": 369,
+          "finite_points": 12260,
+          "near_plane_points": 5596,
+          "near_plane_points_in_envelope": 3999,
+          "untrusted_near_plane_points_inside_body_mask": 2910,
+          "nearest_trusted_floor_range_xy_m": 0.4002419220224348,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 62,
+              "unknown": 118,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.34444444444444444,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32600000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.813957425,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.081,
+          "processing_receipt_age_wall_sec": 0.011613791997660883,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25018125307273603,
+              -0.03797145842439359,
+              0.18998881207205043
+            ],
+            "quaternion_xyzw": [
+              0.7009214689613713,
+              0.7006220673748595,
+              0.09475974298784752,
+              0.0941190956463582
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 480,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12255,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0008942558977632221,
+            0.000983855427513898,
+            -0.02112711852867531
+          ],
+          "truth_position": [
+            0.17715582065099023,
+            0.0036840683405038716,
+            0.23942891190679436
+          ],
+          "truth_quaternion": [
+            0.0004950652375465238,
+            -0.0026375275649696862,
+            0.006274457877938002,
+            0.999976714497439
+          ],
+          "hole_interior_ground_candidates": 371,
+          "finite_points": 12255,
+          "near_plane_points": 5600,
+          "near_plane_points_in_envelope": 4000,
+          "untrusted_near_plane_points_inside_body_mask": 2901,
+          "nearest_trusted_floor_range_xy_m": 0.4002669012381353,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32700000000,
+          "phase": "flat",
+          "receipt_monotonic": 31226.920699625,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.081,
+          "processing_receipt_age_wall_sec": 0.004856552001001546,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.250185857791207,
+              -0.037971158180036976,
+              0.18967026721023766
+            ],
+            "quaternion_xyzw": [
+              0.7009173649715952,
+              0.7006176205812213,
+              0.09479284609510794,
+              0.0941494213554859
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 493,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12242,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0009000769013785132,
+            0.0008160652547850589,
+            -0.021471922968543052
+          ],
+          "truth_position": [
+            0.17716082367809016,
+            0.0036843647265346127,
+            0.23948252869227138
+          ],
+          "truth_quaternion": [
+            0.0004946855340745937,
+            -0.0026831347353597807,
+            0.006274538646898507,
+            0.999976592845544
+          ],
+          "hole_interior_ground_candidates": 366,
+          "finite_points": 12242,
+          "near_plane_points": 5601,
+          "near_plane_points_in_envelope": 3999,
+          "untrusted_near_plane_points_inside_body_mask": 2911,
+          "nearest_trusted_floor_range_xy_m": 0.4004871559501717,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 61,
+              "unknown": 119,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.3388888888888889,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 32800000000,
+          "phase": "flat",
+          "receipt_monotonic": 31227.035144365,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.103,
+          "processing_receipt_age_wall_sec": 0.015617749999364605,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501836932367257,
+              -0.03797066758669754,
+              0.18929095942767776
+            ],
+            "quaternion_xyzw": [
+              0.7009252934622576,
+              0.700625411823466,
+              0.09473538323874557,
+              0.09409023570304634
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12735,
+          "range_saturated_min_points": 483,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 12252,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0007648461403831954,
+            0.0006221970013293825,
+            -0.021812115318371045
+          ],
+          "truth_position": [
+            0.1770107080461149,
+            0.003680956322459632,
+            0.23927309948078473
+          ],
+          "truth_quaternion": [
+            0.0004984103376382977,
+            -0.0026976169064525015,
+            0.006274057573447024,
+            0.9999765550510304
+          ],
+          "hole_interior_ground_candidates": 372,
+          "finite_points": 12252,
+          "near_plane_points": 5599,
+          "near_plane_points_in_envelope": 4002,
+          "untrusted_near_plane_points_inside_body_mask": 2904,
+          "nearest_trusted_floor_range_xy_m": 0.40345611726092934,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 62,
+              "unknown": 118,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.34444444444444444,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        }
+      ],
+      "support": {
+        "schema_version": 1,
+        "diagnostic_only": true,
+        "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+        "assessment_radius_m": 0.7020797289396148,
+        "required_cells": 186,
+        "cells": {
+          "observed_floor": 70,
+          "unknown": 116,
+          "occupied": 0,
+          "outside_map": 0
+        },
+        "observed_floor_fraction": 0.3763440860215054,
+        "map_healthy": true,
+        "envelope_observed": false,
+        "reason": "incomplete_floor_evidence"
+      }
+    },
+    "floor_hole": {
+      "passed": true,
+      "hole_world_bounds_m": [
+        0.7,
+        1.3,
+        -0.3,
+        0.3
+      ],
+      "interior_cells": 16,
+      "false_free_cells": 0,
+      "samples": [
+        {
+          "stamp_ns": 34300000000,
+          "phase": "hole",
+          "receipt_monotonic": 31228.762126158,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.081,
+          "processing_receipt_age_wall_sec": 0.013592645002063364,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501726218819426,
+              -0.03797189504628937,
+              0.19059275436856765
+            ],
+            "quaternion_xyzw": [
+              0.7009209220373833,
+              0.7006218161174118,
+              0.0947652862915461,
+              0.09411945784313361
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12414,
+          "range_saturated_min_points": 494,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11920,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0011433776188751017,
+            -0.0038946080155047268,
+            -0.024349630389730887
+          ],
+          "truth_position": [
+            0.17711009388234222,
+            0.003681843109469285,
+            0.2393895340534983
+          ],
+          "truth_quaternion": [
+            0.0004972674506698182,
+            -0.0026190380689283025,
+            0.00627423783446383,
+            0.9999767633821661
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11920,
+          "near_plane_points": 5005,
+          "near_plane_points_in_envelope": 3685,
+          "untrusted_near_plane_points_inside_body_mask": 2900,
+          "nearest_trusted_floor_range_xy_m": 0.4027336060608847,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 34400000000,
+          "phase": "hole",
+          "receipt_monotonic": 31228.867505014,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.08,
+          "processing_receipt_age_wall_sec": 0.008157304000633303,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25016703137448465,
+              -0.03797260360108623,
+              0.19094037676904718
+            ],
+            "quaternion_xyzw": [
+              0.7009154595367725,
+              0.7006169301952492,
+              0.09480194732100085,
+              0.09415957991774764
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12414,
+          "range_saturated_min_points": 538,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11876,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0011116109641902767,
+            -0.004179269786469562,
+            -0.024120788815749923
+          ],
+          "truth_position": [
+            0.1772680284847297,
+            0.003685688017062381,
+            0.2395706349894223
+          ],
+          "truth_quaternion": [
+            0.0004925652626839176,
+            -0.002587825648892971,
+            0.006274748259772953,
+            0.9999768437679691
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11876,
+          "near_plane_points": 5011,
+          "near_plane_points_in_envelope": 3693,
+          "untrusted_near_plane_points_inside_body_mask": 2901,
+          "nearest_trusted_floor_range_xy_m": 0.40095073106036827,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 34500000000,
+          "phase": "hole",
+          "receipt_monotonic": 31228.968662807,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.079,
+          "processing_receipt_age_wall_sec": 0.0071342279989039525,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25016435391362113,
+              -0.03797237526061418,
+              0.19071980924891757
+            ],
+            "quaternion_xyzw": [
+              0.7009217165903652,
+              0.7006235174169112,
+              0.09475335155443741,
+              0.09411289190951631
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12413,
+          "range_saturated_min_points": 504,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11909,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0009759251221961142,
+            -0.0025649731211547476,
+            -0.023280285743087388
+          ],
+          "truth_position": [
+            0.17723070494612694,
+            0.00368495746528237,
+            0.23952574192836001
+          ],
+          "truth_quaternion": [
+            0.0004931917053439524,
+            -0.0025991224753167783,
+            0.006274682601860175,
+            0.999976814572491
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11909,
+          "near_plane_points": 5011,
+          "near_plane_points_in_envelope": 3693,
+          "untrusted_near_plane_points_inside_body_mask": 2907,
+          "nearest_trusted_floor_range_xy_m": 0.40049939074426233,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 50,
+              "unknown": 130,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2777777777777778,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 34600000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.069272422,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.075,
+          "processing_receipt_age_wall_sec": 0.006363712000165833,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501647023187117,
+              -0.03797241957001536,
+              0.1907821313784895
+            ],
+            "quaternion_xyzw": [
+              0.7009214167040319,
+              0.7006232326755976,
+              0.09475549661480323,
+              0.09411508541190676
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12417,
+          "range_saturated_min_points": 447,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11970,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0011421124729847844,
+            -0.0033004436909597444,
+            -0.0237713276853791
+          ],
+          "truth_position": [
+            0.17720960947997821,
+            0.0036844885115653496,
+            0.23947848919601938
+          ],
+          "truth_quaternion": [
+            0.0004935417253950204,
+            -0.002586875431121084,
+            0.006274615195134285,
+            0.9999768465800707
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11970,
+          "near_plane_points": 5011,
+          "near_plane_points_in_envelope": 3689,
+          "untrusted_near_plane_points_inside_body_mask": 2902,
+          "nearest_trusted_floor_range_xy_m": 0.40074065203862497,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 50,
+              "unknown": 130,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2777777777777778,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 34700000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.178273768,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.098,
+          "processing_receipt_age_wall_sec": 0.0223176350009453,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501658261880914,
+              -0.03797261713969853,
+              0.19100851294198523
+            ],
+            "quaternion_xyzw": [
+              0.7009184865525981,
+              0.7006200614207052,
+              0.09477895558568562,
+              0.09413689139624959
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12414,
+          "range_saturated_min_points": 496,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11918,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0013799782041434717,
+            -0.005496362265277572,
+            -0.025342570593193527
+          ],
+          "truth_position": [
+            0.1771440116192082,
+            0.0036832636368840477,
+            0.2394217592992657
+          ],
+          "truth_quaternion": [
+            0.0004947127727117336,
+            -0.0026321327234456937,
+            0.00627450592195396,
+            0.9999767285852377
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11918,
+          "near_plane_points": 4989,
+          "near_plane_points_in_envelope": 3685,
+          "untrusted_near_plane_points_inside_body_mask": 2899,
+          "nearest_trusted_floor_range_xy_m": 0.40185496463134285,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 52,
+              "unknown": 128,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.28888888888888886,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 34800000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.279178793,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.095,
+          "processing_receipt_age_wall_sec": 0.021464752000611043,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501658924301639,
+              -0.037972474532944764,
+              0.19086407494078536
+            ],
+            "quaternion_xyzw": [
+              0.700918658651871,
+              0.7006200868870204,
+              0.09477889396942166,
+              0.0941354824814698
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12417,
+          "range_saturated_min_points": 503,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11914,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0010676731882566343,
+            -0.004353470325591691,
+            -0.024066802739458153
+          ],
+          "truth_position": [
+            0.17704758772132673,
+            0.0036810485621514124,
+            0.23922813658522385
+          ],
+          "truth_quaternion": [
+            0.0004968288223248391,
+            -0.0025881838695993283,
+            0.006274203700908289,
+            0.9999768441485523
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11914,
+          "near_plane_points": 5009,
+          "near_plane_points_in_envelope": 3697,
+          "untrusted_near_plane_points_inside_body_mask": 2900,
+          "nearest_trusted_floor_range_xy_m": 0.4006059879947746,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 34900000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.3954162,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.092,
+          "processing_receipt_age_wall_sec": 0.005139763998158742,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501712481200002,
+              -0.03797285608560826,
+              0.19120301457223474
+            ],
+            "quaternion_xyzw": [
+              0.7009064760539482,
+              0.7006075925581686,
+              0.09487137861389375,
+              0.0942259762240892
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12415,
+          "range_saturated_min_points": 508,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11907,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0013635336571980233,
+            -0.006350575614184081,
+            -0.02578882424665439
+          ],
+          "truth_position": [
+            0.17717497330602186,
+            0.003684345180715703,
+            0.2395851198660751
+          ],
+          "truth_quaternion": [
+            0.0004934271907809817,
+            -0.0027436395068607803,
+            0.006274852420198485,
+            0.9999764273216487
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11907,
+          "near_plane_points": 4981,
+          "near_plane_points_in_envelope": 3682,
+          "untrusted_near_plane_points_inside_body_mask": 2891,
+          "nearest_trusted_floor_range_xy_m": 0.4043113913353367,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35000000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.484553956,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.089,
+          "processing_receipt_age_wall_sec": 0.016024782999011222,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.250159586523335,
+              -0.0379730886565008,
+              0.19155899017875389
+            ],
+            "quaternion_xyzw": [
+              0.7009262124205141,
+              0.7006281198730034,
+              0.09471949977593899,
+              0.09407921527759705
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12417,
+          "range_saturated_min_points": 496,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11921,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0008294933570815853,
+            -0.003391684917667793,
+            -0.022480370833250267
+          ],
+          "truth_position": [
+            0.17706430667173056,
+            0.0036815452402498387,
+            0.23924891916648933
+          ],
+          "truth_quaternion": [
+            0.0004959192686020106,
+            -0.002587536017278541,
+            0.006274357673643849,
+            0.999976845310541
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11921,
+          "near_plane_points": 5014,
+          "near_plane_points_in_envelope": 3688,
+          "untrusted_near_plane_points_inside_body_mask": 2910,
+          "nearest_trusted_floor_range_xy_m": 0.4035520524212354,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 50,
+              "unknown": 130,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2777777777777778,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35100000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.585931312,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.086,
+          "processing_receipt_age_wall_sec": 0.01464940299774753,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25016893686259584,
+              -0.037973190232426804,
+              0.19138019965157144
+            ],
+            "quaternion_xyzw": [
+              0.7009024924599812,
+              0.7006041859635596,
+              0.09489686682543123,
+              0.09425526691087592
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12415,
+          "range_saturated_min_points": 509,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11906,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0016936576381668476,
+            -0.0049226888688325785,
+            -0.024897454291346745
+          ],
+          "truth_position": [
+            0.17716601420327868,
+            0.003684028896133812,
+            0.23952322700944004
+          ],
+          "truth_quaternion": [
+            0.0004936247123912334,
+            -0.0026993025011747144,
+            0.0062746259699156814,
+            0.9999765493098267
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11906,
+          "near_plane_points": 4998,
+          "near_plane_points_in_envelope": 3684,
+          "untrusted_near_plane_points_inside_body_mask": 2899,
+          "nearest_trusted_floor_range_xy_m": 0.4095404183324582,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35200000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.700308833,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.086,
+          "processing_receipt_age_wall_sec": 0.0003312150001875125,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501602692763818,
+              -0.03797313268026487,
+              0.19136406342562418
+            ],
+            "quaternion_xyzw": [
+              0.700916336292847,
+              0.7006180865294155,
+              0.09479417149918105,
+              0.0941522776965962
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12413,
+          "range_saturated_min_points": 491,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11922,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0008259661468400827,
+            -0.004027735978794586,
+            -0.023157215332011847
+          ],
+          "truth_position": [
+            0.17706978662979123,
+            0.0036818839790859464,
+            0.2393392140287539
+          ],
+          "truth_quaternion": [
+            0.000495645639698497,
+            -0.0026642632165434,
+            0.006274326373676164,
+            0.9999766441599871
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11922,
+          "near_plane_points": 5002,
+          "near_plane_points_in_envelope": 3687,
+          "untrusted_near_plane_points_inside_body_mask": 2904,
+          "nearest_trusted_floor_range_xy_m": 0.4036676211344531,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 50,
+              "unknown": 130,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2777777777777778,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35300000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.798647524,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.082,
+          "processing_receipt_age_wall_sec": 0.0018944190014735796,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501616274260364,
+              -0.03797317983127193,
+              0.1913948252491476
+            ],
+            "quaternion_xyzw": [
+              0.7009138024093995,
+              0.7006154432857945,
+              0.09481379430041559,
+              0.09417104986037546
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12414,
+          "range_saturated_min_points": 497,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11917,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0008872779684886683,
+            -0.004030502597902136,
+            -0.023448757199250547
+          ],
+          "truth_position": [
+            0.17709495394563268,
+            0.0036824155619195444,
+            0.23938619490353924
+          ],
+          "truth_quaternion": [
+            0.0004951444947088774,
+            -0.0026752989571617513,
+            0.006274347345698359,
+            0.9999766148129688
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11917,
+          "near_plane_points": 5009,
+          "near_plane_points_in_envelope": 3683,
+          "untrusted_near_plane_points_inside_body_mask": 2906,
+          "nearest_trusted_floor_range_xy_m": 0.4047476853769699,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35400000000,
+          "phase": "hole",
+          "receipt_monotonic": 31229.895437475,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.073,
+          "processing_receipt_age_wall_sec": 0.005252461000054609,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25016407423312065,
+              -0.03797311041021438,
+              0.19135416499645805
+            ],
+            "quaternion_xyzw": [
+              0.7009119826490756,
+              0.7006139526234128,
+              0.09482486254618513,
+              0.0941845391316297
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12415,
+          "range_saturated_min_points": 506,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11909,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0010823680862668244,
+            -0.00310247981977977,
+            -0.02319294274545357
+          ],
+          "truth_position": [
+            0.17733362490503118,
+            0.003687672650602591,
+            0.23967734728592507
+          ],
+          "truth_quaternion": [
+            0.0004891824157542703,
+            -0.002624180262997591,
+            0.006275132315117211,
+            0.9999767482761482
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11909,
+          "near_plane_points": 5006,
+          "near_plane_points_in_envelope": 3688,
+          "untrusted_near_plane_points_inside_body_mask": 2890,
+          "nearest_trusted_floor_range_xy_m": 0.4017689506736134,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35500000000,
+          "phase": "hole",
+          "receipt_monotonic": 31230.011405836,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.097,
+          "processing_receipt_age_wall_sec": 0.014289009999629343,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25015472473198946,
+              -0.03797250654218299,
+              0.1908298462937907
+            ],
+            "quaternion_xyzw": [
+              0.700935270923541,
+              0.7006376601342366,
+              0.09464933534486125,
+              0.09401126791901135
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12425,
+          "range_saturated_min_points": 498,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11927,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0011972937098545888,
+            -0.00579292867658643,
+            -0.025519110618463563
+          ],
+          "truth_position": [
+            0.17715587985712394,
+            0.003683597845018233,
+            0.2392851585932537
+          ],
+          "truth_quaternion": [
+            0.0004929841918640206,
+            -0.002513559747920043,
+            0.006274544325529321,
+            0.9999770342750314
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11927,
+          "near_plane_points": 4992,
+          "near_plane_points_in_envelope": 3686,
+          "untrusted_near_plane_points_inside_body_mask": 2896,
+          "nearest_trusted_floor_range_xy_m": 0.40306124750647004,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 50,
+              "unknown": 130,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2777777777777778,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35600000000,
+          "phase": "hole",
+          "receipt_monotonic": 31230.117929153,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.098,
+          "processing_receipt_age_wall_sec": 0.007720984001934994,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.2501652916460997,
+              -0.037972853205197804,
+              0.19103829217282733
+            ],
+            "quaternion_xyzw": [
+              0.7009105521478006,
+              0.7006124455932917,
+              0.09483624724223008,
+              0.09419493179923596
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12414,
+          "range_saturated_min_points": 501,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11913,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0009889578015114667,
+            -0.0044651277094109355,
+            -0.023850235754330915
+          ],
+          "truth_position": [
+            0.17710674390070136,
+            0.0036827829211713305,
+            0.23933906144504255
+          ],
+          "truth_quaternion": [
+            0.0004940480161286354,
+            -0.0026273042137098025,
+            0.006274492084281566,
+            0.999976741698631
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11913,
+          "near_plane_points": 5002,
+          "near_plane_points_in_envelope": 3686,
+          "untrusted_near_plane_points_inside_body_mask": 2893,
+          "nearest_trusted_floor_range_xy_m": 0.40215980088232406,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 52,
+              "unknown": 128,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.28888888888888886,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        },
+        {
+          "stamp_ns": 35700000000,
+          "phase": "hole",
+          "receipt_monotonic": 31230.204510215,
+          "pose_bracket_sec": 0.0,
+          "frame_id": "lidar_l1_link",
+          "source_age_sec": 0.098,
+          "processing_receipt_age_wall_sec": 0.021125642000697553,
+          "tf_cloud_to_footprint": {
+            "translation": [
+              0.25016145426888575,
+              -0.03797300409746013,
+              0.19136737357263195
+            ],
+            "quaternion_xyzw": [
+              0.7009182419393347,
+              0.7006199381999552,
+              0.09478070762825747,
+              0.0941378657865698
+            ]
+          },
+          "tf_cloud_to_body": {
+            "translation": [
+              0.25,
+              -0.038,
+              -0.03
+            ],
+            "quaternion_xyzw": [
+              0.7011245798113911,
+              0.700916848588476,
+              0.0925602936983206,
+              0.09258772585812963
+            ]
+          },
+          "width": 600,
+          "height": 30,
+          "finite_native_points": 12414,
+          "range_saturated_min_points": 476,
+          "range_saturated_max_points": 0,
+          "valid_range_points": 11938,
+          "min_native_range_m": 0.04999999329447746,
+          "estimated_plane": [
+            0.0009183625954067242,
+            -0.004068352858895398,
+            -0.023399293009643322
+          ],
+          "truth_position": [
+            0.17710404474762553,
+            0.003682462397672855,
+            0.23936810966324903
+          ],
+          "truth_quaternion": [
+            0.0004947497807852459,
+            -0.002649347926256588,
+            0.006274413840431937,
+            0.9999766836827643
+          ],
+          "hole_interior_ground_candidates": 0,
+          "finite_points": 11938,
+          "near_plane_points": 5002,
+          "near_plane_points_in_envelope": 3684,
+          "untrusted_near_plane_points_inside_body_mask": 2896,
+          "nearest_trusted_floor_range_xy_m": 0.4024937236290305,
+          "single_scan_coverage": {
+            "schema_version": 1,
+            "diagnostic_only": true,
+            "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+            "assessment_radius_m": 0.7020797289396148,
+            "required_cells": 180,
+            "cells": {
+              "observed_floor": 51,
+              "unknown": 129,
+              "occupied": 0,
+              "outside_map": 0
+            },
+            "observed_floor_fraction": 0.2833333333333333,
+            "map_healthy": true,
+            "envelope_observed": false,
+            "reason": "incomplete_floor_evidence"
+          }
+        }
+      ],
+      "support": {
+        "schema_version": 1,
+        "diagnostic_only": true,
+        "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+        "assessment_radius_m": 0.7020797289396148,
+        "required_cells": 186,
+        "cells": {
+          "observed_floor": 57,
+          "unknown": 129,
+          "occupied": 0,
+          "outside_map": 0
+        },
+        "observed_floor_fraction": 0.3064516129032258,
+        "map_healthy": true,
+        "envelope_observed": false,
+        "reason": "incomplete_floor_evidence"
+      }
+    },
+    "floor_dropout": {
+      "passed": true,
+      "support": {
+        "schema_version": 1,
+        "diagnostic_only": true,
+        "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+        "assessment_radius_m": 0.7020797289396148,
+        "required_cells": 186,
+        "cells": {
+          "observed_floor": 0,
+          "unknown": 186,
+          "occupied": 0,
+          "outside_map": 0
+        },
+        "observed_floor_fraction": 0.0,
+        "map_healthy": false,
+        "envelope_observed": false,
+        "reason": "stale_or_invalid_map"
+      }
+    },
+    "floor_audit_scope": {
+      "passed": true,
+      "stationary_checked_commands_only": true,
+      "body_height_range_m": [
+        0.23882384402649398,
+        0.23988326828545717
+      ],
+      "planning_ready": false,
+      "note": "Audit completion is not successful planning readiness"
+    }
+  },
+  "simulation_only": true,
+  "render_profile": "server_egl",
+  "gait_profile": "low_lift_calibrated",
+  "sensor_profile": "l1_near",
+  "ros_domain_id": "43",
+  "gz_partition": "guidedog_stop_test_1793894461_17448",
+  "launch_exit_code": 0
+}

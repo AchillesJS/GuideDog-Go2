@@ -10,6 +10,7 @@ import time
 from guidedog_perception.guard_geometry import cloud_xyz, inspect_corridor, transform_xyz
 from guidedog_perception.local_grid import LocalGrid
 from guidedog_perception.map_analysis import map_digest
+from guidedog_perception.support_evidence import support_coverage
 from nav_msgs.msg import OccupancyGrid
 import numpy as np
 import rclpy
@@ -29,7 +30,7 @@ def apply_tf(points, transform):
     return transform_xyz(points, [t.x, t.y, t.z], [q.x, q.y, q.z, q.w])
 
 
-def write_svg(path, layers, resolution, robot):
+def write_svg(path, layers, resolution, robot, assessment_radius=None):
     """Render a compact view using the exact published cells and unknown semantics."""
     grid = layers['occupancy']
     n = len(grid)
@@ -42,10 +43,15 @@ def write_svg(path, layers, resolution, robot):
                 rectangles.append(f'<rect x="{start}" y="{n-row-1}" width="{end-start}" '
                                   f'height="1" fill="{colors[values[start]]}"/>')
     x, y, yaw = robot
+    envelope = (f'<circle cx="{x:.2f}" cy="{n-y:.2f}" '
+                f'r="{assessment_radius/resolution:.3f}" fill="none" '
+                'stroke="#80b5ff" stroke-width="0.4"/>'
+                if assessment_radius is not None else '')
     text = (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -9 {n+4} {n+20}">'
             '<rect x="-2" y="-9" width="100%" height="100%" fill="#17202b"/>'
             '<text x="0" y="-4" fill="white" font-size="3">GuideDog local map</text>'
             f'<rect width="{n}" height="{n}" fill="#535b66"/>' + ''.join(rectangles) +
+            envelope +
             f'<circle cx="{x:.2f}" cy="{n-y:.2f}" r="1.5" fill="#559aff"/>'
             f'<path d="M{x:.2f},{n-y:.2f} l{4*math.cos(yaw):.2f},'
             f'{-4*math.sin(yaw):.2f}" stroke="white" stroke-width="0.5"/>'
@@ -214,11 +220,20 @@ class LocalMapper(Node):
                   'evidence_note': 'score is support count, not a calibrated probability'}
         if age is not None and age > 0.5 and clock_ok:
             status['reason'] = 'stale_scan'
+        status['support_evidence'] = support_coverage(
+            layers['occupancy'], self.grid.origin, msg.info.resolution,
+            self.pose[:2], healthy=status['healthy'])
         self.status_publisher.publish(String(data=json.dumps(status, allow_nan=False)))
         if now-self.last_report >= 2.0:
             temporary = self.directory / 'local_map_report.json.tmp'
             temporary.write_text(json.dumps(status, indent=2, allow_nan=False)+'\n')
             temporary.replace(self.directory / 'local_map_report.json')
+            support = {'source_stamp_ns': self.last_source,
+                       'snapshot_digest': status['snapshot_digest'],
+                       **status['support_evidence']}
+            temporary = self.directory / 'support_report.json.tmp'
+            temporary.write_text(json.dumps(support, indent=2, allow_nan=False)+'\n')
+            temporary.replace(self.directory / 'support_report.json')
             with (self.directory / 'local_map.npz.tmp').open('wb') as output:
                 np.savez_compressed(output, **layers, origin_odom=self.grid.origin,
                                     resolution=self.grid.resolution, source_stamp_ns=stamp)
@@ -226,6 +241,9 @@ class LocalMapper(Node):
             robot = ((np.array(self.pose[:2])-self.grid.origin)/self.grid.resolution).tolist()
             write_svg(self.directory / 'local_map.svg', layers, self.grid.resolution,
                       [*robot, self.pose[2]])
+            write_svg(self.directory / 'support_map.svg', layers, self.grid.resolution,
+                      [*robot, self.pose[2]],
+                      assessment_radius=support['assessment_radius_m'])
             self.last_report = now
 
 

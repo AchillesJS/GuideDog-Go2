@@ -40,6 +40,11 @@ Files in `mapping/`:
 | `local_map.svg` | View of the actual occupancy cells |
 | `local_map_report.json` | Health, last source stamp, age, cell counts, parameters and update cost |
 | `local_map.npz` | Occupancy, per-cell age, evidence score, ground height and scatter arrays |
+| `support_report.json` | Fresh floor-label coverage across the fixed diagnostic body envelope |
+| `support_map.svg` | Actual map cells with the diagnostic envelope circle |
+
+See [floor-support diagnostics](support-evidence.md) for the conservative coverage
+contract, stationary hole/dropout test, and optional minimum-range comparison.
 
 The ordinary `run_obstacle_demo.sh` retains mapping disabled by default.
 `enable_local_map:=true` enables it explicitly. `local_mapper` can also run

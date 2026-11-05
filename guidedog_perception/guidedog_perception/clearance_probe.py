@@ -17,7 +17,7 @@ from tf2_ros import Buffer, TransformException, TransformListener
 class ClearanceProbe:
     """Compare one source cloud in estimated and ground-truth reference frames."""
 
-    def __init__(self, node, directory):
+    def __init__(self, node, directory, filename='clearance-samples.jsonl'):
         """Keep bounded histories and a separate audit file, never a command publisher."""
         self.node = node
         self.history = PoseHistory()
@@ -28,7 +28,7 @@ class ClearanceProbe:
         self.lock = threading.Lock()
         self.buffer = Buffer(node=node)
         self.listener = TransformListener(self.buffer, node)
-        self.output = (directory / 'clearance-samples.jsonl').open('w')
+        self.output = (directory / filename).open('w')
         self.timer = node.create_timer(0.025, self.process, clock=node.steady_clock)
         self.received = 0
         self.unpaired = 0
