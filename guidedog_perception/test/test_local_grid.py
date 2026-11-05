@@ -41,6 +41,28 @@ def test_body_and_sparse_returns_cannot_establish_free_space():
     assert value(g) == -1
 
 
+def test_geometry_filtered_floor_is_allowed_only_without_projected_excluded_hit():
+    """Measured floor below the body can pass, but a removed hit withholds its cell."""
+    g = LocalGrid()
+    p = points(.05)
+    g.observe(p, p, [0, 0, 0], [0, 0], 1, 1, body_mask=False)
+    assert value(g, x=.05) == 0
+    g.observe(p, p, [0, 0, 0], [0, 0], 2, 1.1, body_mask=False,
+              excluded_odom=np.array([[.05, .05, .3]]))
+    assert value(g, x=.05, now=1.1) == -1
+
+
+def test_excluded_hit_never_clears_a_remembered_obstacle():
+    """Repeated floor mixed with removed self/boundary points cannot clear occupancy."""
+    g = LocalGrid()
+    observe(g, points(z=.2))
+    for stamp in range(2, 7):
+        p = points()
+        g.observe(p, p, [0, 0, 0], [0, 0], stamp, 1+stamp*.1,
+                  excluded_odom=np.array([[1.05, .05, .3]]))
+    assert value(g, now=1.7) == 100
+
+
 def test_obstacle_dominates_ground_in_same_cell():
     """Visible ground in a mixed cell must not erase its obstacle."""
     g = LocalGrid()

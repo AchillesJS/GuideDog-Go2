@@ -7,10 +7,11 @@ import math
 from pathlib import Path
 import time
 
+from guidedog_perception.body_observer import BodyObserver, stamped_body_transforms
 from guidedog_perception.guard_geometry import cloud_xyz, inspect_corridor, transform_xyz
 from guidedog_perception.local_grid import LocalGrid
 from guidedog_perception.map_analysis import map_digest
-from guidedog_perception.support_evidence import support_coverage
+from guidedog_perception.support_evidence import point_range_masks, support_coverage
 from nav_msgs.msg import OccupancyGrid
 import numpy as np
 import rclpy
@@ -73,10 +74,19 @@ class LocalMapper(Node):
         defaults = {'lidar_topic': '/unitree_lidar/points', 'map_frame': 'odom',
                     'base_frame': 'base_footprint', 'resolution': 0.1, 'size': 8.0,
                     'free_ttl': 2.0, 'occupied_ttl': 5.0, 'update_period': 0.2,
+                    'lidar_min_range': 0.8, 'lidar_max_range': 30.0,
+                    'self_filter_mode': 'legacy_body',
                     'report_dir': str(Path.home() / '.ros/guidedog/local_map')}
         for name, value in defaults.items():
             self.declare_parameter(name, value)
         self.config = {name: self.get_parameter(name).value for name in defaults}
+        point_range_masks(np.empty((0, 3)), self.config['lidar_min_range'],
+                          self.config['lidar_max_range'])
+        if self.config['self_filter_mode'] not in ('legacy_body', 'geometry'):
+            raise ValueError('invalid_self_filter_mode')
+        self.body = BodyObserver(self) if self.config['self_filter_mode'] == 'geometry' else None
+        self.model_epoch = 0
+        self.filter_counts = {}
         if not math.isfinite(self.config['update_period']) or self.config['update_period'] < 0.1:
             raise ValueError('update_period_must_be_at_least_0.1_wall_seconds')
         self.grid = LocalGrid(**{k: self.config[k] for k in
@@ -121,6 +131,9 @@ class LocalMapper(Node):
         """Select the newest exactly transformable fresh scan without blocking TF."""
         if self.last_update is not None and now - self.last_update < self.config['update_period']:
             return
+        if self.body is not None and self.body.model is None:
+            self.reason = self.body.error
+            return
         selected = None
         for index in range(len(self.pending)-1, -1, -1):
             msg, received = self.pending[index]
@@ -137,6 +150,9 @@ class LocalMapper(Node):
                     self.config['base_frame'], msg.header.frame_id, source_time)
                 map_tf = self.buffer.lookup_transform(
                     self.config['map_frame'], self.config['base_frame'], source_time)
+                self_tf = (stamped_body_transforms(self.buffer, self.body.model,
+                                                   msg.header.frame_id, source_time)
+                           if self.body is not None else None)
                 selected = index
                 break
             except TransformException:
@@ -151,15 +167,27 @@ class LocalMapper(Node):
             self.pending.popleft()
         started = time.monotonic()
         try:
-            local = apply_tf(cloud_xyz(msg), local_tf)
-            local = local[np.isfinite(local).all(axis=1)]
+            raw = cloud_xyz(msg)
+            finite, low, high, valid_range = point_range_masks(
+                raw, self.config['lidar_min_range'], self.config['lidar_max_range'])
+            raw = raw[finite]
+            valid_range = valid_range[finite]
+            removed = (self.body.model.mask(raw, self_tf) if self.body is not None
+                       else np.zeros(len(raw), dtype=bool))
+            valid = valid_range & ~removed
+            local = apply_tf(raw[valid], local_tf)
+            excluded = apply_tf(apply_tf(raw[~valid], local_tf), map_tf)
             plane = inspect_corridor(local)['ground_plane_z_ax_by_c']
             if plane is None:
                 raise ValueError('unobserved_flat_support')
             t, q = map_tf.transform.translation, map_tf.transform.rotation
             yaw = math.atan2(2*(q.w*q.z + q.x*q.y), 1-2*(q.y*q.y + q.z*q.z))
             self.grid.observe(local, apply_tf(local, map_tf), plane,
-                              [t.x, t.y], stamp, received)
+                              [t.x, t.y], stamp, received,
+                              body_mask=self.body is None, excluded_odom=excluded)
+            self.filter_counts = {'finite': int(finite.sum()), 'saturated_min': int(low.sum()),
+                                  'saturated_max': int(high.sum()), 'body': int(removed.sum()),
+                                  'retained': int(valid.sum())}
             self.pose = [t.x, t.y, yaw]
             self.last_source, self.last_received = stamp, received
             self.accepted += 1
@@ -173,6 +201,12 @@ class LocalMapper(Node):
     def tick(self):
         """Keep ageing data while paused or disconnected; never re-stamp old observations."""
         now, ros_now = time.monotonic(), self.get_clock().now().nanoseconds
+        if self.body is not None and self.body.epoch != self.model_epoch:
+            self.model_epoch = self.body.epoch
+            self.grid.reset()
+            self.pending.clear()
+            self.last_source = self.last_received = self.last_seen_source = None
+            self.reason = self.body.error or 'model_changed_waiting_for_scan'
         if self.last_ros is not None and ros_now < self.last_ros:
             self.grid.reset()
             self.pending.clear()
@@ -218,6 +252,12 @@ class LocalMapper(Node):
                   'cells': {name: int((layers['occupancy'] == code).sum())
                             for name, code in (('unknown', -1), ('free', 0), ('occupied', 100))},
                   'evidence_note': 'score is support count, not a calibrated probability'}
+        status['cloud_filter'] = {'counts': self.filter_counts,
+                                  'mode': self.config['self_filter_mode'],
+                                  'model_error': (self.body.error
+                                                  if self.body is not None else None),
+                                  'model': (self.body.model.summary() if self.body is not None
+                                            and self.body.model is not None else None)}
         if age is not None and age > 0.5 and clock_ok:
             status['reason'] = 'stale_scan'
         status['support_evidence'] = support_coverage(

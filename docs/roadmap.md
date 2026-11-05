@@ -67,6 +67,10 @@ including the actual start. M2 and planner readiness remain incomplete.
 The [support-evidence increment](support-evidence.md) adds an explicit coverage
 report and stationary native-cloud/hole/dropout audit. It measures the remaining
 blind region rather than treating unknown terrain as free floor.
+The [robot-cloud filter](robot-cloud-filter-validation.md) now excludes saturated
+ranges from positive support and uses stamped visual/collision geometry in the
+mapper. A new 2 m regression passed; stance/contact evidence, ray visibility and
+support between sparse returns still need an explicit contract before planning.
 
 - [ ] Parse LiDAR `PointCloud2` and validate coordinate transforms, ground alignment, time alignment, and odometry updates.
 - [ ] Implement a rolling local representation: occupied/free/**unknown**, elevation, surface slope/roughness, vertical clearance, confidence and last observation time. Benchmark map memory and incremental update cost.

@@ -40,6 +40,9 @@ The [floor-support diagnostic](docs/support-evidence.md) now reports missing
 observations across the unchanged body envelope, with a stationary finite-hole
 and scan-loss audit. An explicit `l1_near` sensor profile compares the simulated
 minimum range with the L1 specification; it is not the default sensor model.
+The protected mapping launch now uses a [stamped robot-geometry filter](docs/robot-cloud-filter.md)
+for visual and collision shapes. Excluded body/range hits withhold their projected
+floor cells; the independent STOP retains boundary hits as obstacle candidates.
 
 ## Intended capabilities (roadmap, not current features)
 

@@ -6,6 +6,7 @@ import json
 import time
 import xml.etree.ElementTree as ET
 
+from guidedog_perception.body_observer import BodyObserver, stamped_body_transforms
 from guidedog_perception.clearance_probe import ClearanceProbe
 from guidedog_perception.guard_geometry import cloud_xyz, inspect_corridor, transform_xyz
 from guidedog_perception.map_benchmark import save_snapshot, wait_mapping
@@ -29,7 +30,7 @@ def transform_values(transform):
 class FloorProbe(ClearanceProbe):
     """Reuse bounded exact-time reference histories, with independent floor records."""
 
-    def __init__(self, node, directory):
+    def __init__(self, node, directory, mode='geometry'):
         """Use advancing source time and retain one reconstructable cloud per phase."""
         node.set_parameters([Parameter('use_sim_time', value=True)])
         super().__init__(node, directory, filename='floor-samples.jsonl')
@@ -39,11 +40,16 @@ class FloorProbe(ClearanceProbe):
         self.saved = set()
         self.phase_min_stamp = 0
         self.range_bounds = None
+        self.body = BodyObserver(node) if mode == 'geometry' else None
+        self.last_filter_error = None
 
     def process(self):
         """Reject stale, duplicate, untransformable and unbracketed native scans."""
         now = time.monotonic()
         if self.range_bounds is None:
+            return
+        if self.body is not None and self.body.model is None:
+            self.last_filter_error = self.body.error
             return
         clock = self.node.get_clock().now().nanoseconds
         if self.last_clock is not None and clock < self.last_clock:
@@ -67,7 +73,11 @@ class FloorProbe(ClearanceProbe):
                 body_tf = self.buffer.lookup_transform('base_link', msg.header.frame_id, source)
                 footprint_tf = self.buffer.lookup_transform(
                     'base_footprint', msg.header.frame_id, source)
-            except TransformException:
+                self_tf = (stamped_body_transforms(self.buffer, self.body.model,
+                                                   msg.header.frame_id, source)
+                           if self.body is not None else None)
+            except TransformException as error:
+                self.last_filter_error = 'missing_exact_self_tf:'+str(error)
                 body_tf = footprint_tf = None
             if reference is None or body_tf is None:
                 return  # bounded by the original receipt deadline above
@@ -78,15 +88,23 @@ class FloorProbe(ClearanceProbe):
                 minimum, maximum = self.range_bounds
                 finite, saturated_min, saturated_max, valid_range = point_range_masks(
                     raw, minimum, maximum)
-                points = raw[valid_range]
+                own = (self.body.model.mask(raw[finite], self_tf) if self.body is not None
+                       else np.zeros(int(finite.sum()), dtype=bool))
+                retained = valid_range.copy()
+                retained[finite] &= ~own
+                points = raw[retained]
                 local = self.apply(points, footprint_tf)
+                excluded = self.apply(raw[finite & ~retained], footprint_tf)
                 plane = inspect_corridor(local)['ground_plane_z_ax_by_c']
                 if plane is None:
                     raise ValueError('unobserved_flat_ground')
-                coverage, grid, counts = scan_floor_coverage(local, plane)
-            except (ValueError, TypeError, BufferError):
+                coverage, grid, counts = scan_floor_coverage(
+                    local, plane, body_mask=self.body is None, excluded=excluded)
+            except (ValueError, TypeError, BufferError) as error:
                 self.invalid += 1
+                self.last_filter_error = str(error)
                 continue
+            self.last_filter_error = None
             position, quaternion, bracket = reference
             world = transform_xyz(self.apply(points, body_tf), position, quaternion)
             hole = ((world[:, 0] > 0.75) & (world[:, 0] < 1.25)
@@ -103,6 +121,10 @@ class FloorProbe(ClearanceProbe):
                       'range_saturated_min_points': int(saturated_min.sum()),
                       'range_saturated_max_points': int(saturated_max.sum()),
                       'valid_range_points': int(valid_range.sum()),
+                      'self_removed_points': int(own.sum()),
+                      'retained_points': int(retained.sum()),
+                      'self_model': self.body.model.summary() if self.body is not None else None,
+                      'self_transforms': self_tf,
                       'min_native_range_m': float(np.linalg.norm(
                           raw[finite], axis=1).min()),
                       'estimated_plane': plane, 'truth_position': position.tolist(),
@@ -115,6 +137,7 @@ class FloorProbe(ClearanceProbe):
                                     raw_xyz=raw, local_xyz=local, world_xyz=world,
                                     finite_native_mask=finite,
                                     valid_range_mask=valid_range,
+                                    retained_mask=retained,
                                     plane=plane, grid=grid, floor_counts=counts,
                                     source_stamp_ns=stamp, width=msg.width, height=msg.height)
                 self.saved.add(self.phase)
@@ -135,7 +158,9 @@ def collect_floor(driver, phase, count=15):
         if len(records) >= count:
             return records[:count]
         time.sleep(0.05)
-    raise RuntimeError(f'Insufficient fresh native floor scans for {phase}: {len(records)}')
+    raise RuntimeError(f'Insufficient fresh native floor scans for {phase}: {len(records)}; '
+                       f'filter={audit.last_filter_error}; invalid={audit.invalid}; '
+                       f'unpaired={audit.unpaired}')
 
 
 def verify_sensor_model(driver, directory, profile):
@@ -160,12 +185,35 @@ def verify_sensor_model(driver, directory, profile):
             raise RuntimeError(f'Live LiDAR minimum {minimum} differs from {expected}')
         maximum = float(sensor.findtext('./lidar/range/max'))
         point_range_masks(np.empty((0, 3)), minimum, maximum)
+        parameters = {}
+        for node in ['guidedog_lidar_stop', 'guidedog_local_mapper']:
+            query = driver.create_client(GetParameters, f'/{node}/get_parameters')
+            try:
+                names = ['lidar_min_range', 'lidar_max_range']
+                if node == 'guidedog_local_mapper':
+                    names.append('self_filter_mode')
+                wait_until(query.service_is_ready, 5, 'No filter parameter service:'+node)
+                response = query.call_async(GetParameters.Request(names=names))
+                wait_until(response.done, 5, 'Filter parameter query timed out:'+node)
+                values = response.result().values
+                if len(values) != len(names) or any(v.type != 3 for v in values[:2]):
+                    raise RuntimeError('Invalid live range parameter types')
+                if [v.double_value for v in values[:2]] != [minimum, maximum]:
+                    raise RuntimeError('Filter ranges differ from the actual sensor model')
+                parameters[node] = dict(zip(names[:2], [v.double_value for v in values[:2]]))
+                if node == 'guidedog_local_mapper':
+                    if values[2].type != 4:
+                        raise RuntimeError('Invalid live self-filter mode')
+                    parameters[node]['self_filter_mode'] = values[2].string_value
+            finally:
+                driver.destroy_client(query)
         (directory / 'live-robot-description.urdf').write_text(text)
         return {'passed': True, 'profile': profile, 'min_range_m': minimum,
                 'max_range_m': maximum,
                 'horizontal_samples': int(sensor.findtext('./lidar/scan/horizontal/samples')),
                 'vertical_samples': int(sensor.findtext('./lidar/scan/vertical/samples')),
                 'update_rate_hz': float(sensor.findtext('./update_rate')),
+                'running_filter_parameters': parameters,
                 'robot_description_sha256': hashlib.sha256(text.encode()).hexdigest()}
     except (ET.ParseError, ValueError, TypeError) as error:
         raise RuntimeError(f'Invalid live sensor model: {error}') from error
@@ -185,6 +233,12 @@ def run_floor_audit(driver, record, directory, sensor_profile):
     if any(r['hole_interior_ground_candidates'] < 3 for r in native):
         raise RuntimeError('Future hole area was not observed in the flat-floor control')
     flat = save_snapshot(driver, directory, 'floor-flat', take(driver)[0])
+    filter_model = flat[3]['cloud_filter']['model']
+    if driver.audit.body is not None:
+        if (filter_model is None
+                or filter_model['model_sha256'] != model['robot_description_sha256']
+                or driver.audit.body.model.digest != model['robot_description_sha256']):
+            raise RuntimeError('Audit, mapper and running robot use different body models')
     record('floor_flat', {'passed': True, 'samples': native,
                           'support': flat[3]['support_evidence']})
     # Four independently rendered/collidable slabs leave a 0.6 x 0.6 m hole.

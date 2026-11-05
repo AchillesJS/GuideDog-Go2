@@ -57,7 +57,7 @@ def support_coverage(data, origin, resolution, robot_xy, *, healthy):
                        'observed_grid_envelope' if supported else 'incomplete_floor_evidence')}
 
 
-def scan_floor_coverage(local, plane):
+def scan_floor_coverage(local, plane, *, body_mask=True, excluded=None):
     """
     Measure one scan without turning the fitted plane or body returns into floor.
 
@@ -78,16 +78,29 @@ def scan_floor_coverage(local, plane):
     n, resolution = 20, 0.1
     origin = np.array([-1., -1.])
     cells = np.floor((points[:, :2]-origin)/resolution).astype(int)
-    valid = ~body & ((cells >= 0) & (cells < n)).all(axis=1)
+    valid = ((~body if body_mask else np.ones(len(body), dtype=bool))
+             & ((cells >= 0) & (cells < n)).all(axis=1))
     index = cells[valid, 1]*n+cells[valid, 0]
     floors = np.bincount(index[ground[valid]], minlength=n*n).reshape(n, n)
     other = np.bincount(index[~ground[valid]], minlength=n*n).reshape(n, n)
+    if excluded is not None:
+        excluded = np.asarray(excluded)
+        if excluded.ndim != 2 or excluded.shape[1] != 3:
+            raise ValueError('invalid_excluded_scan_points')
+        excluded = excluded[np.isfinite(excluded).all(axis=1)]
+        veto = np.floor((excluded[:, :2]-origin)/resolution).astype(int)
+        veto = veto[((veto >= 0) & (veto < n)).all(axis=1)]
+        other[veto[:, 1], veto[:, 0]] = 1
     grid = np.where((floors >= 3) & (other == 0), 0, -1).astype(np.int8)
+    trusted = ground & (~body if body_mask else np.ones(len(body), dtype=bool))
     return {'finite_points': len(points), 'near_plane_points': int(ground.sum()),
             'near_plane_points_in_envelope': int((ground & near).sum()),
-            'untrusted_near_plane_points_inside_body_mask': int((ground & body).sum()),
+            'untrusted_near_plane_points_inside_body_mask': (
+                int((ground & body).sum()) if body_mask else 0),
+            'near_plane_points_inside_body_rectangle': int((ground & body).sum()),
+            'legacy_body_mask_applied': body_mask,
             'nearest_trusted_floor_range_xy_m': (
-                float(np.linalg.norm(points[ground & ~body, :2], axis=1).min())
-                if (ground & ~body).any() else None),
+                float(np.linalg.norm(points[trusted, :2], axis=1).min())
+                if trusted.any() else None),
             'single_scan_coverage': support_coverage(grid, origin, resolution, [0, 0],
                                                      healthy=True)}, grid, floors

@@ -1,0 +1,89 @@
+{
+  "passed": true,
+  "cases": {
+    "controller_route": {
+      "passed": true,
+      "controller_input": "/guidedog/cmd_vel_checked",
+      "raw_cmd_vel_bypass": false,
+      "guard_parameters": {
+        "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-stop-regression-20261106/session",
+        "lidar_topic": "/guidedog/test_lidar",
+        "base_frame": "base_footprint",
+        "max_speed": 0.05,
+        "stop_distance": 0.8,
+        "scan_timeout": 1.5,
+        "min_speed": 0.05,
+        "lidar_reliability": "reliable",
+        "command_timeout": 0.4,
+        "front_extent": 0.45,
+        "half_width": 0.4,
+        "lidar_min_range": 0.8,
+        "lidar_max_range": 30.0
+      }
+    },
+    "contact_positive_control": {
+      "passed": true,
+      "probe_contacts": 178
+    },
+    "free_path": {
+      "passed": true,
+      "forward_progress_m": 0.241894877259514,
+      "observed_zero_delay_wall_sec": 0.10765154799446464,
+      "post_zero_forward_travel_m": 0.0,
+      "settled_position_spread_m": 0.0001223511332042638
+    },
+    "side_obstacle": {
+      "passed": true,
+      "forward_progress_m": 0.197478883421536,
+      "observed_zero_delay_wall_sec": 0.09243293699546484,
+      "post_zero_forward_travel_m": 0.0,
+      "settled_position_spread_m": 3.583640905773777e-05
+    },
+    "front_obstacle": {
+      "passed": true,
+      "forward_progress_m": 0.22149002591322065,
+      "ground_truth_clearance_m": 0.8243084189731835,
+      "legacy_projected_clearance_m": 0.8231613999779297,
+      "clearance_metric_version": 2,
+      "first_detected_clearance_m": 0.792850214281051,
+      "stopped_scan_clearance_m": 0.8078006983901955,
+      "detection_ros_time_sec": 51.338,
+      "observed_zero_delay_wall_sec": 0.041209603994502686,
+      "post_zero_forward_travel_m": 0.0021846310259764096,
+      "settled_position_spread_m": 4.342491455343306e-05
+    },
+    "explicit_rearm": {
+      "passed": true,
+      "held_command_remained_stopped": true,
+      "forward_travel_after_clear_m": 2.265849954653414e-06
+    },
+    "scan_loss": {
+      "passed": true,
+      "fault": "real_scan_relay_disabled",
+      "pre_fault_forward_progress_m": 0.03917984800545267,
+      "observed_zero_delay_wall_sec": 1.5558575370014296,
+      "post_zero_forward_travel_m": 0.00010432683376258601,
+      "settled_position_spread_m": 8.688928177873648e-05
+    },
+    "command_loss": {
+      "passed": true,
+      "pre_fault_forward_progress_m": 0.0395331924278721,
+      "observed_zero_delay_wall_sec": 0.4490754200014635,
+      "post_zero_forward_travel_m": 0.0,
+      "settled_position_spread_m": 0.00024139686446046605
+    },
+    "contact_monitor": {
+      "passed": true,
+      "messages_received": 179,
+      "robot_obstacle_contacts": 0
+    }
+  },
+  "simulation_only": true,
+  "render_profile": "server_egl",
+  "gait_profile": "low_lift_calibrated",
+  "sensor_profile": "pinned",
+  "self_filter_mode": "geometry",
+  "ros_domain_id": "43",
+  "gz_partition": "guidedog_stop_test_1793897340_21815",
+  "launch_exit_code": 0
+}

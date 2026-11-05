@@ -1,0 +1,1831 @@
+{
+  "body-pinned-20261106": {
+    "passed": false,
+    "error": "Insufficient fresh native floor scans for flat: 0",
+    "cases": {
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-pinned-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.8,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 164
+      },
+      "live_sensor_model": {
+        "passed": true,
+        "profile": "pinned",
+        "min_range_m": 0.8,
+        "max_range_m": 30.0,
+        "horizontal_samples": 600,
+        "vertical_samples": 30,
+        "update_rate_hz": 10.0,
+        "running_filter_parameters": {
+          "guidedog_lidar_stop": {
+            "lidar_min_range": 0.8,
+            "lidar_max_range": 30.0
+          },
+          "guidedog_local_mapper": {
+            "lidar_min_range": 0.8,
+            "lidar_max_range": 30.0,
+            "self_filter_mode": "geometry"
+          }
+        },
+        "robot_description_sha256": "b332f7091c332e17b799a173109dac7ac874a26b3a32d9d46c345eb539d7853b"
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "pinned",
+    "self_filter_mode": "geometry",
+    "benchmark_sha256": "82d07eb9a939a50d418ddd73fd7e7559d5e2c42b2a70ed65930b8cdcd908d63a"
+  },
+  "body-pinned2-20261106": {
+    "passed": true,
+    "error": null,
+    "cases": {
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-pinned2-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.8,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 172
+      },
+      "live_sensor_model": {
+        "passed": true,
+        "profile": "pinned",
+        "min_range_m": 0.8,
+        "max_range_m": 30.0,
+        "horizontal_samples": 600,
+        "vertical_samples": 30,
+        "update_rate_hz": 10.0,
+        "running_filter_parameters": {
+          "guidedog_lidar_stop": {
+            "lidar_min_range": 0.8,
+            "lidar_max_range": 30.0
+          },
+          "guidedog_local_mapper": {
+            "lidar_min_range": 0.8,
+            "lidar_max_range": 30.0,
+            "self_filter_mode": "geometry"
+          }
+        },
+        "robot_description_sha256": "b332f7091c332e17b799a173109dac7ac874a26b3a32d9d46c345eb539d7853b"
+      },
+      "floor_flat": {
+        "passed": true,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 187,
+          "cells": {
+            "observed_floor": 21,
+            "unknown": 166,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.11229946524064172,
+          "map_healthy": true,
+          "envelope_observed": false,
+          "reason": "incomplete_floor_evidence"
+        },
+        "sample_summary": {
+          "finite_native_points": {
+            "min": 2936,
+            "max": 2940
+          },
+          "range_saturated_min_points": {
+            "min": 8,
+            "max": 18
+          },
+          "valid_range_points": {
+            "min": 2922,
+            "max": 2931
+          },
+          "self_removed_points": {
+            "min": 0,
+            "max": 0
+          },
+          "retained_points": {
+            "min": 2922,
+            "max": 2931
+          },
+          "hole_interior_ground_candidates": {
+            "min": 32,
+            "max": 39
+          },
+          "near_plane_points_in_envelope": {
+            "min": 127,
+            "max": 138
+          },
+          "near_plane_points_inside_body_rectangle": {
+            "min": 8,
+            "max": 12
+          },
+          "nearest_trusted_floor_range_xy_m": {
+            "min": 0.5361514389257218,
+            "max": 0.5534943949881868
+          },
+          "pose_bracket_sec": {
+            "min": 0.0,
+            "max": 0.0
+          },
+          "distinct_source_stamps": 15,
+          "source_stamps_ns": [
+            32100000000,
+            32200000000,
+            32300000000,
+            32400000000,
+            32500000000,
+            32600000000,
+            32700000000,
+            32800000000,
+            32900000000,
+            33000000000,
+            33100000000,
+            33200000000,
+            33300000000,
+            33400000000,
+            33500000000
+          ],
+          "self_model": {
+            "model_sha256": "b332f7091c332e17b799a173109dac7ac874a26b3a32d9d46c345eb539d7853b",
+            "padding_m": 0.02,
+            "links": 21,
+            "shapes": 41,
+            "mesh_sha256": {
+              "trunk.dae": "e52bebbb5c7ff1f6aedee620c9b5b349f6e965360ecc63a9bb743eeff2d0be64",
+              "hip.dae": "8735e10617afe252cef0844c1d139d15bc6d4c653660d742fea9fe05c2704d8f",
+              "thigh_mirror.dae": "c7bae0b0565c2aa4b7cc15a538d795e9153e0f10c821cc18429e92693172bdc6",
+              "calf.dae": "29872fa1a435b92bc2b395fdfa7f0aee26101db3c494681896bd4ef24ee7883c",
+              "thigh.dae": "a622381ae308897ff143b8bbf02f075457c342b22984205040424a5a983246fa",
+              "L1_4D_Lidar.dae": "24b17ce83b64fbda44750de28d8b920c96c9137b44253dc4e1460a97e6412aeb"
+            },
+            "mesh_method": "native Gazebo mesh bounds; conservative boxes, not triangles",
+            "scope": "endpoint containment; no ray-shadow or continuous-surface proof"
+          },
+          "tf_links_per_sample": [
+            21
+          ]
+        }
+      },
+      "floor_hole": {
+        "passed": true,
+        "hole_world_bounds_m": [
+          0.7,
+          1.3,
+          -0.3,
+          0.3
+        ],
+        "interior_cells": 16,
+        "false_free_cells": 0,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 187,
+          "cells": {
+            "observed_floor": 20,
+            "unknown": 167,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.10695187165775401,
+          "map_healthy": true,
+          "envelope_observed": false,
+          "reason": "incomplete_floor_evidence"
+        },
+        "sample_summary": {
+          "finite_native_points": {
+            "min": 2982,
+            "max": 2988
+          },
+          "range_saturated_min_points": {
+            "min": 9,
+            "max": 16
+          },
+          "valid_range_points": {
+            "min": 2969,
+            "max": 2978
+          },
+          "self_removed_points": {
+            "min": 0,
+            "max": 0
+          },
+          "retained_points": {
+            "min": 2969,
+            "max": 2978
+          },
+          "hole_interior_ground_candidates": {
+            "min": 0,
+            "max": 0
+          },
+          "near_plane_points_in_envelope": {
+            "min": 129,
+            "max": 138
+          },
+          "near_plane_points_inside_body_rectangle": {
+            "min": 8,
+            "max": 12
+          },
+          "nearest_trusted_floor_range_xy_m": {
+            "min": 0.5359367032597884,
+            "max": 0.5462056230934744
+          },
+          "pose_bracket_sec": {
+            "min": 0.0,
+            "max": 0.0
+          },
+          "distinct_source_stamps": 15,
+          "source_stamps_ns": [
+            34900000000,
+            35000000000,
+            35100000000,
+            35200000000,
+            35300000000,
+            35400000000,
+            35500000000,
+            35600000000,
+            35700000000,
+            35800000000,
+            35900000000,
+            36000000000,
+            36100000000,
+            36200000000,
+            36300000000
+          ],
+          "self_model": {
+            "model_sha256": "b332f7091c332e17b799a173109dac7ac874a26b3a32d9d46c345eb539d7853b",
+            "padding_m": 0.02,
+            "links": 21,
+            "shapes": 41,
+            "mesh_sha256": {
+              "trunk.dae": "e52bebbb5c7ff1f6aedee620c9b5b349f6e965360ecc63a9bb743eeff2d0be64",
+              "hip.dae": "8735e10617afe252cef0844c1d139d15bc6d4c653660d742fea9fe05c2704d8f",
+              "thigh_mirror.dae": "c7bae0b0565c2aa4b7cc15a538d795e9153e0f10c821cc18429e92693172bdc6",
+              "calf.dae": "29872fa1a435b92bc2b395fdfa7f0aee26101db3c494681896bd4ef24ee7883c",
+              "thigh.dae": "a622381ae308897ff143b8bbf02f075457c342b22984205040424a5a983246fa",
+              "L1_4D_Lidar.dae": "24b17ce83b64fbda44750de28d8b920c96c9137b44253dc4e1460a97e6412aeb"
+            },
+            "mesh_method": "native Gazebo mesh bounds; conservative boxes, not triangles",
+            "scope": "endpoint containment; no ray-shadow or continuous-surface proof"
+          },
+          "tf_links_per_sample": [
+            21
+          ]
+        }
+      },
+      "floor_dropout": {
+        "passed": true,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 187,
+          "cells": {
+            "observed_floor": 0,
+            "unknown": 187,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.0,
+          "map_healthy": false,
+          "envelope_observed": false,
+          "reason": "stale_or_invalid_map"
+        }
+      },
+      "floor_audit_scope": {
+        "passed": true,
+        "stationary_checked_commands_only": true,
+        "body_height_range_m": [
+          0.23899119594093143,
+          0.23983247580000266
+        ],
+        "planning_ready": false,
+        "note": "Audit completion is not successful planning readiness"
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "pinned",
+    "self_filter_mode": "geometry",
+    "benchmark_sha256": "270bc58d8035ea6e8ffef72c33c8cadbbd5921bf34fd3195785a879145dc5a83"
+  },
+  "body-near-20261106": {
+    "passed": true,
+    "error": null,
+    "cases": {
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-near-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.05,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 194
+      },
+      "live_sensor_model": {
+        "passed": true,
+        "profile": "l1_near",
+        "min_range_m": 0.05,
+        "max_range_m": 30.0,
+        "horizontal_samples": 600,
+        "vertical_samples": 30,
+        "update_rate_hz": 10.0,
+        "running_filter_parameters": {
+          "guidedog_lidar_stop": {
+            "lidar_min_range": 0.05,
+            "lidar_max_range": 30.0
+          },
+          "guidedog_local_mapper": {
+            "lidar_min_range": 0.05,
+            "lidar_max_range": 30.0,
+            "self_filter_mode": "geometry"
+          }
+        },
+        "robot_description_sha256": "3f79482c469bc27ec18093a1ce79fb10c90ac8d5a45be0ab25deb49257ae2e95"
+      },
+      "floor_flat": {
+        "passed": true,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 181,
+          "cells": {
+            "observed_floor": 103,
+            "unknown": 78,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.569060773480663,
+          "map_healthy": true,
+          "envelope_observed": false,
+          "reason": "incomplete_floor_evidence"
+        },
+        "sample_summary": {
+          "finite_native_points": {
+            "min": 12733,
+            "max": 12733
+          },
+          "range_saturated_min_points": {
+            "min": 468,
+            "max": 518
+          },
+          "valid_range_points": {
+            "min": 12215,
+            "max": 12265
+          },
+          "self_removed_points": {
+            "min": 7271,
+            "max": 7287
+          },
+          "retained_points": {
+            "min": 5446,
+            "max": 5462
+          },
+          "hole_interior_ground_candidates": {
+            "min": 360,
+            "max": 369
+          },
+          "near_plane_points_in_envelope": {
+            "min": 3828,
+            "max": 3852
+          },
+          "near_plane_points_inside_body_rectangle": {
+            "min": 2737,
+            "max": 2756
+          },
+          "nearest_trusted_floor_range_xy_m": {
+            "min": 0.0029659651325978035,
+            "max": 0.010465995371945116
+          },
+          "pose_bracket_sec": {
+            "min": 0.0,
+            "max": 0.0
+          },
+          "distinct_source_stamps": 15,
+          "source_stamps_ns": [
+            30800000000,
+            30900000000,
+            31000000000,
+            31100000000,
+            31200000000,
+            31300000000,
+            31400000000,
+            31500000000,
+            31600000000,
+            31700000000,
+            31800000000,
+            31900000000,
+            32000000000,
+            32100000000,
+            32200000000
+          ],
+          "self_model": {
+            "model_sha256": "3f79482c469bc27ec18093a1ce79fb10c90ac8d5a45be0ab25deb49257ae2e95",
+            "padding_m": 0.02,
+            "links": 21,
+            "shapes": 41,
+            "mesh_sha256": {
+              "trunk.dae": "e52bebbb5c7ff1f6aedee620c9b5b349f6e965360ecc63a9bb743eeff2d0be64",
+              "hip.dae": "8735e10617afe252cef0844c1d139d15bc6d4c653660d742fea9fe05c2704d8f",
+              "thigh_mirror.dae": "c7bae0b0565c2aa4b7cc15a538d795e9153e0f10c821cc18429e92693172bdc6",
+              "calf.dae": "29872fa1a435b92bc2b395fdfa7f0aee26101db3c494681896bd4ef24ee7883c",
+              "thigh.dae": "a622381ae308897ff143b8bbf02f075457c342b22984205040424a5a983246fa",
+              "L1_4D_Lidar.dae": "24b17ce83b64fbda44750de28d8b920c96c9137b44253dc4e1460a97e6412aeb"
+            },
+            "mesh_method": "native Gazebo mesh bounds; conservative boxes, not triangles",
+            "scope": "endpoint containment; no ray-shadow or continuous-surface proof"
+          },
+          "tf_links_per_sample": [
+            21
+          ]
+        }
+      },
+      "floor_hole": {
+        "passed": true,
+        "hole_world_bounds_m": [
+          0.7,
+          1.3,
+          -0.3,
+          0.3
+        ],
+        "interior_cells": 16,
+        "false_free_cells": 0,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 181,
+          "cells": {
+            "observed_floor": 87,
+            "unknown": 94,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.48066298342541436,
+          "map_healthy": true,
+          "envelope_observed": false,
+          "reason": "incomplete_floor_evidence"
+        },
+        "sample_summary": {
+          "finite_native_points": {
+            "min": 12423,
+            "max": 12423
+          },
+          "range_saturated_min_points": {
+            "min": 464,
+            "max": 533
+          },
+          "valid_range_points": {
+            "min": 11890,
+            "max": 11959
+          },
+          "self_removed_points": {
+            "min": 7273,
+            "max": 7290
+          },
+          "retained_points": {
+            "min": 5133,
+            "max": 5150
+          },
+          "hole_interior_ground_candidates": {
+            "min": 0,
+            "max": 0
+          },
+          "near_plane_points_in_envelope": {
+            "min": 3496,
+            "max": 3531
+          },
+          "near_plane_points_inside_body_rectangle": {
+            "min": 2729,
+            "max": 2751
+          },
+          "nearest_trusted_floor_range_xy_m": {
+            "min": 0.0016805563701505198,
+            "max": 0.011135442015309334
+          },
+          "pose_bracket_sec": {
+            "min": 0.0,
+            "max": 0.0
+          },
+          "distinct_source_stamps": 15,
+          "source_stamps_ns": [
+            33700000000,
+            33800000000,
+            33900000000,
+            34000000000,
+            34100000000,
+            34200000000,
+            34300000000,
+            34400000000,
+            34500000000,
+            34600000000,
+            34700000000,
+            34800000000,
+            34900000000,
+            35000000000,
+            35100000000
+          ],
+          "self_model": {
+            "model_sha256": "3f79482c469bc27ec18093a1ce79fb10c90ac8d5a45be0ab25deb49257ae2e95",
+            "padding_m": 0.02,
+            "links": 21,
+            "shapes": 41,
+            "mesh_sha256": {
+              "trunk.dae": "e52bebbb5c7ff1f6aedee620c9b5b349f6e965360ecc63a9bb743eeff2d0be64",
+              "hip.dae": "8735e10617afe252cef0844c1d139d15bc6d4c653660d742fea9fe05c2704d8f",
+              "thigh_mirror.dae": "c7bae0b0565c2aa4b7cc15a538d795e9153e0f10c821cc18429e92693172bdc6",
+              "calf.dae": "29872fa1a435b92bc2b395fdfa7f0aee26101db3c494681896bd4ef24ee7883c",
+              "thigh.dae": "a622381ae308897ff143b8bbf02f075457c342b22984205040424a5a983246fa",
+              "L1_4D_Lidar.dae": "24b17ce83b64fbda44750de28d8b920c96c9137b44253dc4e1460a97e6412aeb"
+            },
+            "mesh_method": "native Gazebo mesh bounds; conservative boxes, not triangles",
+            "scope": "endpoint containment; no ray-shadow or continuous-surface proof"
+          },
+          "tf_links_per_sample": [
+            21
+          ]
+        }
+      },
+      "floor_dropout": {
+        "passed": true,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 181,
+          "cells": {
+            "observed_floor": 0,
+            "unknown": 181,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.0,
+          "map_healthy": false,
+          "envelope_observed": false,
+          "reason": "stale_or_invalid_map"
+        }
+      },
+      "floor_audit_scope": {
+        "passed": true,
+        "stationary_checked_commands_only": true,
+        "body_height_range_m": [
+          0.2387590133630448,
+          0.24007513876799458
+        ],
+        "planning_ready": false,
+        "note": "Audit completion is not successful planning readiness"
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "l1_near",
+    "self_filter_mode": "geometry",
+    "benchmark_sha256": "c109da41242474f1285a26c8c5941b6f0d70a17549c6970a0593d88c60b7fc24"
+  },
+  "body-near-legacy-20261106": {
+    "passed": true,
+    "error": null,
+    "cases": {
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-near-legacy-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.05,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 186
+      },
+      "live_sensor_model": {
+        "passed": true,
+        "profile": "l1_near",
+        "min_range_m": 0.05,
+        "max_range_m": 30.0,
+        "horizontal_samples": 600,
+        "vertical_samples": 30,
+        "update_rate_hz": 10.0,
+        "running_filter_parameters": {
+          "guidedog_lidar_stop": {
+            "lidar_min_range": 0.05,
+            "lidar_max_range": 30.0
+          },
+          "guidedog_local_mapper": {
+            "lidar_min_range": 0.05,
+            "lidar_max_range": 30.0,
+            "self_filter_mode": "legacy_body"
+          }
+        },
+        "robot_description_sha256": "4eef26a6137fd2a38ddf4dad99268d7916533c32c8dde9a835123e3db52d8daf"
+      },
+      "floor_flat": {
+        "passed": true,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 186,
+          "cells": {
+            "observed_floor": 70,
+            "unknown": 116,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.3763440860215054,
+          "map_healthy": true,
+          "envelope_observed": false,
+          "reason": "incomplete_floor_evidence"
+        },
+        "sample_summary": {
+          "finite_native_points": {
+            "min": 12733,
+            "max": 12733
+          },
+          "range_saturated_min_points": {
+            "min": 466,
+            "max": 526
+          },
+          "valid_range_points": {
+            "min": 12207,
+            "max": 12267
+          },
+          "self_removed_points": {
+            "min": 0,
+            "max": 0
+          },
+          "retained_points": {
+            "min": 12207,
+            "max": 12267
+          },
+          "hole_interior_ground_candidates": {
+            "min": 243,
+            "max": 254
+          },
+          "near_plane_points_in_envelope": {
+            "min": 3992,
+            "max": 4008
+          },
+          "near_plane_points_inside_body_rectangle": {
+            "min": 2891,
+            "max": 2917
+          },
+          "nearest_trusted_floor_range_xy_m": {
+            "min": 0.4003705813701273,
+            "max": 0.40617256434389576
+          },
+          "pose_bracket_sec": {
+            "min": 0.0,
+            "max": 0.0
+          },
+          "distinct_source_stamps": 15,
+          "source_stamps_ns": [
+            31100000000,
+            31200000000,
+            31300000000,
+            31400000000,
+            31500000000,
+            31600000000,
+            31700000000,
+            31800000000,
+            31900000000,
+            32000000000,
+            32100000000,
+            32200000000,
+            32300000000,
+            32400000000,
+            32500000000
+          ]
+        }
+      },
+      "floor_hole": {
+        "passed": true,
+        "hole_world_bounds_m": [
+          0.7,
+          1.3,
+          -0.3,
+          0.3
+        ],
+        "interior_cells": 16,
+        "false_free_cells": 0,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 186,
+          "cells": {
+            "observed_floor": 59,
+            "unknown": 127,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.3172043010752688,
+          "map_healthy": true,
+          "envelope_observed": false,
+          "reason": "incomplete_floor_evidence"
+        },
+        "sample_summary": {
+          "finite_native_points": {
+            "min": 12430,
+            "max": 12432
+          },
+          "range_saturated_min_points": {
+            "min": 473,
+            "max": 516
+          },
+          "valid_range_points": {
+            "min": 11915,
+            "max": 11957
+          },
+          "self_removed_points": {
+            "min": 0,
+            "max": 0
+          },
+          "retained_points": {
+            "min": 11915,
+            "max": 11957
+          },
+          "hole_interior_ground_candidates": {
+            "min": 0,
+            "max": 0
+          },
+          "near_plane_points_in_envelope": {
+            "min": 3752,
+            "max": 3774
+          },
+          "near_plane_points_inside_body_rectangle": {
+            "min": 2893,
+            "max": 2920
+          },
+          "nearest_trusted_floor_range_xy_m": {
+            "min": 0.4006622388742593,
+            "max": 0.4039792655630371
+          },
+          "pose_bracket_sec": {
+            "min": 0.0,
+            "max": 0.0
+          },
+          "distinct_source_stamps": 15,
+          "source_stamps_ns": [
+            34000000000,
+            34100000000,
+            34200000000,
+            34300000000,
+            34400000000,
+            34500000000,
+            34600000000,
+            34700000000,
+            34800000000,
+            34900000000,
+            35000000000,
+            35100000000,
+            35200000000,
+            35300000000,
+            35400000000
+          ]
+        }
+      },
+      "floor_dropout": {
+        "passed": true,
+        "support": {
+          "schema_version": 1,
+          "diagnostic_only": true,
+          "scope": "observed flat-floor grid cells; not continuous terrain or motion approval",
+          "assessment_radius_m": 0.7020797289396148,
+          "required_cells": 186,
+          "cells": {
+            "observed_floor": 0,
+            "unknown": 186,
+            "occupied": 0,
+            "outside_map": 0
+          },
+          "observed_floor_fraction": 0.0,
+          "map_healthy": false,
+          "envelope_observed": false,
+          "reason": "stale_or_invalid_map"
+        }
+      },
+      "floor_audit_scope": {
+        "passed": true,
+        "stationary_checked_commands_only": true,
+        "body_height_range_m": [
+          0.23859414344072277,
+          0.24011097030717357
+        ],
+        "planning_ready": false,
+        "note": "Audit completion is not successful planning readiness"
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "l1_near",
+    "self_filter_mode": "legacy_body",
+    "benchmark_sha256": "3be9fa8ca58e8d8174b684afa2f8907653862d9e4bf30a17160f47b0f4880ada"
+  },
+  "body-stop-regression-20261106": {
+    "passed": true,
+    "error": null,
+    "cases": {
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-stop-regression-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.8,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 178
+      },
+      "free_path": {
+        "passed": true,
+        "forward_progress_m": 0.241894877259514,
+        "observed_zero_delay_wall_sec": 0.10765154799446464,
+        "post_zero_forward_travel_m": 0.0,
+        "settled_position_spread_m": 0.0001223511332042638
+      },
+      "side_obstacle": {
+        "passed": true,
+        "forward_progress_m": 0.197478883421536,
+        "observed_zero_delay_wall_sec": 0.09243293699546484,
+        "post_zero_forward_travel_m": 0.0,
+        "settled_position_spread_m": 3.583640905773777e-05
+      },
+      "front_obstacle": {
+        "passed": true,
+        "forward_progress_m": 0.22149002591322065,
+        "ground_truth_clearance_m": 0.8243084189731835,
+        "legacy_projected_clearance_m": 0.8231613999779297,
+        "clearance_metric_version": 2,
+        "first_detected_clearance_m": 0.792850214281051,
+        "stopped_scan_clearance_m": 0.8078006983901955,
+        "detection_ros_time_sec": 51.338,
+        "observed_zero_delay_wall_sec": 0.041209603994502686,
+        "post_zero_forward_travel_m": 0.0021846310259764096,
+        "settled_position_spread_m": 4.342491455343306e-05
+      },
+      "explicit_rearm": {
+        "passed": true,
+        "held_command_remained_stopped": true,
+        "forward_travel_after_clear_m": 2.265849954653414e-06
+      },
+      "scan_loss": {
+        "passed": true,
+        "fault": "real_scan_relay_disabled",
+        "pre_fault_forward_progress_m": 0.03917984800545267,
+        "observed_zero_delay_wall_sec": 1.5558575370014296,
+        "post_zero_forward_travel_m": 0.00010432683376258601,
+        "settled_position_spread_m": 8.688928177873648e-05
+      },
+      "command_loss": {
+        "passed": true,
+        "pre_fault_forward_progress_m": 0.0395331924278721,
+        "observed_zero_delay_wall_sec": 0.4490754200014635,
+        "post_zero_forward_travel_m": 0.0,
+        "settled_position_spread_m": 0.00024139686446046605
+      },
+      "contact_monitor": {
+        "passed": true,
+        "messages_received": 179,
+        "robot_obstacle_contacts": 0
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "pinned",
+    "self_filter_mode": "geometry",
+    "benchmark_sha256": "72fa4261b0602639a5a454a7336172d32b1077af47a7d854e72245901f864d66"
+  },
+  "body-map-regression-20261106": {
+    "passed": true,
+    "error": null,
+    "cases": {
+      "mapping_limits": {
+        "passed": true,
+        "max_box_boundary_error_p95_m": 0.2,
+        "min_obstacle_cells": 3,
+        "max_update_cost_p95_ms": 100.0,
+        "max_cell_storage_bytes": 1048576,
+        "min_motion_m": 0.05,
+        "simulation_flat_ground_only": true
+      },
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-map-regression-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.8,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 173
+      },
+      "box_localization": {
+        "passed": true,
+        "occupied_cells_near_box": 11,
+        "box_boundary_error_p95_m": 0.023546377044318736,
+        "initial_gt_to_odom_rotation_rad": -8.286011580429034e-06,
+        "unknown_cells": 6034,
+        "free_cells": 355
+      },
+      "occluded_ground": {
+        "passed": true,
+        "unknown_fraction": 1.0,
+        "sampled_cells": 18
+      },
+      "motion_and_roll": {
+        "passed": true,
+        "ground_truth_progress_m": 0.10215472202399659,
+        "rolls_before": 2,
+        "rolls_after": 6,
+        "occupied_cells_near_box": 12,
+        "box_boundary_error_p95_m": 0.0492251011367419,
+        "observed_zero_delay_wall_sec": 0.028728006000164896,
+        "post_zero_forward_travel_m": 0.0,
+        "settled_position_spread_m": 0.0001386888559621145
+      },
+      "short_blackout": {
+        "passed": true,
+        "occupied_cells_near_box": 12,
+        "box_boundary_error_p95_m": 0.0492251011367419,
+        "healthy": false,
+        "source_stamp_ns": 38500000000
+      },
+      "expiry_to_unknown": {
+        "passed": true,
+        "source_stamp_unchanged": true,
+        "unknown_cells": 6400
+      },
+      "fresh_ground_clearing": {
+        "passed": true,
+        "formerly_occupied_now_observed_free": 2
+      },
+      "mapping_budget": {
+        "passed": true,
+        "cell_array_bytes": 179200,
+        "update_cost_p95_ms": 8.722189798209,
+        "accepted_clouds": 107,
+        "robot_obstacle_contacts": 0
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "pinned",
+    "self_filter_mode": "geometry",
+    "benchmark_sha256": "df8c5a40f78b7bbe5579e73cd7a459fde6050c2f6c8b482e673221b9396f27ab"
+  },
+  "body-motion-20261106": {
+    "passed": true,
+    "error": null,
+    "cases": {
+      "map_readiness_limits": {
+        "passed": true,
+        "min_associated_cells_per_box": 3,
+        "boundary_error_p95_m": 0.2,
+        "boundary_error_max_m": 0.3,
+        "free_wholly_inside_boxes_cells": 0,
+        "max_update_cost_p95_ms": 100.0,
+        "max_cell_array_bytes": 1048576,
+        "configured_front_rear_m": 0.45,
+        "configured_half_width_m": 0.4,
+        "assessment_margin_m": 0.1,
+        "target_forward_motion_m": 2.0,
+        "max_lateral_motion_m": 0.3,
+        "max_heading_excursion_deg": 15.0,
+        "max_odom_position_error_m": 0.2,
+        "max_motion_wall_sec": 600.0,
+        "max_motion_source_sec": 180.0,
+        "request_speed_mps": 0.05,
+        "min_body_height_m": 0.15,
+        "max_body_height_m": 0.4,
+        "min_reference_fraction": 0.8,
+        "min_motion_evaluations": 8,
+        "assessment_radius_m": 0.7020797289396148,
+        "assessment_only_not_a_motion_safety_limit": true
+      },
+      "controller_route": {
+        "passed": true,
+        "controller_input": "/guidedog/cmd_vel_checked",
+        "raw_cmd_vel_bypass": false,
+        "guard_parameters": {
+          "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-motion-20261106/session",
+          "lidar_topic": "/guidedog/test_lidar",
+          "base_frame": "base_footprint",
+          "max_speed": 0.05,
+          "stop_distance": 0.8,
+          "scan_timeout": 1.5,
+          "min_speed": 0.05,
+          "lidar_reliability": "reliable",
+          "command_timeout": 0.4,
+          "front_extent": 0.45,
+          "half_width": 0.4,
+          "lidar_min_range": 0.8,
+          "lidar_max_range": 30.0
+        }
+      },
+      "contact_positive_control": {
+        "passed": true,
+        "probe_contacts": 176
+      },
+      "long_motion": {
+        "passed": true,
+        "motion_envelope_passed": true,
+        "target_reached": true,
+        "stop_reason": null,
+        "measurement_error": null,
+        "progress_m": 2.0033556048357792,
+        "lateral_m": -0.10006939790115149,
+        "heading_excursion_deg": -2.5526610818416313,
+        "max_abs_lateral_motion_m": 0.11955978251229679,
+        "max_abs_heading_excursion_deg": 6.2529166762053245,
+        "max_abs_lateral_including_settle_m": 0.11955978251229679,
+        "max_abs_heading_including_settle_deg": 6.305347499527299,
+        "body_height_including_settle_m": [
+          0.23398088049838686,
+          0.2446141679668329
+        ],
+        "final_forward_progress_m": 2.0044704571762355,
+        "elapsed_wall_sec": 50.98970774599729,
+        "elapsed_source_sec": 49.74400000000001,
+        "reference_boxes": [
+          {
+            "name": "map_validation_box_0",
+            "pose": [
+              1.0401342829657372,
+              -1.1363402977637995,
+              0.062448139505662977
+            ],
+            "size": [
+              0.5,
+              0.5,
+              1.0
+            ],
+            "positive_probe_contacts": 18,
+            "truth_world_pose": [
+              1.2858685195673805,
+              -1.1280654175147469,
+              0.06243561825413644
+            ]
+          },
+          {
+            "name": "map_validation_box_1",
+            "pose": [
+              1.8884068910440819,
+              1.3213890572270959,
+              0.062448139505662977
+            ],
+            "size": [
+              0.5,
+              0.5,
+              1.0
+            ],
+            "positive_probe_contacts": 16,
+            "truth_world_pose": [
+              2.1341719014266656,
+              1.3296533158487964,
+              0.06243561825413644
+            ]
+          },
+          {
+            "name": "map_validation_box_2",
+            "pose": [
+              3.0362357800238713,
+              -1.011525180721531,
+              0.062448139505662977
+            ],
+            "size": [
+              0.5,
+              0.5,
+              1.0
+            ],
+            "positive_probe_contacts": 15,
+            "truth_world_pose": [
+              3.2819715793105133,
+              -1.0032752941711793,
+              0.06243561825413644
+            ]
+          }
+        ],
+        "evaluation_count": 10,
+        "reference_fraction": 1.0,
+        "attempted_evaluations": 10,
+        "evaluations": [
+          {
+            "source_stamp_ns": 37900000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.015479148001759313,
+            "odom_position_error_m": 8.268620054122779e-05,
+            "odom_heading_error_deg": -0.0004455720935724129,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 18,
+                  "boundary_error_p95_m": 0.060172139558474565,
+                  "boundary_error_max_m": 0.06463857959093453,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 10
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 11,
+                  "boundary_error_p95_m": 0.03406499021220341,
+                  "boundary_error_max_m": 0.03718536818475737,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 15
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 15,
+                  "boundary_error_p95_m": 0.06359845378963362,
+                  "boundary_error_max_m": 0.06796698295120918,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 13
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": -1,
+              "observed_free_cells": 382,
+              "largest_point_free_component_cells": 192,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5974
+            },
+            "update_cost_p95_ms": 11.00639740216138,
+            "cell_array_bytes": 179200,
+            "rolls": 4
+          },
+          {
+            "source_stamp_ns": 42700000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.14158171600138303,
+            "odom_position_error_m": 0.022990329589001175,
+            "odom_heading_error_deg": 1.694160499416073,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 22,
+                  "boundary_error_p95_m": 0.07411111560750812,
+                  "boundary_error_max_m": 0.07886504238173696,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 33,
+                  "boundary_error_p95_m": 0.13324599225903283,
+                  "boundary_error_max_m": 0.16795349497181075,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 33,
+                  "boundary_error_p95_m": 0.18443227566768,
+                  "boundary_error_max_m": 0.19728509367594194,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 6
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": -1,
+              "observed_free_cells": 1090,
+              "largest_point_free_component_cells": 874,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5222
+            },
+            "update_cost_p95_ms": 10.747762102255365,
+            "cell_array_bytes": 179200,
+            "rolls": 6
+          },
+          {
+            "source_stamp_ns": 47700000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.1258129479974741,
+            "odom_position_error_m": 0.014936137229823405,
+            "odom_heading_error_deg": 1.250716711702693,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 23,
+                  "boundary_error_p95_m": 0.07394102297441113,
+                  "boundary_error_max_m": 0.07886503991252286,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 32,
+                  "boundary_error_p95_m": 0.12731727243798036,
+                  "boundary_error_max_m": 0.13699044415289763,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 32,
+                  "boundary_error_p95_m": 0.1737627258963975,
+                  "boundary_error_max_m": 0.18945369812111515,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 6
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": -1,
+              "observed_free_cells": 939,
+              "largest_point_free_component_cells": 726,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5374
+            },
+            "update_cost_p95_ms": 10.391367600095684,
+            "cell_array_bytes": 179200,
+            "rolls": 13
+          },
+          {
+            "source_stamp_ns": 52700000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.10948014599853195,
+            "odom_position_error_m": 0.028358000497533856,
+            "odom_heading_error_deg": 2.2286629587411935,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 20,
+                  "boundary_error_p95_m": 0.0710494288674032,
+                  "boundary_error_max_m": 0.0742812127646306,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 28,
+                  "boundary_error_p95_m": 0.12856542344101293,
+                  "boundary_error_max_m": 0.13699044396690863,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 12
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 28,
+                  "boundary_error_p95_m": 0.12436663980107769,
+                  "boundary_error_max_m": 0.12935047436576863,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": 0,
+              "observed_free_cells": 1029,
+              "largest_point_free_component_cells": 801,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5295
+            },
+            "update_cost_p95_ms": 10.043054701964138,
+            "cell_array_bytes": 179200,
+            "rolls": 15
+          },
+          {
+            "source_stamp_ns": 57500000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.024802011997962836,
+            "odom_position_error_m": 0.04591811265132542,
+            "odom_heading_error_deg": -1.4996199434996593,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 12,
+                  "boundary_error_p95_m": 0.06744691902227705,
+                  "boundary_error_max_m": 0.07087933479208641,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 28,
+                  "boundary_error_p95_m": 0.12856542325502388,
+                  "boundary_error_max_m": 0.13699044378091957,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 12
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 30,
+                  "boundary_error_p95_m": 0.13061146357827488,
+                  "boundary_error_max_m": 0.13788393757182704,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": 0,
+              "observed_free_cells": 914,
+              "largest_point_free_component_cells": 705,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5416
+            },
+            "update_cost_p95_ms": 10.727608401793987,
+            "cell_array_bytes": 179200,
+            "rolls": 17
+          },
+          {
+            "source_stamp_ns": 62400000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.012942809997184668,
+            "odom_position_error_m": 0.045776863843408185,
+            "odom_heading_error_deg": -1.2336130031697747,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 14,
+                  "boundary_error_p95_m": 0.06682284324177724,
+                  "boundary_error_max_m": 0.07087933460609741,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 28,
+                  "boundary_error_p95_m": 0.12856542306903487,
+                  "boundary_error_max_m": 0.13699044359493057,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 12
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 31,
+                  "boundary_error_p95_m": 0.1744283530102504,
+                  "boundary_error_max_m": 0.1894536975631481,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 6
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": -1,
+              "observed_free_cells": 878,
+              "largest_point_free_component_cells": 594,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5449
+            },
+            "update_cost_p95_ms": 10.009786848968359,
+            "cell_array_bytes": 179200,
+            "rolls": 19
+          },
+          {
+            "source_stamp_ns": 67200000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.16530732700630324,
+            "odom_position_error_m": 0.03751395276958535,
+            "odom_heading_error_deg": 1.5802549681442748,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 21,
+                  "boundary_error_p95_m": 0.0761454720658074,
+                  "boundary_error_max_m": 0.13496008862244663,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 8
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 27,
+                  "boundary_error_p95_m": 0.12887746068030126,
+                  "boundary_error_max_m": 0.13699044340894156,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 13
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 31,
+                  "boundary_error_p95_m": 0.17442835195361184,
+                  "boundary_error_max_m": 0.18945369737715906,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 6
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": -1,
+              "observed_free_cells": 945,
+              "largest_point_free_component_cells": 723,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5376
+            },
+            "update_cost_p95_ms": 9.9988182533707,
+            "cell_array_bytes": 179200,
+            "rolls": 21
+          },
+          {
+            "source_stamp_ns": 72100000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.17110053500073263,
+            "odom_position_error_m": 0.05192405766525899,
+            "odom_heading_error_deg": 0.32552093973277274,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 21,
+                  "boundary_error_p95_m": 0.07886502412606833,
+                  "boundary_error_max_m": 0.09144698645519315,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 22,
+                  "boundary_error_p95_m": 0.12419689344248681,
+                  "boundary_error_max_m": 0.13074968718485014,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 14
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 28,
+                  "boundary_error_p95_m": 0.17642524438430396,
+                  "boundary_error_max_m": 0.18945369709817556,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 6
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": 0,
+              "observed_free_cells": 942,
+              "largest_point_free_component_cells": 694,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5387
+            },
+            "update_cost_p95_ms": 10.308194804383675,
+            "cell_array_bytes": 179200,
+            "rolls": 24
+          },
+          {
+            "source_stamp_ns": 77100000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.1624668689983082,
+            "odom_position_error_m": 0.07033985209361195,
+            "odom_heading_error_deg": -1.1855959928513424,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 18,
+                  "boundary_error_p95_m": 0.08075231581694764,
+                  "boundary_error_max_m": 0.09144698499676374,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 19,
+                  "boundary_error_p95_m": 0.1400867467408142,
+                  "boundary_error_max_m": 0.1679534809124217,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 15
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 24,
+                  "boundary_error_p95_m": 0.09502230593470559,
+                  "boundary_error_max_m": 0.16777203400873192,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 8
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": 0,
+              "observed_free_cells": 883,
+              "largest_point_free_component_cells": 613,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5456
+            },
+            "update_cost_p95_ms": 10.345441700337679,
+            "cell_array_bytes": 179200,
+            "rolls": 26
+          },
+          {
+            "source_stamp_ns": 82200000000,
+            "pose_bracket_sec": 0.0,
+            "healthy": true,
+            "observer_age_sec": 0.10239420799916843,
+            "odom_position_error_m": 0.07513023576901204,
+            "odom_heading_error_deg": 1.2652889122852626,
+            "boxes": {
+              "boxes": {
+                "map_validation_box_0": {
+                  "associated_occupied_cells": 19,
+                  "boundary_error_p95_m": 0.07767562262719468,
+                  "boundary_error_max_m": 0.09144698353833462,
+                  "whole_interior_cells": 10,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 9
+                },
+                "map_validation_box_1": {
+                  "associated_occupied_cells": 13,
+                  "boundary_error_p95_m": 0.13324598919091524,
+                  "boundary_error_max_m": 0.13699044275798,
+                  "whole_interior_cells": 15,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 15
+                },
+                "map_validation_box_2": {
+                  "associated_occupied_cells": 23,
+                  "boundary_error_p95_m": 0.09531132946786335,
+                  "boundary_error_max_m": 0.1894536967261975,
+                  "whole_interior_cells": 13,
+                  "free_wholly_inside_box_cells": 0,
+                  "unknown_wholly_inside_box_cells": 8
+                }
+              },
+              "unmatched_occupied_cells": 0,
+              "association_gate_m": 0.5,
+              "free_wholly_inside_boxes_cells": 0
+            },
+            "connectivity": {
+              "planning_ready": false,
+              "reason": "start_unknown",
+              "assessment_radius_m": 0.7020797289396148,
+              "start_cell_state": -1,
+              "goal_cell_state": 0,
+              "observed_free_cells": 956,
+              "largest_point_free_component_cells": 736,
+              "envelope_free_cells": 0,
+              "largest_envelope_free_component_cells": 0,
+              "reachable_envelope_cells_from_start": 0,
+              "unknown_cells": 5389
+            },
+            "update_cost_p95_ms": 10.855015448396438,
+            "cell_array_bytes": 179200,
+            "rolls": 28
+          }
+        ],
+        "final": {
+          "source_stamp_ns": 87600000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.041323060999275185,
+          "odom_position_error_m": 0.062103137223138795,
+          "odom_heading_error_deg": -0.0006212593713836497,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 18,
+                "boundary_error_p95_m": 0.07844069804494164,
+                "boundary_error_max_m": 0.09144698280912007,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 14,
+                "boundary_error_p95_m": 0.13293395130066535,
+                "boundary_error_max_m": 0.1369904426649855,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 15
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 20,
+                "boundary_error_p95_m": 0.16885611290140298,
+                "boundary_error_max_m": 0.189453696633203,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 7
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": -1,
+            "observed_free_cells": 638,
+            "largest_point_free_component_cells": 405,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5710
+          },
+          "update_cost_p95_ms": 11.571955250474266,
+          "cell_array_bytes": 179200,
+          "rolls": 29
+        },
+        "observed_zero_delay_wall_sec": 0.05823610500374343,
+        "post_zero_forward_travel_m": 0.0,
+        "settled_position_spread_m": 7.864901566376358e-05
+      },
+      "contact_monitor": {
+        "passed": true,
+        "messages_received": 878,
+        "positive_probe_contact_observations": 878,
+        "robot_obstacle_contacts": [],
+        "robot_obstacle_contact_count": 0
+      },
+      "motion_only_assessment": {
+        "passed": true,
+        "planning_ready_was_not_assessed": true
+      }
+    },
+    "launch_exit_code": 0,
+    "sensor_profile": "pinned",
+    "self_filter_mode": "geometry",
+    "benchmark_sha256": "97ef6e8cbf2c6b7447ca29555659b3a42d18a0142f8fe468f3570cb4ed2aa056"
+  }
+}

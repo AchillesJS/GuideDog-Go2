@@ -84,7 +84,8 @@ class LocalGrid:
         """Account for all persistent cell arrays."""
         return sum(a.nbytes for a in self.arrays.values())
 
-    def observe(self, local, odom, plane, center, stamp, now):
+    def observe(self, local, odom, plane, center, stamp, now, *, body_mask=True,
+                excluded_odom=None):
         """Accumulate only unique stamped observations; never ray-clear absent ground."""
         if self.last_stamp is not None and stamp <= self.last_stamp:
             return False
@@ -97,7 +98,8 @@ class LocalGrid:
         valid = np.isfinite(local).all(axis=1) & np.isfinite(odom).all(axis=1)
         local, odom = local[valid], odom[valid]
         # The body/blind region provides no observed floor evidence.
-        outside_body = (np.abs(local[:, 0]) > 0.45) | (np.abs(local[:, 1]) > 0.40)
+        outside_body = ((np.abs(local[:, 0]) > 0.45) | (np.abs(local[:, 1]) > 0.40)
+                        if body_mask else np.ones(len(local), dtype=bool))
         height = local[:, 2] - (local[:, :2] @ plane[:2] + plane[2])
         cells = np.floor(odom[:, :2] / self.resolution).astype(np.int64) - self.origin_cells
         inside = outside_body & ((cells >= 0) & (cells < self.n)).all(axis=1)
@@ -109,6 +111,17 @@ class LocalGrid:
         floors = np.bincount(indices[ground], minlength=count).reshape(self.n, self.n)
         hits = np.bincount(indices[obstacle], minlength=count).reshape(self.n, self.n) >= 2
         nonfloor = np.bincount(indices[~ground], minlength=count).reshape(self.n, self.n) > 0
+        if excluded_odom is not None:
+            excluded = np.asarray(excluded_odom)
+            if excluded.ndim != 2 or excluded.shape[1] != 3:
+                raise ValueError('invalid_excluded_points')
+            excluded = excluded[np.isfinite(excluded).all(axis=1)]
+            cells = (np.floor(excluded[:, :2]/self.resolution).astype(np.int64)
+                     - self.origin_cells)
+            cells = cells[((cells >= 0) & (cells < self.n)).all(axis=1)]
+            # A removed body/boundary hit can withhold a cell, never create free floor
+            # or clear a previously observed obstacle in that same projected cell.
+            nonfloor[cells[:, 1], cells[:, 0]] = True
         free = (floors >= 3) & ~nonfloor
         a = self.arrays
         a['clear_streak'][now - a['floor_at'] > self.free_ttl] = 0

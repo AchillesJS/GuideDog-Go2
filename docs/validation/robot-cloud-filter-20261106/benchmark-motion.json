@@ -1,0 +1,766 @@
+{
+  "passed": true,
+  "cases": {
+    "map_readiness_limits": {
+      "passed": true,
+      "min_associated_cells_per_box": 3,
+      "boundary_error_p95_m": 0.2,
+      "boundary_error_max_m": 0.3,
+      "free_wholly_inside_boxes_cells": 0,
+      "max_update_cost_p95_ms": 100.0,
+      "max_cell_array_bytes": 1048576,
+      "configured_front_rear_m": 0.45,
+      "configured_half_width_m": 0.4,
+      "assessment_margin_m": 0.1,
+      "target_forward_motion_m": 2.0,
+      "max_lateral_motion_m": 0.3,
+      "max_heading_excursion_deg": 15.0,
+      "max_odom_position_error_m": 0.2,
+      "max_motion_wall_sec": 600.0,
+      "max_motion_source_sec": 180.0,
+      "request_speed_mps": 0.05,
+      "min_body_height_m": 0.15,
+      "max_body_height_m": 0.4,
+      "min_reference_fraction": 0.8,
+      "min_motion_evaluations": 8,
+      "assessment_radius_m": 0.7020797289396148,
+      "assessment_only_not_a_motion_safety_limit": true
+    },
+    "controller_route": {
+      "passed": true,
+      "controller_input": "/guidedog/cmd_vel_checked",
+      "raw_cmd_vel_bypass": false,
+      "guard_parameters": {
+        "report_dir": "/home/guide-dog/.ros/guidedog/reports/body-motion-20261106/session",
+        "lidar_topic": "/guidedog/test_lidar",
+        "base_frame": "base_footprint",
+        "max_speed": 0.05,
+        "stop_distance": 0.8,
+        "scan_timeout": 1.5,
+        "min_speed": 0.05,
+        "lidar_reliability": "reliable",
+        "command_timeout": 0.4,
+        "front_extent": 0.45,
+        "half_width": 0.4,
+        "lidar_min_range": 0.8,
+        "lidar_max_range": 30.0
+      }
+    },
+    "contact_positive_control": {
+      "passed": true,
+      "probe_contacts": 176
+    },
+    "long_motion": {
+      "passed": true,
+      "motion_envelope_passed": true,
+      "target_reached": true,
+      "stop_reason": null,
+      "measurement_error": null,
+      "progress_m": 2.0033556048357792,
+      "lateral_m": -0.10006939790115149,
+      "heading_excursion_deg": -2.5526610818416313,
+      "max_abs_lateral_motion_m": 0.11955978251229679,
+      "max_abs_heading_excursion_deg": 6.2529166762053245,
+      "max_abs_lateral_including_settle_m": 0.11955978251229679,
+      "max_abs_heading_including_settle_deg": 6.305347499527299,
+      "body_height_including_settle_m": [
+        0.23398088049838686,
+        0.2446141679668329
+      ],
+      "final_forward_progress_m": 2.0044704571762355,
+      "elapsed_wall_sec": 50.98970774599729,
+      "elapsed_source_sec": 49.74400000000001,
+      "reference_boxes": [
+        {
+          "name": "map_validation_box_0",
+          "pose": [
+            1.0401342829657372,
+            -1.1363402977637995,
+            0.062448139505662977
+          ],
+          "size": [
+            0.5,
+            0.5,
+            1.0
+          ],
+          "positive_probe_contacts": 18,
+          "truth_world_pose": [
+            1.2858685195673805,
+            -1.1280654175147469,
+            0.06243561825413644
+          ]
+        },
+        {
+          "name": "map_validation_box_1",
+          "pose": [
+            1.8884068910440819,
+            1.3213890572270959,
+            0.062448139505662977
+          ],
+          "size": [
+            0.5,
+            0.5,
+            1.0
+          ],
+          "positive_probe_contacts": 16,
+          "truth_world_pose": [
+            2.1341719014266656,
+            1.3296533158487964,
+            0.06243561825413644
+          ]
+        },
+        {
+          "name": "map_validation_box_2",
+          "pose": [
+            3.0362357800238713,
+            -1.011525180721531,
+            0.062448139505662977
+          ],
+          "size": [
+            0.5,
+            0.5,
+            1.0
+          ],
+          "positive_probe_contacts": 15,
+          "truth_world_pose": [
+            3.2819715793105133,
+            -1.0032752941711793,
+            0.06243561825413644
+          ]
+        }
+      ],
+      "evaluation_count": 10,
+      "reference_fraction": 1.0,
+      "attempted_evaluations": 10,
+      "evaluations": [
+        {
+          "source_stamp_ns": 37900000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.015479148001759313,
+          "odom_position_error_m": 8.268620054122779e-05,
+          "odom_heading_error_deg": -0.0004455720935724129,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 18,
+                "boundary_error_p95_m": 0.060172139558474565,
+                "boundary_error_max_m": 0.06463857959093453,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 10
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 11,
+                "boundary_error_p95_m": 0.03406499021220341,
+                "boundary_error_max_m": 0.03718536818475737,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 15
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 15,
+                "boundary_error_p95_m": 0.06359845378963362,
+                "boundary_error_max_m": 0.06796698295120918,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 13
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": -1,
+            "observed_free_cells": 382,
+            "largest_point_free_component_cells": 192,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5974
+          },
+          "update_cost_p95_ms": 11.00639740216138,
+          "cell_array_bytes": 179200,
+          "rolls": 4
+        },
+        {
+          "source_stamp_ns": 42700000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.14158171600138303,
+          "odom_position_error_m": 0.022990329589001175,
+          "odom_heading_error_deg": 1.694160499416073,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 22,
+                "boundary_error_p95_m": 0.07411111560750812,
+                "boundary_error_max_m": 0.07886504238173696,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 33,
+                "boundary_error_p95_m": 0.13324599225903283,
+                "boundary_error_max_m": 0.16795349497181075,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 33,
+                "boundary_error_p95_m": 0.18443227566768,
+                "boundary_error_max_m": 0.19728509367594194,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 6
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": -1,
+            "observed_free_cells": 1090,
+            "largest_point_free_component_cells": 874,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5222
+          },
+          "update_cost_p95_ms": 10.747762102255365,
+          "cell_array_bytes": 179200,
+          "rolls": 6
+        },
+        {
+          "source_stamp_ns": 47700000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.1258129479974741,
+          "odom_position_error_m": 0.014936137229823405,
+          "odom_heading_error_deg": 1.250716711702693,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 23,
+                "boundary_error_p95_m": 0.07394102297441113,
+                "boundary_error_max_m": 0.07886503991252286,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 32,
+                "boundary_error_p95_m": 0.12731727243798036,
+                "boundary_error_max_m": 0.13699044415289763,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 32,
+                "boundary_error_p95_m": 0.1737627258963975,
+                "boundary_error_max_m": 0.18945369812111515,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 6
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": -1,
+            "observed_free_cells": 939,
+            "largest_point_free_component_cells": 726,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5374
+          },
+          "update_cost_p95_ms": 10.391367600095684,
+          "cell_array_bytes": 179200,
+          "rolls": 13
+        },
+        {
+          "source_stamp_ns": 52700000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.10948014599853195,
+          "odom_position_error_m": 0.028358000497533856,
+          "odom_heading_error_deg": 2.2286629587411935,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 20,
+                "boundary_error_p95_m": 0.0710494288674032,
+                "boundary_error_max_m": 0.0742812127646306,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 28,
+                "boundary_error_p95_m": 0.12856542344101293,
+                "boundary_error_max_m": 0.13699044396690863,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 12
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 28,
+                "boundary_error_p95_m": 0.12436663980107769,
+                "boundary_error_max_m": 0.12935047436576863,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": 0,
+            "observed_free_cells": 1029,
+            "largest_point_free_component_cells": 801,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5295
+          },
+          "update_cost_p95_ms": 10.043054701964138,
+          "cell_array_bytes": 179200,
+          "rolls": 15
+        },
+        {
+          "source_stamp_ns": 57500000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.024802011997962836,
+          "odom_position_error_m": 0.04591811265132542,
+          "odom_heading_error_deg": -1.4996199434996593,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 12,
+                "boundary_error_p95_m": 0.06744691902227705,
+                "boundary_error_max_m": 0.07087933479208641,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 28,
+                "boundary_error_p95_m": 0.12856542325502388,
+                "boundary_error_max_m": 0.13699044378091957,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 12
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 30,
+                "boundary_error_p95_m": 0.13061146357827488,
+                "boundary_error_max_m": 0.13788393757182704,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": 0,
+            "observed_free_cells": 914,
+            "largest_point_free_component_cells": 705,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5416
+          },
+          "update_cost_p95_ms": 10.727608401793987,
+          "cell_array_bytes": 179200,
+          "rolls": 17
+        },
+        {
+          "source_stamp_ns": 62400000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.012942809997184668,
+          "odom_position_error_m": 0.045776863843408185,
+          "odom_heading_error_deg": -1.2336130031697747,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 14,
+                "boundary_error_p95_m": 0.06682284324177724,
+                "boundary_error_max_m": 0.07087933460609741,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 28,
+                "boundary_error_p95_m": 0.12856542306903487,
+                "boundary_error_max_m": 0.13699044359493057,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 12
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 31,
+                "boundary_error_p95_m": 0.1744283530102504,
+                "boundary_error_max_m": 0.1894536975631481,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 6
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": -1,
+            "observed_free_cells": 878,
+            "largest_point_free_component_cells": 594,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5449
+          },
+          "update_cost_p95_ms": 10.009786848968359,
+          "cell_array_bytes": 179200,
+          "rolls": 19
+        },
+        {
+          "source_stamp_ns": 67200000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.16530732700630324,
+          "odom_position_error_m": 0.03751395276958535,
+          "odom_heading_error_deg": 1.5802549681442748,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 21,
+                "boundary_error_p95_m": 0.0761454720658074,
+                "boundary_error_max_m": 0.13496008862244663,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 8
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 27,
+                "boundary_error_p95_m": 0.12887746068030126,
+                "boundary_error_max_m": 0.13699044340894156,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 13
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 31,
+                "boundary_error_p95_m": 0.17442835195361184,
+                "boundary_error_max_m": 0.18945369737715906,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 6
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": -1,
+            "observed_free_cells": 945,
+            "largest_point_free_component_cells": 723,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5376
+          },
+          "update_cost_p95_ms": 9.9988182533707,
+          "cell_array_bytes": 179200,
+          "rolls": 21
+        },
+        {
+          "source_stamp_ns": 72100000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.17110053500073263,
+          "odom_position_error_m": 0.05192405766525899,
+          "odom_heading_error_deg": 0.32552093973277274,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 21,
+                "boundary_error_p95_m": 0.07886502412606833,
+                "boundary_error_max_m": 0.09144698645519315,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 22,
+                "boundary_error_p95_m": 0.12419689344248681,
+                "boundary_error_max_m": 0.13074968718485014,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 14
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 28,
+                "boundary_error_p95_m": 0.17642524438430396,
+                "boundary_error_max_m": 0.18945369709817556,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 6
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": 0,
+            "observed_free_cells": 942,
+            "largest_point_free_component_cells": 694,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5387
+          },
+          "update_cost_p95_ms": 10.308194804383675,
+          "cell_array_bytes": 179200,
+          "rolls": 24
+        },
+        {
+          "source_stamp_ns": 77100000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.1624668689983082,
+          "odom_position_error_m": 0.07033985209361195,
+          "odom_heading_error_deg": -1.1855959928513424,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 18,
+                "boundary_error_p95_m": 0.08075231581694764,
+                "boundary_error_max_m": 0.09144698499676374,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 19,
+                "boundary_error_p95_m": 0.1400867467408142,
+                "boundary_error_max_m": 0.1679534809124217,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 15
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 24,
+                "boundary_error_p95_m": 0.09502230593470559,
+                "boundary_error_max_m": 0.16777203400873192,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 8
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": 0,
+            "observed_free_cells": 883,
+            "largest_point_free_component_cells": 613,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5456
+          },
+          "update_cost_p95_ms": 10.345441700337679,
+          "cell_array_bytes": 179200,
+          "rolls": 26
+        },
+        {
+          "source_stamp_ns": 82200000000,
+          "pose_bracket_sec": 0.0,
+          "healthy": true,
+          "observer_age_sec": 0.10239420799916843,
+          "odom_position_error_m": 0.07513023576901204,
+          "odom_heading_error_deg": 1.2652889122852626,
+          "boxes": {
+            "boxes": {
+              "map_validation_box_0": {
+                "associated_occupied_cells": 19,
+                "boundary_error_p95_m": 0.07767562262719468,
+                "boundary_error_max_m": 0.09144698353833462,
+                "whole_interior_cells": 10,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 9
+              },
+              "map_validation_box_1": {
+                "associated_occupied_cells": 13,
+                "boundary_error_p95_m": 0.13324598919091524,
+                "boundary_error_max_m": 0.13699044275798,
+                "whole_interior_cells": 15,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 15
+              },
+              "map_validation_box_2": {
+                "associated_occupied_cells": 23,
+                "boundary_error_p95_m": 0.09531132946786335,
+                "boundary_error_max_m": 0.1894536967261975,
+                "whole_interior_cells": 13,
+                "free_wholly_inside_box_cells": 0,
+                "unknown_wholly_inside_box_cells": 8
+              }
+            },
+            "unmatched_occupied_cells": 0,
+            "association_gate_m": 0.5,
+            "free_wholly_inside_boxes_cells": 0
+          },
+          "connectivity": {
+            "planning_ready": false,
+            "reason": "start_unknown",
+            "assessment_radius_m": 0.7020797289396148,
+            "start_cell_state": -1,
+            "goal_cell_state": 0,
+            "observed_free_cells": 956,
+            "largest_point_free_component_cells": 736,
+            "envelope_free_cells": 0,
+            "largest_envelope_free_component_cells": 0,
+            "reachable_envelope_cells_from_start": 0,
+            "unknown_cells": 5389
+          },
+          "update_cost_p95_ms": 10.855015448396438,
+          "cell_array_bytes": 179200,
+          "rolls": 28
+        }
+      ],
+      "final": {
+        "source_stamp_ns": 87600000000,
+        "pose_bracket_sec": 0.0,
+        "healthy": true,
+        "observer_age_sec": 0.041323060999275185,
+        "odom_position_error_m": 0.062103137223138795,
+        "odom_heading_error_deg": -0.0006212593713836497,
+        "boxes": {
+          "boxes": {
+            "map_validation_box_0": {
+              "associated_occupied_cells": 18,
+              "boundary_error_p95_m": 0.07844069804494164,
+              "boundary_error_max_m": 0.09144698280912007,
+              "whole_interior_cells": 10,
+              "free_wholly_inside_box_cells": 0,
+              "unknown_wholly_inside_box_cells": 9
+            },
+            "map_validation_box_1": {
+              "associated_occupied_cells": 14,
+              "boundary_error_p95_m": 0.13293395130066535,
+              "boundary_error_max_m": 0.1369904426649855,
+              "whole_interior_cells": 15,
+              "free_wholly_inside_box_cells": 0,
+              "unknown_wholly_inside_box_cells": 15
+            },
+            "map_validation_box_2": {
+              "associated_occupied_cells": 20,
+              "boundary_error_p95_m": 0.16885611290140298,
+              "boundary_error_max_m": 0.189453696633203,
+              "whole_interior_cells": 13,
+              "free_wholly_inside_box_cells": 0,
+              "unknown_wholly_inside_box_cells": 7
+            }
+          },
+          "unmatched_occupied_cells": 0,
+          "association_gate_m": 0.5,
+          "free_wholly_inside_boxes_cells": 0
+        },
+        "connectivity": {
+          "planning_ready": false,
+          "reason": "start_unknown",
+          "assessment_radius_m": 0.7020797289396148,
+          "start_cell_state": -1,
+          "goal_cell_state": -1,
+          "observed_free_cells": 638,
+          "largest_point_free_component_cells": 405,
+          "envelope_free_cells": 0,
+          "largest_envelope_free_component_cells": 0,
+          "reachable_envelope_cells_from_start": 0,
+          "unknown_cells": 5710
+        },
+        "update_cost_p95_ms": 11.571955250474266,
+        "cell_array_bytes": 179200,
+        "rolls": 29
+      },
+      "observed_zero_delay_wall_sec": 0.05823610500374343,
+      "post_zero_forward_travel_m": 0.0,
+      "settled_position_spread_m": 7.864901566376358e-05
+    },
+    "contact_monitor": {
+      "passed": true,
+      "messages_received": 878,
+      "positive_probe_contact_observations": 878,
+      "robot_obstacle_contacts": [],
+      "robot_obstacle_contact_count": 0
+    },
+    "motion_only_assessment": {
+      "passed": true,
+      "planning_ready_was_not_assessed": true
+    }
+  },
+  "simulation_only": true,
+  "render_profile": "server_egl",
+  "gait_profile": "low_lift_calibrated",
+  "sensor_profile": "pinned",
+  "self_filter_mode": "geometry",
+  "ros_domain_id": "43",
+  "gz_partition": "guidedog_stop_test_1793897483_22814",
+  "launch_exit_code": 0
+}

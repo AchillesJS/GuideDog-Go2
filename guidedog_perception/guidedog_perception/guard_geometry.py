@@ -89,9 +89,16 @@ def ground_plane(points, min_points):
 
 def inspect_corridor(points, *, front=0.45, half_width=0.40,
                      min_height=0.08, max_height=0.85,
-                     support_range=3.0, min_ground_points=8):
+                     support_range=3.0, min_ground_points=8, support_valid=None):
     """Measure forward clearance and require visible flat ground to report clear."""
-    finite = points[np.isfinite(points).all(axis=1)]
+    finite_mask = np.isfinite(points).all(axis=1)
+    finite = points[finite_mask]
+    allowed = np.ones(len(finite), dtype=bool)
+    if support_valid is not None:
+        support_valid = np.asarray(support_valid)
+        if support_valid.shape != (len(points),) or support_valid.dtype != np.dtype(bool):
+            raise ValueError('invalid_support_mask')
+        allowed = support_valid[finite_mask]
     if len(finite) < 32:
         raise ValueError('insufficient_finite_points')
     x, y, z = finite.T
@@ -101,10 +108,10 @@ def inspect_corridor(points, *, front=0.45, half_width=0.40,
     # Fit the plane from nearby side support too: the sensor blind zone and a
     # front box can shorten the visible forward ground patch below 0.40 m.
     # Forward support below is still required in this same fresh cloud.
-    plane = ground_plane(finite[support], min_ground_points)
+    plane = ground_plane(finite[support & allowed], min_ground_points)
     height = z if plane is None else z - (plane[0]*x + plane[1]*y + plane[2])
     obstacle = forward & (height >= min_height) & (height <= max_height)
-    ground = forward & (np.abs(height) <= 0.025) if plane is not None else np.zeros(
+    ground = forward & allowed & (np.abs(height) <= 0.025) if plane is not None else np.zeros(
         len(finite), dtype=bool)
     clearance = float(np.min(x[obstacle]) - front) if obstacle.any() else None
     if clearance is not None and not math.isfinite(clearance):

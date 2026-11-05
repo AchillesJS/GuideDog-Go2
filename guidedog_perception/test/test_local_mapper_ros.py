@@ -24,13 +24,19 @@ def test_mapper_time_tf_and_latched_delivery(tmp_path):
     rclpy.init(args=[
         '--ros-args', '-p', f'report_dir:={tmp_path}',
         '-p', 'use_sim_time:=true', '-p', 'free_ttl:=0.3',
-        '-p', 'occupied_ttl:=0.8'], domain_id=80)
+        '-p', 'occupied_ttl:=0.8', '-p', 'self_filter_mode:=geometry'], domain_id=80)
     source = Node('map_test_source', use_global_arguments=False)
     mapper = LocalMapper()
     executor = SingleThreadedExecutor()
     executor.add_node(source)
     executor.add_node(mapper)
     clock_pub = source.create_publisher(Clock, '/clock', qos_profile_sensor_data)
+    model_pub = source.create_publisher(
+        String, '/robot_description', QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE,
+                                                 durability=DurabilityPolicy.TRANSIENT_LOCAL))
+    model = ('<robot name="fixture"><link name="test_body"><visual><origin xyz="0 0 .5"/>'
+             '<geometry><sphere radius=".1"/></geometry></visual></link></robot>')
+    model_pub.publish(String(data=model))
     scan_pub = source.create_publisher(PointCloud2, '/unitree_lidar/points',
                                        QoSProfile(depth=1, reliability=ReliabilityPolicy.RELIABLE))
     broadcaster = TransformBroadcaster(source)
@@ -43,7 +49,8 @@ def test_mapper_time_tf_and_latched_delivery(tmp_path):
     last_scan = None
     last_emit = 0
 
-    def advance(seconds, send_scan=True, freeze=False, replay=False, frame='base_footprint'):
+    def advance(seconds, send_scan=True, freeze=False, replay=False, frame='base_footprint',
+                body_tf=True):
         nonlocal sim_ns, last_scan, last_emit
         end = time.monotonic()+seconds
         while time.monotonic() < end:
@@ -60,6 +67,12 @@ def test_mapper_time_tf_and_latched_delivery(tmp_path):
                 tf.header.frame_id, tf.child_frame_id = 'odom', 'base_footprint'
                 tf.transform.rotation.w = 1.0
                 transforms.append((now, tf))
+                if body_tf:
+                    body = TransformStamped()
+                    body.header.stamp = clock.clock
+                    body.header.frame_id, body.child_frame_id = 'base_footprint', 'test_body'
+                    body.transform.rotation.w = 1.0
+                    transforms.append((now, body))
                 # Keep exact TF behind newer clouds to exercise the bounded pending queue.
                 while transforms and now-transforms[0][0] >= 0.06:
                     broadcaster.sendTransform(transforms.popleft()[1])
@@ -81,6 +94,8 @@ def test_mapper_time_tf_and_latched_delivery(tmp_path):
             executor.spin_once(timeout_sec=0.005)
 
     try:
+        advance(.4, body_tf=False)
+        assert mapper.accepted == 0
         advance(1.5)
         assert mapper.accepted >= 3
         assert statuses[-1]['healthy']
@@ -119,6 +134,20 @@ def test_mapper_time_tf_and_latched_delivery(tmp_path):
         assert mapper.last_source <= last_valid_stamp
         assert set(maps[-1].data) == {-1}
         assert not statuses[-1]['healthy']
+        advance(.7)
+        assert statuses[-1]['healthy']
+        last_body_stamp = sim_ns  # last emitted body pose, including the delayed TF queue
+        advance(1.2, body_tf=False)
+        assert mapper.last_source <= last_body_stamp
+        assert not statuses[-1]['healthy'] and set(maps[-1].data) == {-1}
+        resets = mapper.grid.resets
+        model_pub.publish(String(data='<robot invalid'))
+        advance(.4)
+        assert mapper.body.model is None and mapper.grid.resets > resets
+        assert not statuses[-1]['healthy'] and set(maps[-1].data) == {-1}
+        model_pub.publish(String(data=model))
+        advance(.8)
+        assert mapper.body.model is not None and statuses[-1]['healthy']
         assert (tmp_path / 'local_map.svg').exists()
         assert (tmp_path / 'local_map.npz').exists()
     finally:

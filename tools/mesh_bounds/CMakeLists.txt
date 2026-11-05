@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+project(guidedog_mesh_bounds LANGUAGES CXX)
+find_package(gz-common5 REQUIRED COMPONENTS graphics)
+add_executable(guidedog_mesh_bounds mesh_bounds.cc)
+target_link_libraries(guidedog_mesh_bounds PRIVATE gz-common5::graphics)

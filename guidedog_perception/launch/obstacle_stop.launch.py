@@ -9,7 +9,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, GroupAction, IncludeLaunchDescription
 from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node, SetRemap
 from launch_ros.parameter_descriptions import ParameterValue
 
@@ -28,6 +28,10 @@ def generate_launch_description():
         'headless': 'false',
         'gait_profile': 'low_lift_calibrated',
         'sensor_profile': 'pinned',
+        'self_filter_mode': 'geometry',
+        'lidar_min_range': PythonExpression([
+            "0.05 if '", LaunchConfiguration('sensor_profile'), "' == 'l1_near' else 0.8"]),
+        'lidar_max_range': '30.0',
         'enable_rgb': 'false',
         'enable_local_map': 'false',
         'max_speed': '0.05', 'min_speed': '0.05',
@@ -60,7 +64,8 @@ def generate_launch_description():
             'lidar_reliability': ParameterValue(
                 LaunchConfiguration('lidar_reliability'), value_type=str),
             **{name: ParameterValue(LaunchConfiguration(name), value_type=float)
-               for name in ('max_speed', 'min_speed', 'stop_distance', 'scan_timeout')},
+               for name in ('max_speed', 'min_speed', 'stop_distance', 'scan_timeout',
+                            'lidar_min_range', 'lidar_max_range')},
         }])
     watchdog = Node(
         package='guidedog_perception', executable='velocity_watchdog', output='screen',
@@ -78,6 +83,10 @@ def generate_launch_description():
         parameters=[{
             'use_sim_time': True,
             'lidar_topic': ParameterValue(LaunchConfiguration('lidar_topic'), value_type=str),
+            'self_filter_mode': ParameterValue(
+                LaunchConfiguration('self_filter_mode'), value_type=str),
+            **{name: ParameterValue(LaunchConfiguration(name), value_type=float)
+               for name in ('lidar_min_range', 'lidar_max_range')},
             'report_dir': ParameterValue(
                 [LaunchConfiguration('report_dir'), '/mapping'], value_type=str),
         }])

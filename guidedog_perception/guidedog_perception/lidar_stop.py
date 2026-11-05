@@ -10,6 +10,7 @@ import time
 from geometry_msgs.msg import Twist
 from guidedog_perception.guard_geometry import (
     cloud_xyz, inspect_corridor, MotionGate, transform_xyz)
+from guidedog_perception.support_evidence import point_range_masks
 import numpy as np
 import rclpy
 from rclpy.clock import Clock, ClockType
@@ -34,10 +35,13 @@ class LidarStop(Node):
             'max_speed': 0.05, 'stop_distance': 0.80, 'scan_timeout': 1.50,
             'min_speed': 0.05, 'lidar_reliability': 'reliable',
             'command_timeout': 0.40, 'front_extent': 0.45, 'half_width': 0.40,
+            'lidar_min_range': 0.8, 'lidar_max_range': 30.0,
         }
         for name, value in defaults.items():
             self.declare_parameter(name, value)
         self.config = {name: self.get_parameter(name).value for name in defaults}
+        point_range_masks(np.empty((0, 3)), self.config['lidar_min_range'],
+                          self.config['lidar_max_range'])
         for name in ('front_extent', 'half_width'):
             if not math.isfinite(self.config[name]) or self.config[name] <= 0:
                 raise ValueError(f'{name} must be finite and positive')
@@ -113,13 +117,22 @@ class LidarStop(Node):
             self.pending.popleft()
         try:
             points = cloud_xyz(msg)
+            finite, low, high, valid = point_range_masks(
+                points, self.config['lidar_min_range'], self.config['lidar_max_range'])
+            # Boundary returns cannot establish floor. Keep them as raw obstacle
+            # candidates: discarding a potentially too-close hit must not clear the veto.
+            valid = valid[finite]
             points = points[np.isfinite(points).all(axis=1)]
             tf = transform.transform
             points = transform_xyz(
                 points, [tf.translation.x, tf.translation.y, tf.translation.z],
                 [tf.rotation.x, tf.rotation.y, tf.rotation.z, tf.rotation.w])
             scan = inspect_corridor(points, front=self.config['front_extent'],
-                                    half_width=self.config['half_width'])
+                                    half_width=self.config['half_width'], support_valid=valid)
+            scan['range_filter'] = {'finite': int(finite.sum()), 'saturated_min': int(low.sum()),
+                                    'saturated_max': int(high.sum()),
+                                    'valid_support': int(valid.sum()),
+                                    'boundary_hits_retained_for_obstacle_veto': True}
             self.gate.observe(scan, received, timestamp)
         except (ValueError, TypeError, BufferError) as error:
             self.gate.invalidate(f'invalid_scan:{error}', now)

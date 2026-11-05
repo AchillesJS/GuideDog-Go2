@@ -102,8 +102,11 @@ RViz process in the benchmark.
 ## Evidence rules and limits
 
 The current flat-world support plane is fitted from the same fresh scan using
-the existing bounded floor fitter. There is no cached support plane. Self/body
-returns inside `abs(x) <= 0.45`, `abs(y) <= 0.40` do not establish free ground.
+the existing bounded floor fitter. There is no cached support plane. The protected
+launch now uses the [robot geometry filter](robot-cloud-filter.md), requiring all
+link poses at the cloud stamp. Removed body/range hits withhold floor in their
+projected cells. The explicit `legacy_body` comparison mode retains the older
+`abs(x) <= 0.45`, `abs(y) <= 0.40` rectangle. Neither mode fills missing ground.
 
 At least three ground returns within 0.025 m of support are required to mark a
 cell observed free. At least two returns 0.08–1.50 m above support establish an

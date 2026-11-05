@@ -379,6 +379,8 @@ def main():
     parser.add_argument('--gait-profile', choices=['stock', 'low_lift', 'low_lift_calibrated'],
                         default='low_lift_calibrated')
     parser.add_argument('--sensor-profile', choices=['pinned', 'l1_near'], default='pinned')
+    parser.add_argument('--self-filter-mode', choices=['geometry', 'legacy_body'],
+                        default='geometry')
     parser.add_argument('--headless', action='store_true',
                         help='Use Gazebo server-only EGL rendering, with the same sensors')
     parser.add_argument('--with-local-map', action='store_true')
@@ -395,6 +397,7 @@ def main():
               'render_profile': 'server_egl' if args.headless else 'desktop_gui',
               'gait_profile': args.gait_profile,
               'sensor_profile': args.sensor_profile,
+              'self_filter_mode': args.self_filter_mode,
               'ros_domain_id': os.environ.get('ROS_DOMAIN_ID'),
               'gz_partition': os.environ.get('GZ_PARTITION')}
 
@@ -414,6 +417,7 @@ def main():
          f'headless:={str(args.headless).lower()}',
          f'gait_profile:={args.gait_profile}',
          f'sensor_profile:={args.sensor_profile}',
+         f'self_filter_mode:={args.self_filter_mode}',
          f'record_gazebo:={str(args.record_gazebo).lower()}'],
         stdout=launch_log, stderr=subprocess.STDOUT, start_new_session=True)
     rclpy.init(args=[])
@@ -430,7 +434,7 @@ def main():
         driver.audit = ClearanceProbe(driver, directory)
     if args.floor_audit:
         from guidedog_perception.floor_audit import FloorProbe
-        driver.audit = FloorProbe(driver, directory)
+        driver.audit = FloorProbe(driver, directory, mode=args.self_filter_mode)
     motion_audit = None
     if args.audit_motion:
         from guidedog_perception.motion_audit import MotionAudit

@@ -80,6 +80,14 @@ def test_body_plane_candidates_are_untrusted_and_cannot_seed_unknown_start():
     assert not result['single_scan_coverage']['envelope_observed']
 
 
+def test_explicit_geometry_mode_reports_measured_floor_below_old_rectangle():
+    """The nearest retained floor metric must respect the selected exclusion mode."""
+    legacy, _, _ = scan_floor_coverage(dense_floor(), [0, 0, 0])
+    geometry, _, _ = scan_floor_coverage(dense_floor(), [0, 0, 0], body_mask=False)
+    assert legacy['nearest_trusted_floor_range_xy_m'] > .4
+    assert geometry['nearest_trusted_floor_range_xy_m'] < .05
+
+
 def test_hole_and_one_conflicting_return_remain_unknown_without_interpolation():
     """A fitted plane cannot bridge a missing patch or hide a step in its cell."""
     points = dense_floor()

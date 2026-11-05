@@ -5,6 +5,7 @@ from types import SimpleNamespace
 
 from guidedog_perception.guard_geometry import (
     cloud_xyz, inspect_corridor, MotionGate, transform_xyz)
+from guidedog_perception.support_evidence import point_range_masks
 import numpy as np
 import pytest
 
@@ -31,6 +32,23 @@ def test_empty_nan_and_unobserved_ground_are_not_free():
         inspect_corridor(np.full((100, 3), np.nan))
     result = inspect_corridor(np.tile([2.0, 2.0, 0], (50, 1)))
     assert not result['ground_observed']
+
+
+def test_excluded_support_cannot_fit_floor_but_remains_an_obstacle_candidate():
+    """Removing positive evidence must never remove the same hit from raw obstacle veto."""
+    points = scene([1, 0, .3])
+    result = inspect_corridor(points, support_valid=np.zeros(len(points), dtype=bool))
+    assert not result['ground_observed'] and result['ground_plane_z_ax_by_c'] is None
+    assert result['clearance_m'] == pytest.approx(.55)
+
+
+def test_saturated_near_hit_is_retained_when_other_floor_is_valid():
+    """A min-range obstacle must survive exclusion from positive floor support."""
+    points = scene([.75, 0, np.sqrt(.8**2-.75**2)])
+    _, low, _, valid = point_range_masks(points, .8, 30)
+    assert low[-1] and not valid[-1]
+    result = inspect_corridor(points, support_valid=valid)
+    assert result['ground_observed'] and result['clearance_m'] == pytest.approx(.30)
 
 
 def test_ground_plane_handles_footprint_height_error_and_retains_obstacle():
