@@ -1,0 +1,57 @@
+[
+  {
+    "topic": "/quadruped_controller_node/parameters",
+    "receipt_wall_sec": 0.6321089260000008,
+    "source_stamp_ns": null,
+    "requested_names": [
+      "use_sim_time",
+      "gait.swing_height",
+      "gait.stance_depth",
+      "gait.stance_duration",
+      "gait.nominal_height",
+      "loop_rate"
+    ],
+    "response_count": 6,
+    "use_sim_time": true,
+    "gait.swing_height": 0.015,
+    "gait.stance_depth": 0.01,
+    "gait.stance_duration": 0.25,
+    "gait.nominal_height": 0.225,
+    "loop_rate": null
+  },
+  {
+    "topic": "/state_estimation_node/parameters",
+    "receipt_wall_sec": 0.6334242649991211,
+    "source_stamp_ns": null,
+    "requested_names": [
+      "use_sim_time",
+      "gait.odom_scaler"
+    ],
+    "response_count": 2,
+    "use_sim_time": true,
+    "gait.odom_scaler": 1.6
+  },
+  {
+    "topic": "/controller_manager/parameters",
+    "receipt_wall_sec": 4.801853991999451,
+    "source_stamp_ns": null,
+    "requested_names": [
+      "use_sim_time",
+      "update_rate"
+    ],
+    "response_count": 2,
+    "use_sim_time": true,
+    "update_rate": 250
+  },
+  {
+    "topic": "/joint_group_effort_controller/parameters",
+    "receipt_wall_sec": 34.0014546149996,
+    "source_stamp_ns": null,
+    "requested_names": [
+      "gains.lf_hip_joint.p",
+      "gains.lf_hip_joint.d",
+      "state_publish_rate"
+    ],
+    "response_count": 0
+  }
+]

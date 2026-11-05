@@ -60,6 +60,10 @@ several fixtures and actual longer motion under the predeclared
 [protocol](map-readiness-protocol.md). Planner input remains gated on observed
 floor connectivity and stable motion; successful object localization alone
 does not satisfy this gate.
+The [straight-motion increment](straight-motion-validation.md) subsequently
+passed three independent 2 m motion/map trials with an explicit gait and offline
+odometry calibration. The remaining blocker is observed floor connectivity,
+including the actual start. M2 and planner readiness remain incomplete.
 
 - [ ] Parse LiDAR `PointCloud2` and validate coordinate transforms, ground alignment, time alignment, and odometry updates.
 - [ ] Implement a rolling local representation: occupied/free/**unknown**, elevation, surface slope/roughness, vertical clearance, confidence and last observation time. Benchmark map memory and incremental update cost.

@@ -38,6 +38,7 @@ def generate_launch_description():
         'report_dir': report_dir,
         'start_simulator': 'true',
         'headless': 'false',
+        'gait_profile': 'stock',
         'record_gazebo': 'true',
         'enable_rgb': 'true',
         'lidar_reliability': 'reliable',
@@ -52,9 +53,10 @@ def generate_launch_description():
                     for name, value in defaults.items()]
     include = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(PythonExpression([
-            "'", str(Path(package) / 'launch/headless_simulation.launch.py'),
+            "'", str(Path(package) / 'launch/profiled_simulation.launch.py'),
             "' if '", LaunchConfiguration('headless'),
-            "'.lower() in ('true', '1', 'yes') else '",
+            "'.lower() in ('true', '1', 'yes') or '", LaunchConfiguration('gait_profile'),
+            "' != 'stock' else '",
             str(Path(simulator) / 'launch/unitree_go2_launch.py'), "'",
         ])),
         condition=IfCondition(LaunchConfiguration('start_simulator')),

@@ -318,17 +318,33 @@ def long_motion(driver, fixtures, goal, radius, directory, record):
         final = measure(paired, fixtures, goal, radius)
         save(directory, 'long-final', paired, final)
     fraction = len(evaluations)/max(1, attempts)
-    passed = (reached and len(evaluations) >= LIMITS['min_motion_evaluations']
+    all_poses = [p for p in driver.snapshot()[2] if p[0] >= before[0]]
+    total_lateral = [abs(-(p[1]-before[1])*math.sin(before[4])
+                         + (p[2]-before[2])*math.cos(before[4])) for p in all_poses]
+    total_heading = [abs(math.degrees(math.remainder(p[4]-before[4], 2*math.pi)))
+                     for p in all_poses]
+    total_height = [p[3] for p in all_poses]
+    settled_bounds = (max(total_lateral) <= LIMITS['max_lateral_motion_m']
+                      and max(total_heading) <= LIMITS['max_heading_excursion_deg']
+                      and min(total_height) >= LIMITS['min_body_height_m']
+                      and max(total_height) <= LIMITS['max_body_height_m'])
+    motion_passed = (reached and reason is None and 'settle_error' not in stopped
+                     and settled_bounds and not driver.contacts)
+    passed = (motion_passed and len(evaluations) >= LIMITS['min_motion_evaluations']
               and fraction >= LIMITS['min_reference_fraction']
               and all(geometry_passed(m) for m in evaluations)
               and final is not None and final['healthy'] and geometry_passed(final)
               and final['rolls'] > baseline_rolls and 'settle_error' not in stopped
               and not driver.contacts)
-    result = {'passed': passed, 'target_reached': reached, 'stop_reason': reason,
+    result = {'passed': passed, 'motion_envelope_passed': motion_passed,
+              'target_reached': reached, 'stop_reason': reason,
               'measurement_error': error,
               'progress_m': progress, 'lateral_m': lateral, 'heading_excursion_deg': heading,
               'max_abs_lateral_motion_m': max_lateral,
               'max_abs_heading_excursion_deg': max_heading,
+              'max_abs_lateral_including_settle_m': max(total_lateral),
+              'max_abs_heading_including_settle_deg': max(total_heading),
+              'body_height_including_settle_m': [min(total_height), max(total_height)],
               'final_forward_progress_m': displacement(before, driver.snapshot()[0]),
               'elapsed_wall_sec': time.monotonic()-started,
               'elapsed_source_sec': driver.snapshot()[1]['ros_time_sec']-source_start,
@@ -339,7 +355,7 @@ def long_motion(driver, fixtures, goal, radius, directory, record):
     return result
 
 
-def run_validation(driver, record, directory):
+def run_validation(driver, record, directory, motion_only=False):
     """Run all scenes and expose failed readiness rather than paint unknown space free."""
     radius = math.hypot(LIMITS['configured_front_rear_m'], LIMITS['configured_half_width_m'])
     radius += LIMITS['assessment_margin_m']
@@ -359,7 +375,9 @@ def run_validation(driver, record, directory):
     goal = rotation @ goal_world+translation
     failures, readiness = [], {}
     try:
-        for name in ('two_boxes', 'wide_passage', 'narrow_passage', 'blocked_passage'):
+        scenes = () if motion_only else (
+            'two_boxes', 'wide_passage', 'narrow_passage', 'blocked_passage')
+        for name in scenes:
             try:
                 boxes = fixtures.create(SCENES[name])
                 time.sleep(5.6)
@@ -399,6 +417,12 @@ def run_validation(driver, record, directory):
             'positive_probe_contact_observations': driver.probe_contacts,
             'robot_obstacle_contacts': list(driver.contacts),
             'robot_obstacle_contact_count': len(driver.contacts)})
+        if motion_only:
+            record('motion_only_assessment', {
+                'passed': not failures, 'planning_ready_was_not_assessed': True})
+            if failures:
+                raise RuntimeError(f'Longer-motion/map criteria failed: {failures}')
+            return
         ready = (not failures and readiness.get('two_boxes', False)
                  and readiness.get('wide_passage', False))
         record('planning_readiness', {

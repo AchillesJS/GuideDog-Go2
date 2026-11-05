@@ -32,6 +32,10 @@ The expanded [map-readiness assessment](docs/map-readiness-validation.md) checks
 multiple obstacles, observed-space connectivity and a bounded longer-motion
 attempt. It records failed readiness explicitly; its protocol is fixed before
 the runs. Automated checks can use `--headless` without opening a Gazebo window.
+The protected flat-ground demo now selects a [measured straight-motion profile](docs/straight-motion-validation.md):
+lower CHAMP foot lift and a fixed, separately calibrated kinematic odometry scale.
+Three independent 2 m trials passed the existing motion/map criteria. Observed
+floor connectivity remains insufficient for planning; automatic turns remain disabled.
 
 ## Intended capabilities (roadmap, not current features)
 

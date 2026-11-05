@@ -45,6 +45,13 @@ The ordinary `run_obstacle_demo.sh` retains mapping disabled by default.
 `enable_local_map:=true` enables it explicitly. `local_mapper` can also run
 independently against an existing simulator, with `use_sim_time:=true`.
 Use one simulator at a time on the 4 GiB VM.
+The protected map/STOP launches select `gait_profile:=low_lift_calibrated` by default.
+The [straight-motion report](straight-motion-validation.md) records the three
+independent 2 m trials and the remaining floor-connectivity limitation. The
+basic sensor-only `run_sim.sh` retains the upstream `stock` profile by default.
+Select `gait_profile:=stock` explicitly to reproduce that gait in the protected
+launch, or `--gait-profile stock` in the benchmark. These profiles are measured
+only for the stated flat simulation, not steps or physical Go2 motion.
 The wrappers select X11/XCB for Qt and reject a second launch in the same
 ROS/Gazebo channels. Ctrl+C, terminal hangup and Gazebo exit clean up that
 launch. See the [GUI startup fix and validation](gui-startup.md).
