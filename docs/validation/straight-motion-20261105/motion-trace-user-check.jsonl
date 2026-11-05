@@ -1,0 +1,10 @@
+{"elapsed_wall_sec": 0.005981578999126214, "progress_m": 0.0, "lateral_m": 0.0, "heading_excursion_deg": 0.0, "veto_reason": "idle"}
+{"elapsed_wall_sec": 5.029597221999211, "progress_m": 0.18702380568000157, "lateral_m": 0.01482384680291664, "heading_excursion_deg": 1.2383221652860126, "veto_reason": "moving"}
+{"elapsed_wall_sec": 10.061134335999668, "progress_m": 0.39518576114777865, "lateral_m": 0.01797987149353786, "heading_excursion_deg": 1.5098093474688685, "veto_reason": "moving"}
+{"elapsed_wall_sec": 15.091491678000239, "progress_m": 0.6096515413011118, "lateral_m": 0.01813282844386838, "heading_excursion_deg": 0.036376213976510675, "veto_reason": "moving"}
+{"elapsed_wall_sec": 20.12525690199982, "progress_m": 0.8195797949079013, "lateral_m": 0.022872939504026055, "heading_excursion_deg": 1.9832582141328574, "veto_reason": "moving"}
+{"elapsed_wall_sec": 25.166596449998906, "progress_m": 1.0340528928252208, "lateral_m": 0.02472259816099685, "heading_excursion_deg": 2.2027592810289693, "veto_reason": "moving"}
+{"elapsed_wall_sec": 30.192572187999758, "progress_m": 1.2456195246996153, "lateral_m": 0.02779415710587322, "heading_excursion_deg": 1.8871943325312008, "veto_reason": "moving"}
+{"elapsed_wall_sec": 35.22911553999984, "progress_m": 1.4565357290998042, "lateral_m": 0.030332705818252977, "heading_excursion_deg": 1.4711389656683667, "veto_reason": "moving"}
+{"elapsed_wall_sec": 40.29085145799945, "progress_m": 1.661285104666769, "lateral_m": 0.013335063053345232, "heading_excursion_deg": -1.3890402546139018, "veto_reason": "moving"}
+{"elapsed_wall_sec": 45.33099352199861, "progress_m": 1.8693486566312765, "lateral_m": 0.013637392199373894, "heading_excursion_deg": -2.012355098093434, "veto_reason": "moving"}
