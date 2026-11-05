@@ -1,0 +1,21 @@
+{
+  "calibration_input": "/home/guide-dog/.ros/guidedog/reports/straight-low-lift1-20261105",
+  "source_bracket_max_sec": 0.06,
+  "paired_samples": 2310,
+  "old_odom_scaler": 0.9,
+  "fitted_multiplier": 1.7768235663645395,
+  "fitted_odom_scaler": 1.5991412097280857,
+  "selected_rounded_odom_scaler": 1.6,
+  "position_residual_p95_m": 0.08307217946973372,
+  "position_residual_max_m": 0.10060826219891557,
+  "observed_gt_displacement_xy_m": [
+    2.0044611433144746,
+    0.002794197995224083
+  ],
+  "observed_odom_displacement_xy_m": [
+    1.1340247922598856,
+    -0.04941452650600544
+  ],
+  "offline_calibration_only": true,
+  "held_out_validation_required": true
+}

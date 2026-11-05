@@ -1,0 +1,19 @@
+{
+  "trace_input_samples": 2491,
+  "trace_plot_samples": 1246,
+  "source_file_sha256": "e29bb4431da202c9c602175160714a2beb16370b949b2479c28b535138f225be",
+  "checked_command_components": {
+    "linear": [
+      0.05,
+      0.0,
+      0.0
+    ],
+    "angular": [
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "max_abs_heading_including_stop_deg": 3.6165941687538643,
+  "max_abs_side_including_stop_m": 0.029858001871783474
+}

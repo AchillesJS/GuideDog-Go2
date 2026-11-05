@@ -9,6 +9,7 @@ import time
 
 from guidedog_perception.guard_geometry import cloud_xyz, inspect_corridor, transform_xyz
 from guidedog_perception.local_grid import LocalGrid
+from guidedog_perception.map_analysis import map_digest
 from nav_msgs.msg import OccupancyGrid
 import numpy as np
 import rclpy
@@ -199,6 +200,8 @@ class LocalMapper(Node):
                   and self.reason == 'observing',
                   'reason': self.reason if clock_ok else 'clock_not_advancing',
                   'source_stamp_ns': self.last_source, 'source_receipt_age_wall_sec': age,
+                  'snapshot_digest': map_digest(layers['occupancy'], self.grid.origin,
+                                                msg.info.resolution, stamp),
                   'clock_ok': clock_ok, 'received': self.received, 'accepted': self.accepted,
                   'rejected': self.rejected, 'parameters': self.config,
                   'pose_odom': self.pose, 'origin_odom': self.grid.origin.tolist(),

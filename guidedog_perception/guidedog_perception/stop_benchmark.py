@@ -366,10 +366,18 @@ def main():
     parser.add_argument('--report-dir', default=str(Path.home() / '.ros/guidedog/reports' /
                         datetime.now(timezone.utc).strftime('stop_test_%Y%m%dT%H%M%S_%fZ')))
     parser.add_argument('--audit-clearance', action='store_true')
+    parser.add_argument('--audit-motion', action='store_true')
     parser.add_argument('--record-gazebo', action='store_true')
     parser.add_argument('--clearance-matrix', action='store_true')
     parser.add_argument('--bridge-profile', action='store_true')
     parser.add_argument('--map-benchmark', action='store_true')
+    parser.add_argument('--map-validation', action='store_true')
+    parser.add_argument('--motion-only', action='store_true',
+                        help='Run only the unchanged longer-motion/map criteria')
+    parser.add_argument('--gait-profile', choices=['stock', 'low_lift', 'low_lift_calibrated'],
+                        default='low_lift_calibrated')
+    parser.add_argument('--headless', action='store_true',
+                        help='Use Gazebo server-only EGL rendering, with the same sensors')
     parser.add_argument('--with-local-map', action='store_true')
     args = parser.parse_args()
     directory = Path(args.report_dir).expanduser()
@@ -377,6 +385,8 @@ def main():
         parser.error('report directory must be empty')
     directory.mkdir(parents=True, exist_ok=True)
     result = {'passed': False, 'cases': {}, 'simulation_only': True,
+              'render_profile': 'server_egl' if args.headless else 'desktop_gui',
+              'gait_profile': args.gait_profile,
               'ros_domain_id': os.environ.get('ROS_DOMAIN_ID'),
               'gz_partition': os.environ.get('GZ_PARTITION')}
 
@@ -386,15 +396,22 @@ def main():
         print(f'{name}: {values}', flush=True)
 
     launch_log = (directory / 'launch.log').open('w')
+    mapping_enabled = (args.map_benchmark or args.with_local_map or args.map_validation
+                       or args.motion_only)
     process = subprocess.Popen(
         [sys.executable, '-m', 'guidedog_perception.launch_supervisor',
          'guidedog_perception', 'obstacle_stop.launch.py',
          f'report_dir:={directory / "session"}', 'lidar_topic:=/guidedog/test_lidar',
-         f'enable_local_map:={str(args.map_benchmark or args.with_local_map).lower()}',
+         f'enable_local_map:={str(mapping_enabled).lower()}',
+         f'headless:={str(args.headless).lower()}',
+         f'gait_profile:={args.gait_profile}',
          f'record_gazebo:={str(args.record_gazebo).lower()}'],
         stdout=launch_log, stderr=subprocess.STDOUT, start_new_session=True)
     rclpy.init(args=[])
-    if args.map_benchmark:
+    if args.map_validation or args.motion_only:
+        from guidedog_perception.map_validation import ValidationDriver
+        driver = ValidationDriver()
+    elif args.map_benchmark:
         from guidedog_perception.map_benchmark import MappingDriver
         driver = MappingDriver()
     else:
@@ -402,6 +419,10 @@ def main():
     if args.audit_clearance or args.clearance_matrix:
         from guidedog_perception.clearance_probe import ClearanceProbe
         driver.audit = ClearanceProbe(driver, directory)
+    motion_audit = None
+    if args.audit_motion:
+        from guidedog_perception.motion_audit import MotionAudit
+        motion_audit = MotionAudit(driver, directory)
 
     def spin():
         try:
@@ -412,7 +433,10 @@ def main():
     spinner = threading.Thread(target=spin, daemon=True)
     spinner.start()
     try:
-        if args.map_benchmark:
+        if args.map_validation or args.motion_only:
+            from guidedog_perception.map_validation import run_validation
+            run_validation(driver, record, directory, motion_only=args.motion_only)
+        elif args.map_benchmark:
             from guidedog_perception.map_benchmark import run_mapping
             run_mapping(driver, record, directory)
         elif args.bridge_profile:
@@ -438,6 +462,8 @@ def main():
         time.sleep(0.5)
         rclpy.shutdown()
         spinner.join(timeout=3)
+        if motion_audit is not None:
+            motion_audit.close(directory)
         if driver.audit is not None:
             driver.audit.close()
         driver.destroy_node()

@@ -1,0 +1,160 @@
+{
+  "schema_version": 1,
+  "metadata": {
+    "started_utc": "2026-11-05T07:30:30.422937+00:00",
+    "ros_distro": "jazzy",
+    "architecture": "aarch64",
+    "python": "3.12.3",
+    "project_revision": "62cb4919676af870d836b6cfa90ca6e8ff25f0a9",
+    "project_worktree_dirty": true,
+    "simulator_revision": "55ff151632a0220bf3ae0c0772392615d86da7a8",
+    "use_sim_time": true,
+    "parameters": {
+      "report_dir": "/home/guide-dog/.ros/guidedog/reports/map-readiness-headless2-20261105/session",
+      "report_period_sec": 5.0,
+      "window_sec": 10.0,
+      "stale_after_sec": 2.0,
+      "duration_sec": 0.0,
+      "base_frame": "base_link",
+      "rgb_topic": "/rgb_image",
+      "lidar_topic": "/unitree_lidar/points",
+      "imu_topic": "/imu/data",
+      "odom_topic": "/odom",
+      "rgb_frame": "camera_link",
+      "lidar_frame": "lidar_l1_link",
+      "rgb_enabled": false,
+      "lidar_reliability": "reliable"
+    },
+    "qos": {
+      "lidar": "reliable",
+      "other_streams": "sensor_data: best_effort, volatile, keep_last(5)"
+    },
+    "rate_note": "Receipt rates are not publisher rates or proof of packet loss."
+  },
+  "elapsed_wall_sec": 90.86104679400023,
+  "final": true,
+  "clock": {
+    "messages_total": 79732,
+    "samples_in_window": 2048,
+    "received_hz_wall": 861.3628806246073,
+    "received_hz_source_time": 999.9999999999999,
+    "source_time_per_wall_second": 0.8613628806246073,
+    "since_last_message_wall_sec": 0.00017245500021090265,
+    "since_stamp_advanced_wall_sec": 0.00017245500021090265,
+    "max_gap_wall_sec": 0.27834484599998177,
+    "jitter_wall_sec": 0.0038355610385897264,
+    "age_at_receipt_p95_sec": null,
+    "timestamp_resets": 0,
+    "duplicate_stamps": 0,
+    "frame_id": "",
+    "healthy": true
+  },
+  "system": {
+    "load_average": [
+      4.93896484375,
+      2.00341796875,
+      0.8427734375
+    ],
+    "memory_total_mib": 3890.11328125,
+    "memory_available_mib": 1957.94921875,
+    "cpu_busy_percent": 42.68639726807057,
+    "cpu_measurement_interval_wall_sec": 4.999889223000082,
+    "sample_age_wall_sec": 0.8529128310001397
+  },
+  "sensors": {
+    "rgb": {
+      "messages_total": 0,
+      "samples_in_window": 0,
+      "received_hz_wall": null,
+      "received_hz_source_time": null,
+      "source_time_per_wall_second": null,
+      "since_last_message_wall_sec": null,
+      "since_stamp_advanced_wall_sec": null,
+      "max_gap_wall_sec": 0.0,
+      "jitter_wall_sec": null,
+      "age_at_receipt_p95_sec": null,
+      "timestamp_resets": 0,
+      "duplicate_stamps": 0,
+      "frame_id": "",
+      "topic": "/rgb_image",
+      "latest_age_sec": null,
+      "tf_to_base_at_message_time": false,
+      "issues": [],
+      "enabled": false,
+      "status": "DISABLED"
+    },
+    "lidar": {
+      "messages_total": 798,
+      "samples_in_window": 97,
+      "received_hz_wall": 9.662190817773451,
+      "received_hz_source_time": 10.0,
+      "source_time_per_wall_second": 0.9662190817773452,
+      "since_last_message_wall_sec": 0.023776938000082737,
+      "since_stamp_advanced_wall_sec": 0.023776938000082737,
+      "max_gap_wall_sec": 0.21921338900028786,
+      "jitter_wall_sec": 0.01841280540941162,
+      "age_at_receipt_p95_sec": 0.023,
+      "timestamp_resets": 0,
+      "duplicate_stamps": 0,
+      "frame_id": "lidar_l1_link",
+      "topic": "/unitree_lidar/points",
+      "latest_age_sec": 0.033,
+      "tf_to_base_at_message_time": true,
+      "issues": [],
+      "enabled": true,
+      "status": "OK"
+    },
+    "imu": {
+      "messages_total": 7973,
+      "samples_in_window": 967,
+      "received_hz_wall": 96.63321108558846,
+      "received_hz_source_time": 100.0,
+      "source_time_per_wall_second": 0.9663321108558846,
+      "since_last_message_wall_sec": 0.0026689559999795165,
+      "since_stamp_advanced_wall_sec": 0.0026689559999795165,
+      "max_gap_wall_sec": 0.1184413730002234,
+      "jitter_wall_sec": 0.005667936678125314,
+      "age_at_receipt_p95_sec": 0.0,
+      "timestamp_resets": 0,
+      "duplicate_stamps": 0,
+      "frame_id": "imu_link",
+      "topic": "/imu/data",
+      "latest_age_sec": 0.003,
+      "tf_to_base_at_message_time": true,
+      "issues": [],
+      "enabled": true,
+      "status": "OK"
+    },
+    "odom": {
+      "messages_total": 3760,
+      "samples_in_window": 461,
+      "received_hz_wall": 46.050515730307495,
+      "received_hz_source_time": 47.599337748344375,
+      "source_time_per_wall_second": 0.9674612696036774,
+      "since_last_message_wall_sec": 0.010628974000155722,
+      "since_stamp_advanced_wall_sec": 0.010628974000155722,
+      "max_gap_wall_sec": 0.15356629500001873,
+      "jitter_wall_sec": 0.009582964625872195,
+      "age_at_receipt_p95_sec": 0.03,
+      "timestamp_resets": 0,
+      "duplicate_stamps": 0,
+      "frame_id": "odom",
+      "topic": "/odom",
+      "latest_age_sec": 0.03,
+      "tf_to_base_at_message_time": true,
+      "issues": [],
+      "enabled": true,
+      "status": "OK"
+    }
+  },
+  "gazebo": {
+    "rgb": {
+      "latest_received_hz_wall": null,
+      "log_age_wall_sec": null
+    },
+    "lidar": {
+      "latest_received_hz_wall": null,
+      "log_age_wall_sec": null
+    }
+  }
+}

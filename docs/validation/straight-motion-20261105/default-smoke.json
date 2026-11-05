@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "no_motion_requested": true,
+  "explicit_gait_argument_supplied": false,
+  "actual_parameters": {
+    "quadruped_controller_node": 0.015,
+    "state_estimation_node": 1.6
+  },
+  "checked_messages": 1,
+  "checked_max_abs_speed": 0.0,
+  "launch_exit_code": 0
+}

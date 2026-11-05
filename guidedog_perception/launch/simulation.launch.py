@@ -33,9 +33,12 @@ def generate_launch_description():
                      datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S_%fZ'))
     simulator = get_package_share_directory('unitree_go2_sim')
     description = get_package_share_directory('unitree_go2_description')
+    package = get_package_share_directory('guidedog_perception')
     defaults = {
         'report_dir': report_dir,
         'start_simulator': 'true',
+        'headless': 'false',
+        'gait_profile': 'stock',
         'record_gazebo': 'true',
         'enable_rgb': 'true',
         'lidar_reliability': 'reliable',
@@ -49,7 +52,13 @@ def generate_launch_description():
     declarations = [DeclareLaunchArgument(name, default_value=value)
                     for name, value in defaults.items()]
     include = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(str(Path(simulator) / 'launch/unitree_go2_launch.py')),
+        PythonLaunchDescriptionSource(PythonExpression([
+            "'", str(Path(package) / 'launch/profiled_simulation.launch.py'),
+            "' if '", LaunchConfiguration('headless'),
+            "'.lower() in ('true', '1', 'yes') or '", LaunchConfiguration('gait_profile'),
+            "' != 'stock' else '",
+            str(Path(simulator) / 'launch/unitree_go2_launch.py'), "'",
+        ])),
         condition=IfCondition(LaunchConfiguration('start_simulator')),
         launch_arguments={
             'world': LaunchConfiguration('world'), 'rviz': 'false',
