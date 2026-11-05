@@ -369,6 +369,8 @@ def main():
     parser.add_argument('--record-gazebo', action='store_true')
     parser.add_argument('--clearance-matrix', action='store_true')
     parser.add_argument('--bridge-profile', action='store_true')
+    parser.add_argument('--map-benchmark', action='store_true')
+    parser.add_argument('--with-local-map', action='store_true')
     args = parser.parse_args()
     directory = Path(args.report_dir).expanduser()
     if directory.exists() and any(directory.iterdir()):
@@ -388,10 +390,15 @@ def main():
         [sys.executable, '-m', 'guidedog_perception.launch_supervisor',
          'guidedog_perception', 'obstacle_stop.launch.py',
          f'report_dir:={directory / "session"}', 'lidar_topic:=/guidedog/test_lidar',
+         f'enable_local_map:={str(args.map_benchmark or args.with_local_map).lower()}',
          f'record_gazebo:={str(args.record_gazebo).lower()}'],
         stdout=launch_log, stderr=subprocess.STDOUT, start_new_session=True)
     rclpy.init(args=[])
-    driver = ScenarioDriver()
+    if args.map_benchmark:
+        from guidedog_perception.map_benchmark import MappingDriver
+        driver = MappingDriver()
+    else:
+        driver = ScenarioDriver()
     if args.audit_clearance or args.clearance_matrix:
         from guidedog_perception.clearance_probe import ClearanceProbe
         driver.audit = ClearanceProbe(driver, directory)
@@ -405,7 +412,10 @@ def main():
     spinner = threading.Thread(target=spin, daemon=True)
     spinner.start()
     try:
-        if args.bridge_profile:
+        if args.map_benchmark:
+            from guidedog_perception.map_benchmark import run_mapping
+            run_mapping(driver, record, directory)
+        elif args.bridge_profile:
             from guidedog_perception.bridge_profile import run_profile
             run_profile(driver, record, directory)
         elif args.clearance_matrix:

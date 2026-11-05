@@ -1,6 +1,9 @@
 # GuideDog-Go2 architecture v1.1 (proposed)
 
-**Status:** Early design. Only simulated Go2 teleoperation, RGB/LiDAR topic discovery and project-owned RGB ingestion have been demonstrated. No autonomous navigation, safe stair handling, physical deployment or user guidance validated.
+**Status:** Early design with implemented simulation components: RGB ingestion,
+sensor diagnostics, a forward-only direct-LiDAR veto/watchdog and an optional
+[rolling flat-ground evidence map](local-map.md). Autonomous navigation, stair
+handling, physical deployment and user guidance remain unvalidated.
 
 ## Selected platform and compute boundary
 
@@ -38,7 +41,11 @@ Gazebo (now) OR Go2 Air local hardware adapter (later)
                                              Stock low-level Go2 locomotion
 ```
 
-Boxes above are **planned**, not implemented. Safety does not depend solely on the planner's output. Local communication and robot-side loss-of-command stop must be validated; a laptop-only watchdog cannot stop a robot after the radio link fails.
+The full architecture above is planned. Implemented subsets are described in
+the [stop demo](obstacle-stop.md) and [local-map guide](local-map.md). Safety does
+not depend solely on the planner's output. Local communication and robot-side
+loss-of-command stop must be validated; a laptop-only watchdog cannot stop a
+robot after the radio link fails.
 
 ## Spatial representation
 
@@ -75,7 +82,10 @@ Define new ROS 2 output messages only after agreeing units, frames, timestamps, 
 
 ## Open decisions and blockers
 
-- `PERF-001`: ROS 2 subscriber RGB ~2–3 Hz and LiDAR ~3–4.5 Hz against Gazebo ~9 Hz on UTM. Diagnose before piling on inference.
+- `PERF-001`: the [LiDAR QoS comparison](clearance-validation.md#lidar-delivery)
+  found a delivery difference on UTM and motivated reliable depth-one LiDAR
+  subscriptions. RGB and combined camera/LiDAR load remain to be profiled
+  before adding inference.
 - Actual Air firmware/interface, LiDAR-camera extrinsics, timestamp synchronization, and robot-side command timeout.
 - Human/handle measurement, interaction/confirmation channel, and required specialist review.
 - Tested stair height/depth and stair-descent capability; benchmark-based acceptance thresholds, fall/recovery safety and network failure.

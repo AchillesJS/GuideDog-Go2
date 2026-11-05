@@ -163,6 +163,8 @@ Additional bounded experiments (each creates its own scene and report directory)
 ~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --audit-clearance
 ~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --clearance-matrix
 ~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --bridge-profile
+~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --map-benchmark
+~/guidedog_ws/src/GuideDog-Go2/scripts/test_obstacle_demo.sh --with-local-map
 ```
 
 The audit compares the same stamped cloud with an independent Gazebo pose
@@ -172,6 +174,9 @@ in shared windows and temporarily adds a separate one-way bridge. It requires
 the Gazebo Harmonic Python bindings `gz.transport13` and `gz.msgs10`, available
 in the tested sourced Jazzy vendor environment. See the
 [measurement definitions and acceptance limits](clearance-validation.md).
+The [local-map guide](local-map.md) describes the optional observation-only grid
+and its separate rolling/blackout scenarios. `--with-local-map` runs the original
+stop scenarios with that extra observer enabled.
 
 ## Automated checks
 

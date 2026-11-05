@@ -33,6 +33,7 @@ setup(
             'lidar_stop = guidedog_perception.lidar_stop:main',
             'velocity_watchdog = guidedog_perception.velocity_watchdog:main',
             'guarded_teleop = guidedog_perception.guarded_teleop:main',
+            'local_mapper = guidedog_perception.local_mapper:main',
         ],
     },
 )

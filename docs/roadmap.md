@@ -49,6 +49,12 @@ If stock Go2 Air cannot meet validated step-height, stair-descent, stability, an
 
 ## M2 — Geometry, terrain and rolling local world model (planned)
 
+First implemented increment: the [flat-ground local evidence map](local-map.md)
+and its [measured validation](local-map-validation.md) provide occupied/free/unknown
+cells, explicit age, support count and observed ground-height/scatter layers.
+Terrain, slope/edges/stairs and planner integration remain open; this does not
+complete M2.
+
 - [ ] Parse LiDAR `PointCloud2` and validate coordinate transforms, ground alignment, time alignment, and odometry updates.
 - [ ] Implement a rolling local representation: occupied/free/**unknown**, elevation, surface slope/roughness, vertical clearance, confidence and last observation time. Benchmark map memory and incremental update cost.
 - [ ] Detect upward/downward curbs, positive and negative elevation transitions, holes, drop-offs, and ramps.

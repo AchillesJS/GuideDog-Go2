@@ -18,13 +18,16 @@ The following have been demonstrated **locally** in an Ubuntu 24.04 / ROS 2 Jazz
 - A custom ROS 2 Python RGB subscriber receives `640 × 480` `rgb8` images on `/rgb_image`.
 - A diagnostic Python/OpenCV script successfully saved a camera frame as PNG.
 
-**Not yet implemented:** YOLO inference, object tracking, sensor fusion, world model, route planning, safety supervisor, human guidance, or hardware deployment. The initial `guidedog_perception` ROS 2 package is available in this repository.
+**Not yet implemented:** YOLO inference, object tracking, sensor fusion, a complete terrain/world model, route planning, the complete safety supervisor, human guidance, or hardware deployment. The `guidedog_perception` ROS 2 package includes the tested perception/diagnostic and flat-ground experiment components below.
 
 An experimental [flat-ground obstacle-stop demo](docs/obstacle-stop.md) adds a
 forward-only LiDAR veto and a separate command-timeout process. This is a
 limited simulation experiment, not the complete planned safety supervisor.
 The [clearance validation](docs/clearance-validation.md) records five box
 approaches, corrected reference geometry and a measured LiDAR QoS comparison.
+An optional [rolling local evidence map](docs/local-map.md) now records observed
+floor, obstacles and unknown space with explicit age in the flat-ground demo.
+It does not yet plan or control motion.
 
 ## Intended capabilities (roadmap, not current features)
 
@@ -82,6 +85,7 @@ see the diagnostics guide. Substitute your workspace path if it differs.
 
 For the protected forward-motion experiment, use `scripts/run_obstacle_demo.sh`
 and `scripts/drive_guarded.sh` as described in the [obstacle-stop guide](docs/obstacle-stop.md).
+`scripts/run_local_map.sh` adds the first rolling map and saves a viewable SVG.
 
 ## Architecture and plans
 
