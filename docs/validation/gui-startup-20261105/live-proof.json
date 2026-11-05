@@ -1,0 +1,121 @@
+{
+  "live_launches": [
+    {
+      "pid": 15263,
+      "command": "/usr/bin/python3 /opt/ros/jazzy/bin/ros2 launch guidedog_perception obstacle_stop.launch.py enable_local_map:=true ",
+      "qt_backend": "xcb",
+      "wayland_display": "wayland-0"
+    }
+  ],
+  "report_directory": "/home/guide-dog/.ros/guidedog/reports/stop_20261105T025312_102528Z",
+  "mapping": {
+    "schema_version": 1,
+    "simulation_flat_ground_only": true,
+    "healthy": true,
+    "reason": "observing",
+    "source_stamp_ns": 124800000000,
+    "source_receipt_age_wall_sec": 0.19794337800021822,
+    "clock_ok": true,
+    "received": 1249,
+    "accepted": 841,
+    "rejected": 62,
+    "parameters": {
+      "lidar_topic": "/unitree_lidar/points",
+      "map_frame": "odom",
+      "base_frame": "base_footprint",
+      "resolution": 0.1,
+      "size": 8.0,
+      "free_ttl": 2.0,
+      "occupied_ttl": 5.0,
+      "update_period": 0.2,
+      "report_dir": "/home/guide-dog/.ros/guidedog/reports/stop_20261105T025312_102528Z/mapping"
+    },
+    "pose_odom": [
+      -0.032936356650236136,
+      -0.0005587615484948003,
+      0.03803367996986942
+    ],
+    "origin_odom": [
+      -4.1000000000000005,
+      -4.1000000000000005
+    ],
+    "rolls": 3,
+    "resets": 0,
+    "cell_array_bytes": 179200,
+    "update_cost_p95_ms": 42.44365655031284,
+    "cells": {
+      "unknown": 6036,
+      "free": 353,
+      "occupied": 11
+    },
+    "evidence_note": "score is support count, not a calibrated probability"
+  },
+  "lidar": {
+    "messages_total": 1241,
+    "samples_in_window": 24,
+    "received_hz_wall": 2.456178535179496,
+    "received_hz_source_time": 10.0,
+    "source_time_per_wall_second": 0.24561785351794957,
+    "since_last_message_wall_sec": 0.47112464800011367,
+    "since_stamp_advanced_wall_sec": 0.47112464800011367,
+    "max_gap_wall_sec": 0.9570197289999669,
+    "jitter_wall_sec": 0.10423601690457472,
+    "age_at_receipt_p95_sec": 0.053,
+    "timestamp_resets": 0,
+    "duplicate_stamps": 0,
+    "frame_id": "lidar_l1_link",
+    "topic": "/unitree_lidar/points",
+    "latest_age_sec": 0.116,
+    "tf_to_base_at_message_time": true,
+    "issues": [],
+    "enabled": true,
+    "status": "OK"
+  },
+  "samples": [
+    {
+      "healthy": true,
+      "reason": "observing",
+      "accepted": 825,
+      "receipt_age_wall_sec": 0.21398541500002466,
+      "lidar_hz_wall": 2.564932141530056,
+      "lidar_hz_source": 10.0,
+      "clock_ratio": 0.2598053704494403
+    },
+    {
+      "healthy": true,
+      "reason": "observing",
+      "accepted": 825,
+      "receipt_age_wall_sec": 0.21398541500002466,
+      "lidar_hz_wall": 2.564932141530056,
+      "lidar_hz_source": 10.0,
+      "clock_ratio": 0.2598053704494403
+    },
+    {
+      "healthy": true,
+      "reason": "observing",
+      "accepted": 830,
+      "receipt_age_wall_sec": 0.12782354499995563,
+      "lidar_hz_wall": 2.456178535179496,
+      "lidar_hz_source": 10.0,
+      "clock_ratio": 0.2423745084853695
+    },
+    {
+      "healthy": true,
+      "reason": "observing",
+      "accepted": 835,
+      "receipt_age_wall_sec": 0.232325585000126,
+      "lidar_hz_wall": 2.456178535179496,
+      "lidar_hz_source": 10.0,
+      "clock_ratio": 0.2423745084853695
+    },
+    {
+      "healthy": true,
+      "reason": "observing",
+      "accepted": 841,
+      "receipt_age_wall_sec": 0.19794337800021822,
+      "lidar_hz_wall": 2.456178535179496,
+      "lidar_hz_source": 10.0,
+      "clock_ratio": 0.2423745084853695
+    }
+  ]
+}

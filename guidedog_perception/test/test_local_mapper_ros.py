@@ -90,12 +90,16 @@ def test_mapper_time_tf_and_latched_delivery(tmp_path):
                        durability=DurabilityPolicy.TRANSIENT_LOCAL)))
         advance(0.3, send_scan=False, freeze=True)
         assert maps and 100 in maps[-1].data
-        stamp = maps[-1].header.stamp
-        accepted = mapper.accepted
         advance(1.1, send_scan=False, freeze=True)
         assert set(maps[-1].data) == {-1}
-        assert maps[-1].header.stamp == stamp
         assert not statuses[-1]['healthy']
+        # Already queued valid clouds may finish before expiry. Once they have
+        # drained, advancing the clock without scans must not re-stamp the map.
+        stamp = maps[-1].header.stamp
+        accepted = mapper.accepted
+        advance(0.3, send_scan=False)
+        assert maps[-1].header.stamp == stamp
+        assert mapper.accepted == accepted
         advance(0.6, replay=True)
         assert mapper.accepted == accepted
         assert set(maps[-1].data) == {-1}

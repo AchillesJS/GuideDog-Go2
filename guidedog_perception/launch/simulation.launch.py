@@ -5,10 +5,13 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from ament_index_python.packages import get_package_share_directory
+from guidedog_perception.sim_lifecycle import stop_when_gazebo_exits
 from launch import LaunchDescription
 from launch.actions import (
-    DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription, LogInfo, OpaqueFunction)
+    DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription, LogInfo, OpaqueFunction,
+    RegisterEventHandler)
 from launch.conditions import IfCondition
+from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PythonExpression
 from launch_ros.actions import Node
@@ -77,6 +80,7 @@ def generate_launch_description():
     )
     return LaunchDescription(declarations + [
         OpaqueFunction(function=prepare_report_directory),
+        RegisterEventHandler(OnProcessExit(on_exit=stop_when_gazebo_exits)),
         LogInfo(msg=['GuideDog reports: ', LaunchConfiguration('report_dir')]),
         include, monitor, probes,
     ])

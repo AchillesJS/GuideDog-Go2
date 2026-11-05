@@ -17,4 +17,6 @@ if ! ros2 pkg executables guidedog_perception | grep -q ' sensor_monitor$'; then
   echo 'Build guidedog_perception first: colcon build --packages-select guidedog_perception --symlink-install' >&2
   exit 1
 fi
-exec ros2 launch guidedog_perception simulation.launch.py "$@"
+export QT_QPA_PLATFORM="${QT_QPA_PLATFORM:-xcb}"
+exec python3 -m guidedog_perception.launch_supervisor \
+  guidedog_perception simulation.launch.py "$@"

@@ -45,6 +45,9 @@ The ordinary `run_obstacle_demo.sh` retains mapping disabled by default.
 `enable_local_map:=true` enables it explicitly. `local_mapper` can also run
 independently against an existing simulator, with `use_sim_time:=true`.
 Use one simulator at a time on the 4 GiB VM.
+The wrappers select X11/XCB for Qt and reject a second launch in the same
+ROS/Gazebo channels. Ctrl+C, terminal hangup and Gazebo exit clean up that
+launch. See the [GUI startup fix and validation](gui-startup.md).
 
 ## Message and time contract
 

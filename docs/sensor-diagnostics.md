@@ -38,6 +38,9 @@ The upstream `gui` launch argument is unused by the pinned simulator, so this
 wrapper deliberately does not advertise a headless switch.
 
 Ctrl+C stops the launch and its probes. It saves a final sensor snapshot.
+The wrapper also owns detached simulation children, handles terminal hangup,
+and rejects duplicate launches in the same ROS/Gazebo channels. Qt defaults
+to X11/XCB; see the [startup investigation](gui-startup.md).
 The observer sends no motion commands and is not a safety supervisor.
 
 If the simulator is already running, avoid launching a second copy:

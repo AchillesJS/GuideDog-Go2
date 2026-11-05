@@ -1,12 +1,39 @@
 # SPDX-License-Identifier: Apache-2.0
 """Own and clean up a ROS/Gazebo process tree, including detached Ruby children."""
 
+from contextlib import contextmanager
+import fcntl
+import hashlib
 import os
 from pathlib import Path
 import signal
 import subprocess
 import sys
 import time
+
+
+@contextmanager
+def session_lock():
+    """Reject overlapping GuideDog launches using the same ROS/Gazebo channels."""
+    scope = (os.environ.get('ROS_DOMAIN_ID', '0'), os.environ.get('GZ_PARTITION', 'default'))
+    key = hashlib.sha256('\0'.join(scope).encode()).hexdigest()[:24]
+    runtime = Path(os.environ.get('XDG_RUNTIME_DIR', f'/tmp/guidedog-runtime-{os.getuid()}'))
+    directory = runtime / 'guidedog'
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+    with (directory / f'{key}.lock').open('a+') as lock:
+        try:
+            fcntl.flock(lock.fileno(), fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            lock.seek(0)
+            pid = lock.read().strip() or 'unknown'
+            raise SystemExit(f'GuideDog is already running (supervisor PID {pid}, '
+                             f'ROS domain {scope[0]}, Gazebo partition {scope[1]}). '
+                             'Stop the first launch with Ctrl+C before restarting.')
+        lock.seek(0)
+        lock.truncate()
+        lock.write(str(os.getpid()))
+        lock.flush()
+        yield
 
 
 def process_table():
@@ -78,14 +105,16 @@ def main():
 
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
-    process = subprocess.Popen(['ros2', 'launch', *sys.argv[1:]], start_new_session=True)
-    known = {}
-    try:
-        while process.poll() is None and not stopping:
-            remember_descendants(process.pid, known)
-            time.sleep(0.5)
-    finally:
-        remaining = stop_owned(process, known)
+    signal.signal(signal.SIGHUP, stop)
+    with session_lock():
+        process = subprocess.Popen(['ros2', 'launch', *sys.argv[1:]], start_new_session=True)
+        known = {}
+        try:
+            while process.poll() is None and not stopping:
+                remember_descendants(process.pid, known)
+                time.sleep(0.1)
+        finally:
+            remaining = stop_owned(process, known)
     if remaining:
         raise SystemExit(f'Simulation children still running: {remaining}')
     if not stopping and process.returncode:
