@@ -7,6 +7,7 @@ import math
 import time
 
 from guidedog_perception.local_mapper import write_svg
+from guidedog_perception.map_analysis import map_digest
 from guidedog_perception.stop_benchmark import (
     displacement, prepare_scenarios, ScenarioDriver, settled_stop, wait_until)
 from nav_msgs.msg import OccupancyGrid
@@ -37,17 +38,29 @@ class MappingDriver(ScenarioDriver):
         """Keep the observation status separate from the motion veto status."""
         with self.lock:
             self.map_status = json.loads(msg.data)
+            self.map_status['observer_received_monotonic'] = time.monotonic()
 
     def mapping(self):
         """Pair the current map and status by source time, without invented restamping."""
         with self.lock:
             status = dict(self.map_status)
             for msg in reversed(self.maps):
+                if msg.header.frame_id != status.get('parameters', {}).get('map_frame'):
+                    continue
                 stamp = msg.header.stamp.sec*1000000000+msg.header.stamp.nanosec
                 if stamp == status.get('source_stamp_ns'):
                     data = np.array(msg.data, dtype=np.int8).reshape(
                         msg.info.height, msg.info.width)
                     origin = [msg.info.origin.position.x, msg.info.origin.position.y]
+                    if map_digest(data, origin, msg.info.resolution, stamp) != status.get(
+                            'snapshot_digest'):
+                        continue
+                    delay = time.monotonic()-status['observer_received_monotonic']
+                    age = status.get('source_receipt_age_wall_sec')
+                    status['observer_status_age_wall_sec'] = delay
+                    status['reported_healthy'] = status['healthy']
+                    status['healthy'] = bool(status['healthy'] and age is not None
+                                             and age+delay <= 0.5)
                     return data, np.array(origin), msg.info.resolution, status
         return None
 
@@ -76,9 +89,21 @@ def box_observation(snapshot, box):
             'box_boundary_error_p95_m': float(np.percentile(errors, 95)) if len(errors) else None}
 
 
-def save_snapshot(driver, directory, name):
+def wait_mapping(driver, predicate, seconds, message):
+    """Evaluate one coherent map/status copy per attempt across callback updates."""
+    end = time.monotonic()+seconds
+    while time.monotonic() < end:
+        snapshot = driver.mapping()
+        if snapshot is not None and predicate(snapshot):
+            return snapshot
+        time.sleep(0.05)
+    raise RuntimeError(message)
+
+
+def save_snapshot(driver, directory, name, snapshot=None):
     """Keep each measured map and its picture, not just the final expired snapshot."""
-    snapshot = driver.mapping()
+    if snapshot is None:
+        snapshot = wait_mapping(driver, lambda s: True, 3, 'No content-paired map to save')
     data, origin, resolution, status = snapshot
     (directory / f'map-{name}.json').write_text(json.dumps({
         'status': status, 'occupancy': data.tolist(), 'origin': origin.tolist(),
@@ -96,10 +121,8 @@ def run_mapping(driver, record, directory):
               'min_motion_m': 0.05, 'simulation_flat_ground_only': True}
     record('mapping_limits', {'passed': True, **limits})
     prepare_scenarios(driver, record)
-    wait_until(lambda: driver.mapping() is not None
-               and driver.mapping()[3]['healthy']
-               and driver.mapping()[3]['accepted'] >= 10, 20, 'Mapper did not become ready')
-    free = driver.mapping()
+    free = wait_mapping(driver, lambda s: s[3]['healthy'] and s[3]['accepted'] >= 10,
+                        20, 'Mapper did not become ready')
     if (free[0] == 0).sum() < 20 or (free[0] == -1).sum() < 100:
         raise RuntimeError('Initial map has insufficient observed floor or unknown space')
     truth = driver.snapshot()[0]
@@ -110,7 +133,7 @@ def run_mapping(driver, record, directory):
     translation = np.array(estimated[:2])-rotation @ np.array(truth[1:3])
     box = driver.place_obstacle(1.75, 0)
     box_reference = np.r_[rotation @ np.array(box[:2])+translation, box[2]+angle]
-    wait_until(lambda: box_observation(driver.mapping(), box_reference)[
+    wait_mapping(driver, lambda s: box_observation(s, box_reference)[
         'occupied_cells_near_box'] >= limits['min_obstacle_cells'], 10,
         'No occupied cells at the actual box')
     # Let the initially observed floor behind the newly placed box expire.
@@ -161,24 +184,26 @@ def run_mapping(driver, record, directory):
     stamp = held[3]['source_stamp_ns']
     record('short_blackout', {'passed': True, **held_values, 'healthy': False,
                               'source_stamp_ns': stamp})
-    wait_until(lambda: (driver.mapping()[0] == -1).all(), 7,
-               'Missing observations did not expire to unknown')
-    expired = save_snapshot(driver, directory, 'blackout-expired')
+    expired = wait_mapping(driver, lambda s: (s[0] == -1).all(), 7,
+                           'Missing observations did not expire to unknown')
+    save_snapshot(driver, directory, 'blackout-expired', expired)
     if expired[3]['source_stamp_ns'] != stamp:
         raise RuntimeError('Expired map was falsely stamped as a new observation')
     record('expiry_to_unknown', {'passed': True, 'source_stamp_unchanged': True,
                                  'unknown_cells': int((expired[0] == -1).sum())})
     driver.relay_enabled = True
-    wait_until(lambda: driver.mapping()[3]['healthy']
-               and box_observation(driver.mapping(), box_reference)[
-                   'occupied_cells_near_box'] >= limits['min_obstacle_cells'], 10,
-               'Map did not recover from restored real scans')
-    restored = save_snapshot(driver, directory, 'restored')
+    restored = wait_mapping(
+        driver, lambda s: (s[3]['healthy'] and box_observation(s, box_reference)[
+            'occupied_cells_near_box'] >= limits['min_obstacle_cells']), 10,
+        'Map did not recover from restored real scans')
+    save_snapshot(driver, directory, 'restored', restored)
     previous_hits = world_centers(restored)[restored[0] == 100]
     driver.place_obstacle(20, 20)
 
     def observed_clearing():
         current = driver.mapping()
+        if current is None:
+            return 0
         cells = np.floor((previous_hits-current[1])/current[2]).astype(int)
         valid = ((cells >= 0) & (cells < current[0].shape[0])).all(axis=1)
         cells = cells[valid]

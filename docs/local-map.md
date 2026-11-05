@@ -66,6 +66,12 @@ launch. See the [GUI startup fix and validation](gui-startup.md).
   one. `healthy` requires advancing ROS time, accepted data younger than 0.5
   wall seconds, and a valid observation reason. Consumers must inspect this
   status and age; a retained occupied cell is not evidence of current visibility.
+- `snapshot_digest` pairs the status with the exact grid cells, source stamp,
+  origin, float32 ROS resolution and dimensions. Ageing can change cells without
+  changing the source stamp, so matching the stamp alone is insufficient.
+  The benchmark also requires frame agreement and adds elapsed consumer cache
+  time to the publisher's reported receipt age. This does not measure transport
+  latency or establish a synchronized end-to-end deadline.
 - Cloud -> `base_footprint` -> `odom` transforms use the cloud's exact stamp.
   A queue of eight waits at most 0.25 wall seconds for TF. The newest available
   transformable cloud is processed, with at least 0.20 wall seconds between

@@ -55,6 +55,12 @@ cells, explicit age, support count and observed ground-height/scatter layers.
 Terrain, slope/edges/stairs and planner integration remain open; this does not
 complete M2.
 
+The expanded [map-readiness series](map-readiness-validation.md) evaluates
+several fixtures and actual longer motion under the predeclared
+[protocol](map-readiness-protocol.md). Planner input remains gated on observed
+floor connectivity and stable motion; successful object localization alone
+does not satisfy this gate.
+
 - [ ] Parse LiDAR `PointCloud2` and validate coordinate transforms, ground alignment, time alignment, and odometry updates.
 - [ ] Implement a rolling local representation: occupied/free/**unknown**, elevation, surface slope/roughness, vertical clearance, confidence and last observation time. Benchmark map memory and incremental update cost.
 - [ ] Detect upward/downward curbs, positive and negative elevation transitions, holes, drop-offs, and ramps.

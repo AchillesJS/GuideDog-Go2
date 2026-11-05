@@ -28,6 +28,10 @@ approaches, corrected reference geometry and a measured LiDAR QoS comparison.
 An optional [rolling local evidence map](docs/local-map.md) now records observed
 floor, obstacles and unknown space with explicit age in the flat-ground demo.
 It does not yet plan or control motion.
+The expanded [map-readiness assessment](docs/map-readiness-validation.md) checks
+multiple obstacles, observed-space connectivity and a bounded longer-motion
+attempt. It records failed readiness explicitly; its protocol is fixed before
+the runs. Automated checks can use `--headless` without opening a Gazebo window.
 
 ## Intended capabilities (roadmap, not current features)
 
